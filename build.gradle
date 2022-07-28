@@ -1,0 +1,34 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext {
+        navigationVersion = "2.4.2"
+        hiltVersion = "2.40.5"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.2.0' apply false
+    id 'com.android.library' version '7.2.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+def credentialsProperties = new Properties()
+if (file("$rootDir/credentials.properties").exists()) {
+    file("$rootDir/credentials.properties").withInputStream { credentialsProperties.load(it) }
+}
+ext.credentialsProperties = credentialsProperties

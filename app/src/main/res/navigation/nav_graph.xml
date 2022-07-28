@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="au.com.carsales.emovie.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/go_to_details_action"
+            app:destination="@id/movieDetailFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
+
+        <action
+            android:id="@+id/go_to_favorites_action"
+            app:destination="@id/favoritesFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="au.com.carsales.emovie.ui.detail.MovieDetailFragment"
+        android:label="TVShowDetailFragment"
+        tools:layout="@layout/fragment_tvshow_detail">
+
+        <argument
+            android:name="movie"
+            app:argType="au.com.carsales.emovie.ui.model.UIMovieItem" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="au.com.carsales.emovie.ui.favorites.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/go_to_episode_detail_action"
+            app:destination="@id/movieDetailFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
+
+    </fragment>
+</navigation>
