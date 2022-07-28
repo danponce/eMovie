@@ -21,8 +21,6 @@ class FavoritesViewModel @Inject constructor() : BaseBindingViewModel() {
     private val _favoritesLiveData = MutableLiveData<State<List<UIMovieItem>?>>()
     val favoritesLiveData : LiveData<State<List<UIMovieItem>?>> = _favoritesLiveData
 
-//    private suspend fun getFavoritesDBRequest() = FavoriteTVShowsManager.getMo()
-
     fun getFavoritesTVShows() {
 
 //        viewModelScope.launch(Dispatchers.IO) {
