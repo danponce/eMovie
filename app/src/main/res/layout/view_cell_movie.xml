@@ -26,7 +26,7 @@
             android:id="@+id/showImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:loadImageUrl="@{item.posterPath}"
+            app:loadImageUrlWithRoundedCorners="@{item.formattedPosterPath}"
             tools:src="@drawable/ic_default_image_placeholder_48"
             android:scaleType="center"
             android:adjustViewBounds="true"

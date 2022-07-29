@@ -1,6 +1,7 @@
 package au.com.carsales.emovie.ui.model
 
 import android.os.Parcelable
+import au.com.carsales.emovie.BuildConfig
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -15,4 +16,7 @@ data class UIMovieItem(
     val voteAverage: Double = 0.0,
     val releaseDate: String = "",
     var isFavorite: Boolean = false
-) : Parcelable
+) : Parcelable {
+
+    fun getFormattedPosterPath() = BuildConfig.IMAGE_URL + posterPath
+}

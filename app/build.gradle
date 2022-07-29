@@ -26,7 +26,7 @@ android {
         buildConfigField "String", "API_BASE_URL", CREDS("API_BASE_URL")
         buildConfigField "String", "API_HOST", CREDS("API_HOST")
         buildConfigField "String", "API_KEY", CREDS("API_KEY")
-//        buildConfigField "String", "API_KEY", "\"\""
+        buildConfigField "String", "IMAGE_URL", CREDS("IMAGE_URL")
     }
 
     buildTypes {

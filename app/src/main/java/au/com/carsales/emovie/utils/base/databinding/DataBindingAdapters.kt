@@ -1,5 +1,6 @@
 package au.com.carsales.emovie.utils.base.databinding
 
+import android.media.Image
 import android.os.Build
 import android.text.Html
 import android.widget.ImageView
@@ -9,6 +10,8 @@ import androidx.databinding.BindingAdapter
 import au.com.carsales.emovie.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 /**
  * Created by Dan on 25, junio, 2022
@@ -21,6 +24,14 @@ fun loadImageUrl(imageView: ImageView, url: String?) {
         .placeholder(R.drawable.ic_default_image_placeholder_48)
         .error(R.drawable.ic_baseline_broken_image_48)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(imageView)
+}
+
+@BindingAdapter("loadImageUrlWithRoundedCorners")
+fun loadImageUrlWithRoundedCorners(imageView: ImageView, imageUrl: String) {
+    Glide.with(imageView.context)
+        .load(imageUrl)
+        .transform(CenterCrop(), RoundedCorners(12))
         .into(imageView)
 }
 
