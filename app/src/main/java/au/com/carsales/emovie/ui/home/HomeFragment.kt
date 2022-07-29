@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentHomeBinding
@@ -27,20 +28,6 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private val homeViewModel : HomeViewModel by viewModels()
 
-    private fun setObservers() {
-        homeViewModel.moviesLiveData.observe(viewLifecycleOwner) {
-
-        }
-
-        homeViewModel.tvShowsStateLiveData.observeStateLiveData(
-            viewLifecycleOwner,
-            onSuccess = {
-
-            },
-            onLoading = { binding.swipeRefreshView.isRefreshing = false}
-        )
-    }
-
     private fun setDataToRecyclerView(data : List<UIMovieItem>) {
         val adapter = binding.tvShowsRecyclerView.adapter
 
@@ -53,8 +40,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     private fun setCommonRecyclerView(data : List<UIMovieItem>?) {
 
         binding.tvShowsRecyclerView.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = SingleLayoutBindRecyclerAdapter (
                 R.layout.view_cell_movie,
                 data,
@@ -67,6 +53,28 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        binding.viewModel = homeViewModel
+
+        setObservers()
+
+        homeViewModel.getMovies()
+
+        return binding.root
+    }
+
+    private fun setObservers() {
+        homeViewModel.moviesLiveData.observe(viewLifecycleOwner) {
+            setCommonRecyclerView(it)
+        }
+    }
+
     private fun goToDetailsScreen(data: UIMovieItem) {
         val direction = HomeFragmentDirections.goToDetailsAction(data)
         navigate(direction)
@@ -75,18 +83,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel = homeViewModel
-
         initView()
-
-        // Only make the request call when
-        // there's no data on view model
-
-
-        setObservers()
-
-        homeViewModel.getMovies()
-
     }
 
     private fun initView() {
