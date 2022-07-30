@@ -18,8 +18,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:padding="8dp"
+        android:layout_height="@dimen/movie_image_height"
+        android:padding="@dimen/movie_image_padding"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{(v) -> clickHandler.onClickView(v, item)}">
 
