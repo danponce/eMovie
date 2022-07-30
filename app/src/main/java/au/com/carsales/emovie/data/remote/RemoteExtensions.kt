@@ -11,7 +11,12 @@ import retrofit2.Response
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 
-fun <T, K, Y> apiFlow(call : suspend () -> Response<T>, validation : (T) -> Boolean, mapper : Mapper<K, Y>, toMap : (T) -> K) : Flow<APIState<Y>> {
+fun <T, K, Y> apiFlow(
+    call : suspend () -> Response<T>,
+    validation : (T) -> Boolean = {true},
+    mapper : Mapper<K, Y>,
+    toMap : (T) -> K) : Flow<APIState<Y>> {
+
     return flow {
         val response = call.invoke()
 

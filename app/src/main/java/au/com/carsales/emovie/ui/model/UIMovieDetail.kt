@@ -9,13 +9,16 @@ data class UIMovieDetail(
     val posterPath: String,
     val backdropPath: String,
     val originalTitle: String,
-    val runtime: String,
+    val runtime: Int,
     val releaseDate: String,
     val overview: String,
     val genres: List<String>,
     val videos: List<UIMovieVideoItem>,
-    val credits: UiMovieCredits,
-    val providers: List<UiMovieProviderItem>,
     val similar: List<UIMovieItem>,
-    val translations: List<UiMovieTranslationItem>
-)
+) {
+     fun calculateTime(): String {
+        val hours = runtime / 60
+        val minutes = runtime % 60
+        return String.format("%d h %02d m", hours, minutes)
+    }
+}

@@ -1,10 +1,14 @@
 package au.com.carsales.emovie.data.remote
 
+import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieDetailMapper
 import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieMapper
 import au.com.carsales.emovie.data.remote.state.APIState
 import au.com.carsales.emovie.domain.DomainMovieDataState
+import au.com.carsales.emovie.domain.DomainMovieDetailDataState
+import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.repository.RemoteMoviesRepository
-import au.com.carsales.emovie.domain.utils.Mapper
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -15,7 +19,8 @@ import javax.inject.Inject
  */
 class RemoteMoviesRepositoryImpl @Inject constructor(
     private val moviesService: RemoteMoviesService,
-    private val toDomainMapper: RemoteToDomainMovieMapper
+    private val toDomainMapper: RemoteToDomainMovieMapper,
+    private val movieDetailMapper: RemoteToDomainMovieDetailMapper
 ) : RemoteMoviesRepository {
 
     override suspend fun getUpcomingMovies(): Flow<DomainMovieDataState> =
@@ -33,5 +38,36 @@ class RemoteMoviesRepositoryImpl @Inject constructor(
             mapper = toDomainMapper,
             toMap = { movies -> movies?.results }
         )
+
+    override suspend fun getMovieDetail(movieId: String): Flow<DomainMovieDetailDataState> =
+        flow {
+            coroutineScope {
+                val movie = async { moviesService.getMovieById(movieId) }
+                val videos = async { moviesService.getMovieVideosById(movieId) }
+
+                val movieDetailResponse = movie.await()
+                val videoResponse = videos.await()
+
+                when {
+                    movieDetailResponse.isSuccessful && videoResponse.isSuccessful -> {
+                        val detail: DomainMovieDetail = movieDetailMapper.executeMapping(
+                            movieDetailResponse.body(),
+                            videoResponse.body()
+                        )
+
+                        emit(APIState.Success(detail))
+                    }
+
+                    else -> {
+                        if(!movieDetailResponse.isSuccessful) {
+                            emit(APIState.Error(movieDetailResponse.message()))
+                        } else {
+                            emit(APIState.Error(videoResponse.message()))
+                        }
+                    }
+                }
+
+            }
+        }
 
 }
