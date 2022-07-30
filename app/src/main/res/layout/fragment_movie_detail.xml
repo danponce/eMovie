@@ -86,69 +86,12 @@
                     app:layout_constraintTop_toBottomOf="@id/chipGroupView"
                     app:setHTMLText="@{viewModel.movieItem.originalTitle}" />
 
-                <TextView
-                    android:id="@+id/onAirTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/episodes_on_air"
-                    android:textColor="@color/secondaryColor"
-                    android:paddingVertical="6dp"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/open_sans_semi_bold"
-                    android:paddingLeft="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/primaryColor"
-                    app:layout_constraintTop_toBottomOf="@id/summaryTextView"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/scheduleRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/onAirTextView"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/scheduleRecyclerView">
-
-                    <ProgressBar
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:layout_marginHorizontal="16dp"
-                        android:text="@string/episodes_error_message"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="@{!viewModel.isLoading() &amp;&amp; viewModel.isError() ? View.VISIBLE : View.GONE}" />
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/primaryColor"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tabGravity="start"
-                        app:tabMode="scrollable"
-                        android:visibility="@{viewModel.isLoading() || viewModel.isError() ? View.GONE : View.VISIBLE}"
-                        app:tabSelectedTextColor="@color/secondaryColor"
-                        app:tabTextAppearance="@style/CustomTabTextAppearance"
-                        app:tabTextColor="@color/white" />
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/viewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:visibility="@{viewModel.isLoading() || viewModel.isError() ? View.GONE : View.VISIBLE}"
-                        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@id/summaryTextView"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -25,7 +25,7 @@
         android:id="@+id/movieDetailFragment"
         android:name="au.com.carsales.emovie.ui.detail.MovieDetailFragment"
         android:label="TVShowDetailFragment"
-        tools:layout="@layout/fragment_tvshow_detail">
+        tools:layout="@layout/fragment_movie_detail">
 
         <argument
             android:name="movie"

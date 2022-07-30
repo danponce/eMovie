@@ -6,20 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import au.com.carsales.emovie.R
-import au.com.carsales.emovie.databinding.FragmentTvshowDetailBinding
-import au.com.carsales.emovie.ui.detail.episode.EpisodeListFragment
-import au.com.carsales.emovie.ui.detail.episode.EpisodesPagerAdapter
-import au.com.carsales.emovie.ui.detail.episode.EpisodesSeason
-import au.com.carsales.emovie.data.local.model.EntityMovieItem
+import au.com.carsales.emovie.databinding.FragmentMovieDetailBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
-import au.com.carsales.emovie.utils.base.LiveEvent
 import au.com.carsales.emovie.utils.base.setBackButton
-import au.com.carsales.emovie.utils.base.state.observeStateLiveData
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -27,9 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 @AndroidEntryPoint
-class MovieDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding>() {
+class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>() {
 
-    override fun layoutId(): Int = R.layout.fragment_tvshow_detail
+    override fun layoutId(): Int = R.layout.fragment_movie_detail
 
     private val detailViewModel: MovieDetailViewModel by viewModels()
 
@@ -113,29 +104,6 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentTvshowDetailBinding>
 //            binding.chipGroupView.addView(chip)
 //        }
 
-    }
-
-    private fun setEpisodesTabLayout(episodesSeason: List<EpisodesSeason>) {
-        binding.apply {
-            val fragmentList = arrayListOf<EpisodeListFragment>()
-
-            episodesSeason.forEach {
-                fragmentList.add(EpisodeListFragment.newInstance(it))
-            }
-
-            val adapter =
-                EpisodesPagerAdapter(
-                    this@MovieDetailFragment,
-                    fragmentList)
-            viewPager.offscreenPageLimit = 1
-            viewPager.adapter = adapter
-
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-
-                tab.text = getString(R.string.episodes_season_tab_title, position + 1)
-
-            }.attach()
-        }
     }
 
     private fun setObservers() {

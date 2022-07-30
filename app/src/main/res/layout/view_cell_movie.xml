@@ -27,7 +27,7 @@
             android:id="@+id/showImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:loadImageUrl="@{item.formattedPosterPath}"
+            app:loadImageUrlWithRoundedCorners="@{item.formattedPosterPath}"
             tools:src="@drawable/minion"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"

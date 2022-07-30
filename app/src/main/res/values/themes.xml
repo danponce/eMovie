@@ -21,20 +21,4 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <!-- Gets rid of the search icon -->
-        <item name="searchIcon">@drawable/ic_baseline_search_24</item>
-        <!-- Gets rid of the "underline" in the text -->
-        <item name="queryBackground">@color/white</item>
-        <!-- Gets rid of the search icon when the SearchView is expanded -->
-        <item name="searchHintIcon">@null</item>
-        <!-- The hint text that appears when the user has not typed anything -->
-        <item name="queryHint">@string/episodes_menu_search_hint</item>
-        <item name="android:tint">@color/secondaryColor</item>
-        <!-- Query Text Color -->
-        <item name="android:textColorPrimary">@color/primaryTextColor</item>
-        <!-- Hint Color -->
-        <item name="android:textColorHint">@color/primaryTextColor</item>
-    </style>
-
 </resources>
