@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.*
  * Created by Dan on 27, julio, 2022
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
-
 fun <T> resultFlow(
     databaseQuery: suspend () -> Flow<T>,
     networkCall: suspend () -> Flow<APIState<T>>,
@@ -17,6 +16,8 @@ fun <T> resultFlow(
 ): Flow<State<T>> =
     flow {
 
+        // Just to make sure that the network
+        // call flow is executed just once
         var isNetworkExecuted = false
 
         combine(databaseQuery.invoke(), networkCall.invoke()) { db, network ->
