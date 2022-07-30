@@ -46,26 +46,6 @@ fun <T> resultFlow(
             }
 
         }.collect()
-//        databaseQuery.invoke().collect {
-//
-//        }
-//
-//        val responseStatus = networkCall.invoke()
-//
-//        responseStatus.collect {
-//            when(it) {
-//                is APIState.Success -> {
-//                    saveCallResult.invoke(it.data as T)
-//                }
-//
-//                is APIState.Error -> {
-//                    emit(State.error<T>(errorMessage = it.error))
-//                }
-//
-//                is APIState.Empty -> {
-//                    emit(State.empty<T>())
-//                }
-//            }
-//        }
+
     }.flowOn(Dispatchers.IO)
 
