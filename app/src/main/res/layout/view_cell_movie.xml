@@ -17,24 +17,27 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:padding="8dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{(v) -> clickHandler.onClickView(v, item)}">
 
         <ImageView
             android:id="@+id/showImageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:loadImageUrlWithRoundedCorners="@{item.formattedPosterPath}"
-            tools:src="@drawable/ic_default_image_placeholder_48"
-            android:scaleType="center"
+            android:layout_height="match_parent"
+            app:loadImageUrl="@{item.formattedPosterPath}"
+            tools:src="@drawable/minion"
+            android:scaleType="centerInside"
             android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="120dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:background="@drawable/shape_gray_gradient_to_transparent"
             app:layout_constraintBottom_toBottomOf="@id/showImageView"/>
 
@@ -42,7 +45,6 @@
             android:id="@+id/ratingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.originalTitle}"
             tools:text="9.0"
             android:textSize="17sp"
             android:fontFamily="@font/open_sans_semi_bold"
@@ -55,7 +57,6 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{item.originalTitle}"
             tools:text="Hells Kitchen"
             android:maxLines="1"
             android:singleLine="true"
@@ -71,6 +72,7 @@
             android:id="@+id/starImageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:visibility="gone"
             android:layout_marginRight="2dp"
             android:src="@drawable/ic_star_rate_24"
             app:layout_constraintBottom_toBottomOf="@id/ratingTextView"

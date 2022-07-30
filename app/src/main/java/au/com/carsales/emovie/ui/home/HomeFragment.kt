@@ -3,7 +3,6 @@ package au.com.carsales.emovie.ui.home
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.com.carsales.emovie.R
@@ -12,8 +11,9 @@ import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.emovie.utils.base.getToolbarHeight
-import au.com.carsales.emovie.utils.base.state.observeStateLiveData
+import au.com.carsales.emovie.utils.getScreenHeightPart
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Created by Dan on 24, julio, 2022
@@ -29,7 +29,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     private val homeViewModel : HomeViewModel by viewModels()
 
     private fun setDataToRecyclerView(data : List<UIMovieItem>) {
-        val adapter = binding.tvShowsRecyclerView.adapter
+        val adapter = binding.upcomingMoviesRecyclerView.adapter
 
         when(adapter) {
             null -> setCommonRecyclerView(data)
@@ -39,7 +39,33 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private fun setCommonRecyclerView(data : List<UIMovieItem>?) {
 
-        binding.tvShowsRecyclerView.apply {
+        binding.upcomingMoviesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = SingleLayoutBindRecyclerAdapter (
+                R.layout.view_cell_movie,
+                data,
+                clickHandler = { _, item ->
+                    goToDetailsScreen(item)
+                })
+
+            // Allows recycler view state restoration
+            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+
+        binding.topRatedMoviesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = SingleLayoutBindRecyclerAdapter (
+                R.layout.view_cell_movie,
+                data,
+                clickHandler = { _, item ->
+                    goToDetailsScreen(item)
+                })
+
+            // Allows recycler view state restoration
+            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+
+        binding.recommendedMoviesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = SingleLayoutBindRecyclerAdapter (
                 R.layout.view_cell_movie,
@@ -101,6 +127,12 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             val direction = HomeFragmentDirections.goToFavoritesAction()
             navigate(direction)
         }
+
+//        val thirdScreenHeight = getScreenHeightPart(3)
+//
+//        val params: ViewGroup.LayoutParams = binding.moviesRecyclerView.layoutParams
+//        params.height = thirdScreenHeight
+//        binding.moviesRecyclerView.layoutParams = params
 
     }
 

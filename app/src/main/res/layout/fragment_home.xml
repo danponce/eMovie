@@ -59,37 +59,91 @@
             android:id="@+id/swipeRefreshView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="@{viewModel.isLoading() | viewModel.isError() | viewModel.isEmpty() ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/upcomingTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Upcoming"
-                    android:textColor="@color/white"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/tvShowsRecyclerView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:visibility="@{viewModel.isLoading() | viewModel.isError() | viewModel.isEmpty() ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/upcomingTitleTextView"
-                    tools:itemCount="7"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/view_cell_movie"
-                    tools:orientation="horizontal"
-                    tools:scrollbars="vertical"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/upcomingTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upcoming_title"
+                        android:textColor="@color/white"
+                        app:layout_constraintVertical_weight="1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/upcomingMoviesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/upcomingTitleTextView"
+                        tools:itemCount="7"
+                        app:layout_constraintVertical_weight="3"
+                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/view_cell_movie"
+                        tools:orientation="horizontal"
+                        tools:scrollbars="vertical"/>
+
+                    <TextView
+                        android:id="@+id/topRatedTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintVertical_weight="1"
+                        android:text="@string/top_rated_title"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/upcomingMoviesRecyclerView" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/topRatedMoviesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/topRatedTitleTextView"
+                        tools:itemCount="7"
+                        app:layout_constraintVertical_weight="3"
+                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/view_cell_movie"
+                        tools:orientation="horizontal"
+                        tools:scrollbars="vertical"/>
+
+                    <TextView
+                        android:id="@+id/recommendedTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintVertical_weight="1"
+                        android:text="@string/recommended_title"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/topRatedMoviesRecyclerView" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recommendedMoviesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/recommendedTitleTextView"
+                        tools:itemCount="7"
+                        app:layout_constraintVertical_weight="3"
+                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/view_cell_movie"
+                        tools:orientation="horizontal"
+                        tools:scrollbars="vertical"/>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
