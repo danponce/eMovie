@@ -75,6 +75,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
 
+    // Material Design Components
+    implementation 'com.google.android.material:material:1.6.1'
+
     // Feature module Support
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion")
 
@@ -123,10 +126,6 @@ dependencies {
     // Widgets
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
-    //Paging
-    def paging_version = "3.0.1"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     // Room
     def room_version = "2.4.2"

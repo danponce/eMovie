@@ -19,13 +19,6 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"/>
 
-        <action
-            android:id="@+id/go_to_favorites_action"
-            app:destination="@id/favoritesFragment"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"/>
     </fragment>
 
     <fragment
