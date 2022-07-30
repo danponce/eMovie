@@ -30,7 +30,7 @@ fun loadImageUrlWithRoundedCorners(imageView: ImageView, imageUrl: String) {
         .load(imageUrl)
         .placeholder(R.drawable.ic_default_image_placeholder_48)
         .error(R.drawable.ic_baseline_broken_image_48)
-        .transform(CenterInside(), RoundedCorners(24))
+        .transform(CenterInside(), RoundedCorners(36))
         .into(imageView)
 }
 

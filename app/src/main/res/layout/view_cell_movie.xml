@@ -32,52 +32,5 @@
             android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/shape_gray_gradient_to_transparent"
-            app:layout_constraintBottom_toBottomOf="@id/showImageView"/>
-
-        <TextView
-            android:id="@+id/ratingTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="9.0"
-            android:textSize="17sp"
-            android:fontFamily="@font/open_sans_semi_bold"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/showImageView"
-            app:layout_constraintRight_toRightOf="@id/showImageView"
-            android:layout_marginBottom="12dp"
-            android:layout_marginRight="12dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:text="Hells Kitchen"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:fontFamily="@font/open_sans_regular"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="12dp"
-            app:layout_constraintRight_toLeftOf="@id/starImageView"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/ratingTextView" />
-
-        <ImageView
-            android:id="@+id/starImageView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            android:layout_marginRight="2dp"
-            android:src="@drawable/ic_star_rate_24"
-            app:layout_constraintBottom_toBottomOf="@id/ratingTextView"
-            app:layout_constraintTop_toTopOf="@id/ratingTextView"
-            app:layout_constraintRight_toLeftOf="@id/ratingTextView"/>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

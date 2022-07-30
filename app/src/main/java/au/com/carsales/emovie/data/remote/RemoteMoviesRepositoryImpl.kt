@@ -18,36 +18,20 @@ class RemoteMoviesRepositoryImpl @Inject constructor(
     private val toDomainMapper: RemoteToDomainMovieMapper
 ) : RemoteMoviesRepository {
 
-    override suspend fun getUpcomingMovies(): Flow<DomainMovieDataState> {
-
-        return flow {
-            val response = moviesService.getUpcomingMovies()
-
-            when {
-                response.isSuccessful -> {
-                    response.body()?.let { movies ->
-                        checkNotNull(movies.results) {
-                            emit(APIState.Error("No movies available"))
-                            return@let
-                        }
-
-                        emit(APIState.Success(toDomainMapper.executeMapping(movies.results).orEmpty()))
-
-                    } ?: emit(APIState.Empty(response.message()))
-                }
-
-                else -> emit(APIState.Error(response.message()))
-            }
-
-        }
-    }
-
-    override suspend fun getTopRatedMovies(): Flow<DomainMovieDataState> {
-        return apiFlow(
-            call = { moviesService.getTopRated() },
-            validation = { movies ->  movies?.results == null },
+    override suspend fun getUpcomingMovies(): Flow<DomainMovieDataState> =
+        apiFlow(
+            call = { moviesService.getUpcomingMovies() },
+            validation = { movies ->  movies?.results != null },
             mapper = toDomainMapper,
             toMap = { movies -> movies?.results }
         )
-    }
+
+    override suspend fun getTopRatedMovies(): Flow<DomainMovieDataState> =
+        apiFlow(
+            call = { moviesService.getTopRated() },
+            validation = { movies ->  movies?.results != null },
+            mapper = toDomainMapper,
+            toMap = { movies -> movies?.results }
+        )
+
 }
