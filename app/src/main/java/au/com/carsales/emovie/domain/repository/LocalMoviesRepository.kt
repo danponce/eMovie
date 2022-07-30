@@ -11,5 +11,6 @@ import kotlinx.coroutines.flow.Flow
 interface LocalMoviesRepository {
 
     suspend fun getUpcomingMovies() : Flow<List<DomainMovieItem>>
+    suspend fun getAllMovies() : Flow<List<DomainMovieItem>>
     suspend fun insertMovies(movieList : List<DomainMovieItem>)
 }

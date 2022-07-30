@@ -19,7 +19,7 @@ class GetUpcomingMoviesUseCase @Inject constructor(
 
     suspend fun getUpcomingMovies() : Flow<State<List<DomainMovieItem>>> =
         resultFlow(
-            databaseQuery = { localMoviesRepository.getUpcomingMovies() },
+            databaseQuery = { localMoviesRepository.getAllMovies() },
             networkCall = { remoteMoviesRepository.getUpcomingMovies() },
             saveCallResult = { movies -> localMoviesRepository.insertMovies(movies) }
         )

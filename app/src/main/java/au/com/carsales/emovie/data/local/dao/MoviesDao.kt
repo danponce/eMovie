@@ -19,13 +19,13 @@ interface MoviesDao {
     suspend fun insertAll(movies: List<EntityMovieItem>)
 
     @Query("select * from $MOVIES_TABLE")
-    fun getAllMovies(): List<EntityMovieItem?>?
+    fun getAllMovies(): Flow<List<EntityMovieItem?>?>
 
     @Query("select * from $MOVIES_TABLE where vote_average > 8.5")
-    fun getTopRatedMovies() : List<EntityMovieItem?>?
+    fun getTopRatedMovies() : Flow<List<EntityMovieItem?>?>
 
     @Query("select * from $MOVIES_TABLE where release_date > 2022-06-29")
-    fun getUpcomingMovies() : List<EntityMovieItem?>?
+    fun getUpcomingMovies() : Flow<List<EntityMovieItem?>?>
 
     @Query("SELECT EXISTS (SELECT 1 FROM $MOVIES_TABLE WHERE id=:id)")
     fun getMovie(id: Int): Int
