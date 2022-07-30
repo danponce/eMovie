@@ -1,8 +1,5 @@
 package au.com.carsales.emovie.utils.base.databinding
 
-import android.media.Image
-import android.os.Build
-import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
@@ -10,7 +7,6 @@ import androidx.databinding.BindingAdapter
 import au.com.carsales.emovie.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
