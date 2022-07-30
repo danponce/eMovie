@@ -9,4 +9,6 @@ object DBConstants {
     const val DATABASE_NAME = "movies.db"
 
     const val MOVIES_TABLE = "movies"
+    const val MOVIE_DETAILS_TABLE = "movie_details"
+    const val MOVIE_GENRES_TABLE = "movie_genres"
 }

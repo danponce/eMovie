@@ -28,7 +28,7 @@ interface MoviesDao {
     fun getUpcomingMovies() : Flow<List<EntityMovieItem?>?>
 
     @Query("SELECT EXISTS (SELECT 1 FROM $MOVIES_TABLE WHERE id=:id)")
-    fun getMovie(id: Int): Int
+    fun getMovie(id: Int): Flow<EntityMovieItem?>
 
     @Delete
     fun delete(favoriteTVShow: EntityMovieItem?)

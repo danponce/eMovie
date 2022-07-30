@@ -46,4 +46,11 @@ class LocalMoviesRepositoryImpl @Inject constructor(
             }
         }
 
+    override suspend fun getMovie(id: String): Flow<DomainMovieItem> {
+        flow {
+            moviesDao.getMovie(id).collect {
+                emit()
+            }
+        }
+    }
 }
