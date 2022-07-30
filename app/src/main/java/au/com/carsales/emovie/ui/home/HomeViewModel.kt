@@ -2,18 +2,12 @@ package au.com.carsales.emovie.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
 import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
 import au.com.carsales.emovie.ui.model.UIMovieItem
-import au.com.carsales.emovie.utils.base.State
-import au.com.carsales.emovie.utils.base.viewmodel.BaseBindingViewModel
+import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -25,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val getLatestMoviesUseCase: GetUpcomingMoviesUseCase,
     private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
     private val movieItemMapper: UIMovieItemListMapper
-) : BaseBindingViewModel() {
+) : BaseViewModel() {
 
     private val _upcomingMoviesLiveData = MutableLiveData<List<UIMovieItem>>()
     val upcomingMoviesLiveData: LiveData<List<UIMovieItem>> = _upcomingMoviesLiveData

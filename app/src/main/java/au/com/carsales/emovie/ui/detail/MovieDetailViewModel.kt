@@ -3,7 +3,7 @@ package au.com.carsales.emovie.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import au.com.carsales.emovie.ui.model.UIMovieItem
-import au.com.carsales.emovie.utils.base.viewmodel.BaseBindingViewModel
+import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-): BaseBindingViewModel() {
+): BaseViewModel() {
 
     val movieItemLiveData = MutableLiveData<UIMovieItem>()
     var showId : Int ?= null

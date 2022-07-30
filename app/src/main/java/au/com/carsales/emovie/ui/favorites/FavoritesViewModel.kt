@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.State
-import au.com.carsales.emovie.utils.base.viewmodel.BaseBindingViewModel
+import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 @HiltViewModel
-class FavoritesViewModel @Inject constructor() : BaseBindingViewModel() {
+class FavoritesViewModel @Inject constructor() : BaseViewModel() {
 
     private val _favoritesLiveData = MutableLiveData<State<List<UIMovieItem>?>>()
     val favoritesLiveData : LiveData<State<List<UIMovieItem>?>> = _favoritesLiveData
