@@ -29,7 +29,6 @@
             android:layout_height="match_parent"
             app:loadImageUrlWithRoundedCorners="@{item.formattedPosterPath}"
             tools:src="@drawable/minion"
-            android:scaleType="centerInside"
             android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent"/>
 
