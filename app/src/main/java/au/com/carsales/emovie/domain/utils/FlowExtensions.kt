@@ -35,11 +35,15 @@ fun <T> resultFlow(
                     }
 
                     is APIState.Error -> {
-                        emit(State.error<T>(errorMessage = network.error))
+                        if(db == null) {
+                            emit(State.error<T>(errorMessage = network.error))
+                        }
                     }
 
                     is APIState.Empty -> {
-                        emit(State.empty<T>())
+                        if(db == null) {
+                            emit(State.empty<T>())
+                        }
                     }
                 }
 
