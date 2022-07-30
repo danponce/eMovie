@@ -3,6 +3,7 @@ package au.com.carsales.emovie.ui.home
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.com.carsales.emovie.R
@@ -27,42 +28,31 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private val homeViewModel : HomeViewModel by viewModels()
 
-    private fun setDataToRecyclerView(data : List<UIMovieItem>) {
-        val adapter = binding.upcomingMoviesRecyclerView.adapter
-
-        when(adapter) {
-            null -> setUpcomingRecyclerView(data)
-            else -> (adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(data)
-        }
-    }
-
     private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {
         setMoviesRecyclerView(binding.topRatedMoviesRecyclerView, data)
     }
 
     private fun setUpcomingRecyclerView(data : List<UIMovieItem>?) {
-
         setMoviesRecyclerView(binding.upcomingMoviesRecyclerView, data)
-
-        binding.recommendedMoviesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = SingleLayoutBindRecyclerAdapter (
-                R.layout.view_cell_movie,
-                data,
-                clickHandler = { _, item ->
-                    goToDetailsScreen(item)
-                })
-
-            // Allows recycler view state restoration
-            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        }
     }
 
-    private fun setMoviesRecyclerView(recyclerView: RecyclerView, data : List<UIMovieItem>?) {
+    private fun setRecommendedRecyclerView(data : List<UIMovieItem>?) {
+
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+
+        setMoviesRecyclerView(binding.recommendedMoviesRecyclerView, data, layoutManager, R.layout.view_cell_movie_grid)
+    }
+
+    private fun setMoviesRecyclerView(
+        recyclerView: RecyclerView,
+        data : List<UIMovieItem>?,
+        recyclerLayoutManager : RecyclerView.LayoutManager? = null,
+        viewId : Int? = null
+    ) {
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = recyclerLayoutManager ?: LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = SingleLayoutBindRecyclerAdapter (
-                R.layout.view_cell_movie,
+                viewId ?: R.layout.view_cell_movie,
                 data,
                 clickHandler = { _, item ->
                     goToDetailsScreen(item)
@@ -101,9 +91,19 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
             topRatedMoviesLiveData.observe(viewLifecycleOwner) {
                 setTopRatedRecyclerView(it)
+                setRecommendedRecyclerView(it)
             }
         }
 
+    }
+
+    private fun setDataToRecyclerView(data : List<UIMovieItem>) {
+        val adapter = binding.upcomingMoviesRecyclerView.adapter
+
+        when(adapter) {
+            null -> setUpcomingRecyclerView(data)
+            else -> (adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(data)
+        }
     }
 
     private fun goToDetailsScreen(data: UIMovieItem) {

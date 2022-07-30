@@ -112,9 +112,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:itemCount="7"
-                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/view_cell_movie"
-                        tools:orientation="horizontal"
+                        tools:spanCount="2"
+                        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        tools:listitem="@layout/view_cell_movie_grid"
+                        tools:orientation="vertical"
                         tools:scrollbars="vertical" />
 
                 </LinearLayout>
