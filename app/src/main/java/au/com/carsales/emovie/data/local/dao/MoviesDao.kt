@@ -21,7 +21,7 @@ interface MoviesDao {
     @Query("select * from $MOVIES_TABLE")
     fun getAllMovies(): Flow<List<EntityMovieItem?>?>
 
-    @Query("select * from $MOVIES_TABLE where vote_average > 8.5")
+    @Query("select * from $MOVIES_TABLE where vote_average > 8")
     fun getTopRatedMovies() : Flow<List<EntityMovieItem?>?>
 
     @Query("select * from $MOVIES_TABLE where release_date > 2022-06-29")

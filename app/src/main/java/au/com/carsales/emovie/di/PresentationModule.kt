@@ -2,6 +2,7 @@ package au.com.carsales.emovie.di
 
 import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
+import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
 import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
 import dagger.Module
 import dagger.Provides
@@ -22,5 +23,13 @@ object PresentationModule {
         remoteRepository: RemoteMoviesRepositoryImpl
     ) : GetUpcomingMoviesUseCase {
         return GetUpcomingMoviesUseCase(localRepository, remoteRepository)
+    }
+
+    @Provides
+    fun provideGetTopRatedMoviesUseCase(
+        localRepository: LocalMoviesRepositoryImpl,
+        remoteRepository: RemoteMoviesRepositoryImpl
+    ) : GetTopRatedMoviesUseCase {
+        return GetTopRatedMoviesUseCase(localRepository, remoteRepository)
     }
 }

@@ -1,7 +1,16 @@
 package au.com.carsales.emovie.utils.base.viewmodel
 
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import au.com.carsales.emovie.domain.utils.Mapper
+import au.com.carsales.emovie.utils.base.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 /**
  * Created by Dan on 25, junio, 2022
@@ -35,5 +44,36 @@ abstract class BaseBindingViewModel : ViewModel() {
         isLoading.set(false)
         isError.set(false)
         isEmpty.set(true)
+    }
+
+    fun <T, K> useCaseCollect(
+        flowCall : suspend () -> Flow<State<T>>,
+        liveData : MutableLiveData<K>,
+        mapper : Mapper<T, K>
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            setLoadingStatus()
+
+            flowCall()
+                .distinctUntilChanged()
+                .collect { state ->
+
+                    when (state) {
+                        is State.Success -> {
+                            liveData.postValue(mapper.executeMapping(state.data))
+                            setSuccessStatus()
+                        }
+
+                        is State.Empty -> {
+                            setEmptyStatus()
+                        }
+
+                        is State.Error -> {
+                            setErrorStatus()
+                        }
+                    }
+                }
+        }
     }
 }

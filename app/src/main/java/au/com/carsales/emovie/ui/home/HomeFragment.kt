@@ -31,40 +31,35 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         val adapter = binding.upcomingMoviesRecyclerView.adapter
 
         when(adapter) {
-            null -> setCommonRecyclerView(data)
+            null -> setUpcomingRecyclerView(data)
             else -> (adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(data)
         }
     }
 
-    private fun setCommonRecyclerView(data : List<UIMovieItem>?) {
+    private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {
+        setMoviesRecyclerView(binding.topRatedMoviesRecyclerView, data)
+    }
 
-        binding.upcomingMoviesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = SingleLayoutBindRecyclerAdapter (
-                R.layout.view_cell_movie,
-                data,
-                clickHandler = { _, item ->
-                    goToDetailsScreen(item)
-                })
+    private fun setUpcomingRecyclerView(data : List<UIMovieItem>?) {
 
-            // Allows recycler view state restoration
-            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        }
-
-        binding.topRatedMoviesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = SingleLayoutBindRecyclerAdapter (
-                R.layout.view_cell_movie,
-                data,
-                clickHandler = { _, item ->
-                    goToDetailsScreen(item)
-                })
-
-            // Allows recycler view state restoration
-            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        }
+        setMoviesRecyclerView(binding.upcomingMoviesRecyclerView, data)
 
         binding.recommendedMoviesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = SingleLayoutBindRecyclerAdapter (
+                R.layout.view_cell_movie,
+                data,
+                clickHandler = { _, item ->
+                    goToDetailsScreen(item)
+                })
+
+            // Allows recycler view state restoration
+            adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+    }
+
+    private fun setMoviesRecyclerView(recyclerView: RecyclerView, data : List<UIMovieItem>?) {
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = SingleLayoutBindRecyclerAdapter (
                 R.layout.view_cell_movie,
@@ -89,15 +84,26 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         setObservers()
 
-        homeViewModel.getMovies()
+        homeViewModel.apply {
+            getUpcomingMovies()
+            getTopRatedMovies()
+        }
 
         return binding.root
     }
 
     private fun setObservers() {
-        homeViewModel.moviesLiveData.observe(viewLifecycleOwner) {
-            setCommonRecyclerView(it)
+
+        homeViewModel.apply {
+            upcomingMoviesLiveData.observe(viewLifecycleOwner) {
+                setUpcomingRecyclerView(it)
+            }
+
+            topRatedMoviesLiveData.observe(viewLifecycleOwner) {
+                setTopRatedRecyclerView(it)
+            }
         }
+
     }
 
     private fun goToDetailsScreen(data: UIMovieItem) {
@@ -119,7 +125,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         val endOffset = binding.swipeRefreshView.progressViewEndOffset
         binding.swipeRefreshView.setProgressViewOffset(false, toolbarHeight, endOffset + toolbarHeight)
         binding.swipeRefreshView.setOnRefreshListener {
-            homeViewModel.getMovies()
+            homeViewModel.getUpcomingMovies()
         }
     }
 
