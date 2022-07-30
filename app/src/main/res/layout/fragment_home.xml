@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:padding="16dp">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -31,25 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:minHeight="?attr/actionBarSize"
-                app:title="@string/home_toolbar_title"
                 app:titleTextColor="@color/white"
                 tools:title="@string/app_name">
-
-                <ImageView
-                    android:id="@+id/favoriteToolbarImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="14dp"
-                    android:src="@drawable/ic_baseline_favorite_border_24"
-                    app:tint="@color/secondaryColor" />
-
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:theme="@style/SearchViewStyle" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -76,7 +60,10 @@
                         android:id="@+id/upcomingTitleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/open_sans_semi_bold"
                         android:text="@string/upcoming_title"
+                        android:layout_marginLeft="8dp"
                         android:textColor="@color/white" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -92,6 +79,9 @@
                     <TextView
                         android:id="@+id/topRatedTitleTextView"
                         android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/open_sans_semi_bold"
                         android:layout_height="wrap_content"
                         android:text="@string/top_rated_title"
                         android:textColor="@color/white" />
@@ -109,6 +99,9 @@
                     <TextView
                         android:id="@+id/recommendedTitleTextView"
                         android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/open_sans_semi_bold"
                         android:layout_height="wrap_content"
                         android:text="@string/recommended_title"
                         android:textColor="@color/white" />
