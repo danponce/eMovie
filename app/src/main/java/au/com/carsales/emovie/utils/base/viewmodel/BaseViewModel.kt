@@ -46,6 +46,15 @@ abstract class BaseViewModel : ViewModel() {
         isEmpty.set(true)
     }
 
+    /**
+     * Executes a use case flow call using
+     * corresponding mapper and updating
+     * given live data object
+     *
+     * @param flowCall      the flow call of the use case
+     * @param liveData      the live data object to update with values
+     * @param mapper        the related mapper
+     */
     fun <T, K> useCaseCollect(
         flowCall : suspend () -> Flow<State<T>>,
         liveData : MutableLiveData<K>,
