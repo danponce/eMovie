@@ -11,7 +11,6 @@ import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.emovie.utils.base.getToolbarHeight
-import au.com.carsales.emovie.utils.getScreenHeightPart
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -122,17 +121,6 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         binding.swipeRefreshView.setOnRefreshListener {
             homeViewModel.getMovies()
         }
-
-        binding.favoriteToolbarImageView.setOnClickListener {
-
-        }
-
-//        val thirdScreenHeight = getScreenHeightPart(3)
-//
-//        val params: ViewGroup.LayoutParams = binding.moviesRecyclerView.layoutParams
-//        params.height = thirdScreenHeight
-//        binding.moviesRecyclerView.layoutParams = params
-
     }
 
 }
