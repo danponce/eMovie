@@ -1,5 +1,6 @@
 package au.com.carsales.emovie.data.remote
 
+import au.com.carsales.emovie.data.remote.RestConstants.GET_TOP_RATED
 import au.com.carsales.emovie.data.remote.RestConstants.GET_UPCOMING
 import au.com.carsales.emovie.data.remote.model.MovieData
 import retrofit2.Response
@@ -13,5 +14,8 @@ interface RemoteMoviesService {
 
     @GET(GET_UPCOMING)
     suspend fun getUpcomingMovies() : Response<MovieData?>
+
+    @GET(GET_TOP_RATED)
+    suspend fun getTopRated() : Response<MovieData?>
 
 }

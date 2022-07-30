@@ -7,4 +7,5 @@ package au.com.carsales.emovie.data.remote
 object RestConstants {
 
     const val GET_UPCOMING = "movie/upcoming"
+    const val GET_TOP_RATED = "movie/top_rated"
 }

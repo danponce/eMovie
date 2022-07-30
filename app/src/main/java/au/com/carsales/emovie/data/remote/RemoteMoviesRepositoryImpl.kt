@@ -1,10 +1,10 @@
 package au.com.carsales.emovie.data.remote
 
 import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieMapper
-import au.com.carsales.emovie.data.remote.mapper.RemoteToEntityMovieMapper
 import au.com.carsales.emovie.data.remote.state.APIState
 import au.com.carsales.emovie.domain.DomainMovieDataState
 import au.com.carsales.emovie.domain.repository.RemoteMoviesRepository
+import au.com.carsales.emovie.domain.utils.Mapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -26,14 +26,13 @@ class RemoteMoviesRepositoryImpl @Inject constructor(
             when {
                 response.isSuccessful -> {
                     response.body()?.let { movies ->
-                            checkNotNull(movies.results) {
-                                emit(APIState.Error("No movies available"))
-                                return@let
-                            }
+                        checkNotNull(movies.results) {
+                            emit(APIState.Error("No movies available"))
+                            return@let
+                        }
 
-                            emit(
-                                APIState.Success(toDomainMapper.executeMapping(movies.results).orEmpty())
-                            )
+                        emit(APIState.Success(toDomainMapper.executeMapping(movies.results).orEmpty()))
+
                     } ?: emit(APIState.Empty(response.message()))
                 }
 
@@ -41,5 +40,14 @@ class RemoteMoviesRepositoryImpl @Inject constructor(
             }
 
         }
+    }
+
+    override suspend fun getTopRatedMovies(): Flow<DomainMovieDataState> {
+        return apiFlow(
+            call = { moviesService.getTopRated() },
+            validation = { movies ->  movies?.results == null },
+            mapper = toDomainMapper,
+            toMap = { movies -> movies?.results }
+        )
     }
 }

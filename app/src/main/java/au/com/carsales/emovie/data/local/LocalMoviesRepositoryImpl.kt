@@ -38,4 +38,12 @@ class LocalMoviesRepositoryImpl @Inject constructor(
     override suspend fun insertMovies(movieList: List<DomainMovieItem>) {
         moviesDao.insertAll(domainToEntityMovieMapper.executeMapping(movieList).orEmpty())
     }
+
+    override suspend fun getTopRatedMovies(): Flow<List<DomainMovieItem>> =
+        flow {
+            moviesDao.getTopRatedMovies().collect {
+                emit(entityToDomainMovieMapper.executeMapping(it?.filterNotNull()).orEmpty())
+            }
+        }
+
 }
