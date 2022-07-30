@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">eMovie</string>
 
+    <!-- Bottom Nav -->
+    <string name="bottom_nav_movies_title">Movies</string>
+    <string name="bottom_nav_favorites_title">Favorites</string>
+
     <!-- HomeFragment -->
     <string name="home_toolbar_title">Movies</string>
     <string name="home_empty_results_message">No results found. Why don\'t you try with another search?</string>

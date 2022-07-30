@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import androidx.viewbinding.ViewBinding
+import au.com.carsales.emovie.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
  * Created by Dan on 24, julio, 2022
@@ -14,29 +18,27 @@ import androidx.navigation.fragment.NavHostFragment
  */
 abstract class BaseNavActivity : AppCompatActivity(), NavigationHelperListener {
 
-    abstract fun layoutId() : Int
+    abstract fun layoutViewBinding() : ViewBinding
     abstract fun navHostFragmentId() : Int
+    abstract fun bottomNavigationView() : BottomNavigationView
 
     private lateinit var navController : NavController
+    protected lateinit var binding : ViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(layoutId())
+        binding = layoutViewBinding()
+        setContentView(binding.root)
         setNavController()
-    }
-
-    private fun replaceFragment(fragment : Fragment, containerId: Int) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(containerId, fragment)
-        fragmentTransaction.commit()
     }
 
     private fun setNavController() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(navHostFragmentId()) as NavHostFragment
         navController = navHostFragment.navController
+
+        bottomNavigationView().setupWithNavController(navController)
     }
 
     override fun navigate(directions: NavDirections) = navController.navigate(directions)
