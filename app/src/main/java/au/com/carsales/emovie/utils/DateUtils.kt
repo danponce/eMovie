@@ -17,4 +17,11 @@ object DateUtils {
     fun getActualDate(format : String) : String {
         return SimpleDateFormat(format, Locale.getDefault()).format(Date())
     }
+
+    fun getActualDateMinusMonths(format : String, monthsQuantity : Int) : String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MONTH, monthsQuantity)
+        val dateChanged = calendar.time
+        return SimpleDateFormat(format, Locale.getDefault()).format(dateChanged)
+    }
 }

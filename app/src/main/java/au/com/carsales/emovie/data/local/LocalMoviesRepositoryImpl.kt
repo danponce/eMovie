@@ -30,7 +30,7 @@ class LocalMoviesRepositoryImpl @Inject constructor(
 
     override suspend fun getUpcomingMovies(): Flow<List<DomainMovieItem>> =
         flow {
-            moviesDao.getUpcomingMovies(DateUtils.getActualDate(DateUtils.yyyyMMddFormat)).collect {
+            moviesDao.getUpcomingMovies(DateUtils.getActualDateMinusMonths(DateUtils.yyyyMMddFormat, -8)).collect {
                 emit(entityToDomainMovieMapper.executeMapping(it?.filterNotNull()).orEmpty())
             }
         }
