@@ -1,11 +1,15 @@
 package au.com.carsales.emovie.di
 
 import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
+import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
+import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieDetailMapper
 import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieMapper
+import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieDetailMapper
 import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieMapper
 import au.com.carsales.emovie.data.remote.RemoteMoviesService
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
+import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieDetailMapper
 import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieMapper
 import au.com.carsales.emovie.data.remote.mapper.RemoteToEntityMovieMapper
 import dagger.Module
@@ -26,18 +30,28 @@ object DomainModule {
     @Provides
     fun provideRemoteMoviesRepository(
         moviesService: RemoteMoviesService,
-        mapper: RemoteToDomainMovieMapper
+        mapper: RemoteToDomainMovieMapper,
+        movieDetailMapper: RemoteToDomainMovieDetailMapper
     ) : RemoteMoviesRepositoryImpl {
-        return RemoteMoviesRepositoryImpl(moviesService, mapper)
+        return RemoteMoviesRepositoryImpl(moviesService, mapper, movieDetailMapper)
     }
 
     @Singleton
     @Provides
     fun provideLocalMoviesRepository(
         movieDao: MoviesDao,
+        movieDetailDao: MovieDetailDao,
         entityToDomainMovieMapper: LocalEntityToDomainMovieMapper,
+        entityToDomainMovieDetailMapper: LocalEntityToDomainMovieDetailMapper,
+        domainToEntityMovieDetailMapper: LocalDomainToEntityMovieDetailMapper,
         domainToEntityMovieMapper: LocalDomainToEntityMovieMapper
     ): LocalMoviesRepositoryImpl {
-        return LocalMoviesRepositoryImpl(movieDao, entityToDomainMovieMapper, domainToEntityMovieMapper)
+        return LocalMoviesRepositoryImpl(
+            movieDao,
+            movieDetailDao,
+            entityToDomainMovieMapper,
+            entityToDomainMovieDetailMapper,
+            domainToEntityMovieDetailMapper,
+            domainToEntityMovieMapper)
     }
 }
