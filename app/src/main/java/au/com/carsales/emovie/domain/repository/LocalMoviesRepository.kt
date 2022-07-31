@@ -1,6 +1,7 @@
 package au.com.carsales.emovie.domain.repository
 
 import au.com.carsales.emovie.domain.DomainMovieDataState
+import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import kotlinx.coroutines.flow.Flow
 
@@ -14,5 +15,6 @@ interface LocalMoviesRepository {
     suspend fun getTopRatedMovies() : Flow<List<DomainMovieItem>>
     suspend fun getAllMovies() : Flow<List<DomainMovieItem>>
     suspend fun insertMovies(movieList : List<DomainMovieItem>)
-    suspend fun getMovie(id: String) : Flow<DomainMovieItem>
+    suspend fun getMovie(id: String) : Flow<DomainMovieDetail>
+    suspend fun insertMovieDetail(movieDetail: DomainMovieDetail)
 }

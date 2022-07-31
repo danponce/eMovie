@@ -1,13 +1,16 @@
 package au.com.carsales.emovie.data.local
 
+import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
+import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieDetailMapper
 import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieMapper
+import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieDetailMapper
 import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieMapper
+import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.repository.LocalMoviesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -17,7 +20,10 @@ import javax.inject.Inject
  */
 class LocalMoviesRepositoryImpl @Inject constructor(
     private val moviesDao: MoviesDao,
+    private val movieDetailDao: MovieDetailDao,
     private val entityToDomainMovieMapper: LocalEntityToDomainMovieMapper,
+    private val entityToDomainMovieDetailMapper: LocalEntityToDomainMovieDetailMapper,
+    private val domainToEntityMovieDetailMapper: LocalDomainToEntityMovieDetailMapper,
     private val domainToEntityMovieMapper: LocalDomainToEntityMovieMapper
 ) : LocalMoviesRepository {
 
@@ -46,11 +52,14 @@ class LocalMoviesRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun getMovie(id: String): Flow<DomainMovieItem> {
+    override suspend fun getMovie(id: String): Flow<DomainMovieDetail> =
         flow {
-            moviesDao.getMovie(id).collect {
-                emit()
+            movieDetailDao.getMovieDetail(id).collect {
+                emit(entityToDomainMovieDetailMapper.executeMapping(it))
             }
         }
+
+    override suspend fun insertMovieDetail(movieDetail: DomainMovieDetail) {
+        movieDetailDao.addMovieDetail(domainToEntityMovieDetailMapper.executeMapping(movieDetail))
     }
 }

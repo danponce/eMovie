@@ -10,5 +10,5 @@ object DBConstants {
 
     const val MOVIES_TABLE = "movies"
     const val MOVIE_DETAILS_TABLE = "movie_details"
-    const val MOVIE_GENRES_TABLE = "movie_genres"
+    const val MOVIE_VIDEOS_TABLE = "movie_videos"
 }

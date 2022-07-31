@@ -30,6 +30,7 @@ object RemoteConstants {
     const val VIDEO = "video"
     const val VOTE_AVERAGE = "vote_average"
     const val VOTE_COUNT = "vote_count"
+    const val VIDEOS = "videos"
     const val ENGLISH_NAME = "english_name"
     const val ISO_639_1 = "iso_639_1"
     const val ISO_3166_1 = "iso_3166_1"

@@ -23,10 +23,13 @@ class RemoteToDomainMovieDetailMapper @Inject constructor(
                 posterPath = it?.posterPath ?: "",
                 backdropPath = it?.backdropPath ?: "",
                 originalTitle = it?.originalTitle ?: "",
+                title = it?.title ?: "",
                 runtime = it?.runtime ?: 0,
                 releaseDate = it?.releaseDate ?: "",
                 overview = it?.overview ?: "",
                 genres = it?.genres?.map { it.name ?: "" } ?: listOf(),
+                voteAverage = it?.voteAverage ?: 0.0,
+                voteCount = it?.voteCount ?: 0,
                 videos = videosResultData?.results?.mapNotNull { item -> videoItemMapper.executeMapping(item) } ?: listOf()
             )
         }
