@@ -27,8 +27,8 @@ interface MoviesDao {
     @Query("select * from $MOVIES_TABLE where release_date > 2022-06-29")
     fun getUpcomingMovies() : Flow<List<EntityMovieItem?>?>
 
-    @Query("SELECT EXISTS (SELECT 1 FROM $MOVIES_TABLE WHERE id=:id)")
-    fun getMovie(id: Int): Flow<EntityMovieItem?>
+//    @Query("SELECT EXISTS (SELECT 1 FROM $MOVIES_TABLE WHERE id=:id)")
+//    fun getMovie(id: Int): Flow<EntityMovieItem?>
 
     @Delete
     fun delete(favoriteTVShow: EntityMovieItem?)

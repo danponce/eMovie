@@ -2,6 +2,9 @@ package au.com.carsales.emovie.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import au.com.carsales.emovie.domain.usecase.GetMovieDetailUseCase
+import au.com.carsales.emovie.ui.mapper.UIMovieDetailMapper
+import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,14 +16,18 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
+    private val getMovieDetailUseCase: GetMovieDetailUseCase,
+    private val movieDetailMapper: UIMovieDetailMapper
 ): BaseViewModel() {
 
     val movieItemLiveData = MutableLiveData<UIMovieItem>()
-    var showId : Int ?= null
     var movieItem : UIMovieItem?= null
 
     private val _isFavoriteLiveData = MutableLiveData<Boolean>()
     val isFavoriteLiveData : LiveData<Boolean> = _isFavoriteLiveData
+
+    private val _movieDetailsLiveData = MutableLiveData<UIMovieDetail>()
+    val movieDetailsLiveData: LiveData<UIMovieDetail> = _movieDetailsLiveData
 
     fun setMovie(data : UIMovieItem) {
         movieItemLiveData.postValue(data)
@@ -28,7 +35,7 @@ class MovieDetailViewModel @Inject constructor(
         movieItem = data
     }
 
-    fun getLastShow() = movieItem
+    fun getLastMovie() = movieItem
 
     fun isShowFavorite() {
 //        viewModelScope.launch(Dispatchers.IO) {
@@ -57,5 +64,13 @@ class MovieDetailViewModel @Inject constructor(
 //                _isFavoriteLiveData.postValue(true)
 //            }
 //        }
+    }
+
+    fun getMovieDetails() {
+        useCaseCollect(
+            flowCall = { getMovieDetailUseCase.getMovieDetail(movieItem?.id.toString()) },
+            liveData = _movieDetailsLiveData,
+            mapper = movieDetailMapper
+        )
     }
 }

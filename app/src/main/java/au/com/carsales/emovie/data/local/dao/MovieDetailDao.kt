@@ -20,7 +20,7 @@ interface MovieDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMovieDetail(detail: EntityMovieDetail?)
 
-    @Query("SELECT EXISTS (SELECT 1 FROM $MOVIE_DETAILS_TABLE WHERE id=:id)")
+    @Query("SELECT * FROM $MOVIE_DETAILS_TABLE WHERE id = :id")
     fun getMovieDetail(id: String): Flow<EntityMovieDetail?>
 
 }

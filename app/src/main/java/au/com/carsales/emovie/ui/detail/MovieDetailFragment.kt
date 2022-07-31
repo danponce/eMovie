@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentMovieDetailBinding
-import au.com.carsales.emovie.ui.model.UIMovieItem
+import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.setBackButton
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -39,6 +41,15 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args : MovieDetailFragmentArgs by navArgs()
+
+        val movie = args.movie
+
+        detailViewModel.setMovie(movie)
+        detailViewModel.getMovieDetails()
+
+//        setView(movie)
 
 //        val viewModelData = detailViewModel.getExistentEpisodesData()
 
@@ -93,16 +104,15 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         binding.fab.setImageDrawable(drawable)
     }
 
-    private fun setView(data: UIMovieItem) {
-//        binding.toolbar.title = data.name
+    private fun setView(data: UIMovieDetail) {
 
         // Add the genre Chips
-//        data.genres?.forEach {
-//            val chip = Chip(requireContext())
-//            chip.text = it
-//
-//            binding.chipGroupView.addView(chip)
-//        }
+        data.genres.forEach {
+            val chip = Chip(requireContext())
+            chip.text = it
+
+            binding.chipGroupView.addView(chip)
+        }
 
     }
 
@@ -111,6 +121,10 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
             isFavoriteLiveData.observe(viewLifecycleOwner) {
                 setFabDrawable(it)
+            }
+
+            movieDetailsLiveData.observe(viewLifecycleOwner) {
+                setView(it)
             }
 
         }

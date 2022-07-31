@@ -14,7 +14,6 @@ data class UIMovieDetail(
     val overview: String,
     val genres: List<String>,
     val videos: List<UIMovieVideoItem>,
-    val similar: List<UIMovieItem>,
 ) {
      fun calculateTime(): String {
         val hours = runtime / 60

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import au.com.carsales.emovie.data.local.DBConstants
 import au.com.carsales.emovie.data.local.MoviesDatabase
+import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
 import dagger.Module
 import dagger.Provides
@@ -34,5 +35,11 @@ object DataLocalModule {
     @Provides
     fun provideMoviesDao(database: MoviesDatabase): MoviesDao {
         return database.moviesDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMoviesDetailDao(database: MoviesDatabase): MovieDetailDao {
+        return database.movieDetailDao()
     }
 }
