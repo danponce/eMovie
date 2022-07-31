@@ -15,17 +15,17 @@ interface MoviesDao {
     @Insert
     fun addMovie(movie: EntityMovieItem?)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movies: List<EntityMovieItem>)
 
     @Query("select * from $MOVIES_TABLE")
     fun getAllMovies(): Flow<List<EntityMovieItem?>?>
 
-    @Query("select * from $MOVIES_TABLE where vote_average > 8.5")
+    @Query("select * from $MOVIES_TABLE where vote_average >= 8.5")
     fun getTopRatedMovies() : Flow<List<EntityMovieItem?>?>
 
-    @Query("select * from $MOVIES_TABLE where release_date > 2022-06-29")
-    fun getUpcomingMovies() : Flow<List<EntityMovieItem?>?>
+    @Query("select * from $MOVIES_TABLE where release_date > :fromDate")
+    fun getUpcomingMovies(fromDate: String) : Flow<List<EntityMovieItem?>?>
 
     @Delete
     fun delete(favoriteTVShow: EntityMovieItem?)

@@ -9,6 +9,7 @@ import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieMapper
 import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.repository.LocalMoviesRepository
+import au.com.carsales.emovie.utils.DateUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -29,7 +30,7 @@ class LocalMoviesRepositoryImpl @Inject constructor(
 
     override suspend fun getUpcomingMovies(): Flow<List<DomainMovieItem>> =
         flow {
-            moviesDao.getUpcomingMovies().collect {
+            moviesDao.getUpcomingMovies(DateUtils.getActualDate(DateUtils.yyyyMMddFormat)).collect {
                 emit(entityToDomainMovieMapper.executeMapping(it?.filterNotNull()).orEmpty())
             }
         }
