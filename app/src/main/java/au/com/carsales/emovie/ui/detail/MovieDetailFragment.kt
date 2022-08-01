@@ -12,6 +12,8 @@ import au.com.carsales.emovie.databinding.FragmentMovieDetailBinding
 import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.setBackButton
+import au.com.carsales.emovie.utils.getScreenHeight
+import au.com.carsales.emovie.utils.getScreenHeightPart
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,6 +37,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         super.onCreateView(inflater, container, savedInstanceState)
 
         setObservers()
+
+        setMovieImageHeight()
 
         return binding.root
     }
@@ -83,14 +87,19 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         initListeners()
     }
 
+    private fun setMovieImageHeight() {
+        // Set movie image to take full screen height
+        binding.collapsingImageView.layoutParams.height = getScreenHeightPart(3)
+    }
+
     private fun initListeners() {
 
-        binding.fab.setOnClickListener {
-            when(detailViewModel.isActualShowFavorite()) {
-                true -> detailViewModel.deleteFavorite()
-                false -> detailViewModel.addFavorite()
-            }
-        }
+//        binding.fab.setOnClickListener {
+//            when(detailViewModel.isActualShowFavorite()) {
+//                true -> detailViewModel.deleteFavorite()
+//                false -> detailViewModel.addFavorite()
+//            }
+//        }
 
     }
 
@@ -101,7 +110,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
                 R.drawable.ic_baseline_favorite_24
             } else { R.drawable.ic_baseline_favorite_border_24 })
 
-        binding.fab.setImageDrawable(drawable)
+//        binding.fab.setImageDrawable(drawable)
     }
 
     private fun setView(data: UIMovieDetail) {
