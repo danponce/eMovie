@@ -1,6 +1,7 @@
 package au.com.carsales.emovie.utils.base
 
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 
 /**
  * Created by Dan on 24, julio, 2022
@@ -8,7 +9,7 @@ import androidx.navigation.NavDirections
  */
 interface NavigationHelperListener {
 
-    fun navigate(directions : NavDirections)
+    fun navigate(directions : NavDirections, extras: FragmentNavigator.Extras? = null)
 
     fun navigateBack() : Boolean
 }

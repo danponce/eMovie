@@ -3,6 +3,7 @@ package au.com.carsales.emovie.utils.base
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 
 /**
  * Created by Dan on 24, julio, 2022
@@ -25,8 +26,8 @@ abstract class BaseNavFragment : Fragment() {
             }
     }
 
-    protected fun navigate(directions: NavDirections) {
-        navHelper.navigate(directions)
+    protected fun navigate(directions: NavDirections, extras : FragmentNavigator.Extras?= null) {
+        navHelper.navigate(directions, extras)
     }
 
     protected fun navigateBack() {

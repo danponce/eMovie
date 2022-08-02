@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentMovieDetailBinding
 import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
+import au.com.carsales.emovie.utils.base.TransitionConstants
 import au.com.carsales.emovie.utils.base.setBackButton
 import au.com.carsales.emovie.utils.getScreenHeight
 import au.com.carsales.emovie.utils.getScreenHeightPart
@@ -28,6 +30,11 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
     private val detailViewModel: MovieDetailViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,6 +46,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         setObservers()
 
         setMovieImageHeight()
+
+        binding.collapsingImageView.transitionName = TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
 
         return binding.root
     }

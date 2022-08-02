@@ -2,7 +2,10 @@ package au.com.carsales.emovie.ui.home
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +13,7 @@ import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentHomeBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
+import au.com.carsales.emovie.utils.base.TransitionConstants
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.emovie.utils.base.getToolbarHeight
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,8 +58,13 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             adapter = SingleLayoutBindRecyclerAdapter (
                 viewId ?: R.layout.view_cell_movie,
                 data,
-                clickHandler = { _, item ->
-                    goToDetailsScreen(item)
+                clickHandler = { view, item ->
+                    val movieImageView = view.findViewById<ImageView>(R.id.movieImageView)
+                    movieImageView.transitionName = TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
+                    val extras = FragmentNavigatorExtras(
+                        movieImageView to TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
+                    )
+                    goToDetailsScreen(item, extras)
                 })
 
             // Allows recycler view state restoration
@@ -106,9 +115,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun goToDetailsScreen(data: UIMovieItem) {
+    private fun goToDetailsScreen(data: UIMovieItem, extras: FragmentNavigator.Extras) {
         val direction = HomeFragmentDirections.goToDetailsAction(data)
-        navigate(direction)
+        navigate(direction, extras)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

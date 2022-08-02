@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewbinding.ViewBinding
@@ -41,7 +42,17 @@ abstract class BaseNavActivity : AppCompatActivity(), NavigationHelperListener {
         bottomNavigationView().setupWithNavController(navController)
     }
 
-    override fun navigate(directions: NavDirections) = navController.navigate(directions)
+    override fun navigate(directions: NavDirections, extras : FragmentNavigator.Extras?) {
+        when {
+            extras != null -> {
+                navController.navigate(directions, extras)
+            }
+            else -> {
+                navController.navigate(directions)
+            }
+        }
+
+    }
 
     override fun navigateBack() = navController.popBackStack()
 }
