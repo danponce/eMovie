@@ -16,7 +16,11 @@
     <string name="favorites_toolbar_title">My Favorites</string>
     <string name="favorites_empty_message">Wait no more! You can go back and add new favorites to your collection!</string>
 
+    <!-- Details Fragment -->
+    <string name="detail_video_section_title">Videos</string>
+
     <!-- Others -->
     <string name="empty_all_message">No results found</string>
     <string name="error_view_message">Ups… There was an error connecting to the server. Please try again</string>
+
 </resources>

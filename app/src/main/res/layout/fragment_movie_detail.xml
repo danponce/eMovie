@@ -115,6 +115,13 @@
                     android:text="@{viewModel.movieDetailsLiveData.overview}"
                     tools:text="Girl Meets World is based on ABC's hugely popular sitcom, Boy Meets World (1993). Set in New York City, the show tells the wonderfully funny heartfelt stories that Boy Meets World is" />
 
+                <au.com.carsales.emovie.ui.detail.component.MovieVideosViewComponent
+                    android:id="@+id/movieVideosViewComponent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/summaryTextView"
+                    android:layout_marginTop="12dp"/>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"/>

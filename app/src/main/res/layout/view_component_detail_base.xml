@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="au.com.carsales.emovie.ui.detail.component.ComponentTitle" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryDarkColor"
+        android:padding="@dimen/default_view_padding">
+
+        <View
+            android:id="@+id/titleDecorView"
+            android:layout_width="@dimen/view_component_detail_base_title_decor_width"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_detail_title_decor"
+            app:layout_constraintTop_toTopOf="@id/titleTextView"
+            app:layout_constraintBottom_toBottomOf="@id/titleTextView"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Some Title"
+            android:text="@{item.title}"
+            app:layout_constraintLeft_toRightOf="@id/titleDecorView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/white"
+            android:layout_marginLeft="8dp"
+            android:textSize="22sp" />
+
+        <FrameLayout
+            android:id="@+id/containerLayoutView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="12dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

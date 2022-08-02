@@ -123,6 +123,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
             binding.chipGroupView.addView(chip)
         }
 
+        binding.movieVideosViewComponent.setView(data)
+
     }
 
     private fun setObservers() {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="clickHandler"
+            type="au.com.carsales.emovie.utils.base.databinding.BaseBindClickHandler" />
+
+        <variable
+            name="item"
+            type="au.com.carsales.emovie.ui.model.UIMovieVideoItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/movie_image_height"
+        android:padding="@dimen/movie_image_padding"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{(v) -> clickHandler.onClickView(v, item)}">
+
+        <ImageView
+            android:id="@+id/showImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:loadImageUrlWithRoundedCorners="@{item.thumbnail}"
+            tools:src="@drawable/minion"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

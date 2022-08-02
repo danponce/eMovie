@@ -16,7 +16,7 @@ abstract class BaseDataBindingViewComponent <T : ViewDataBinding> : RelativeLayo
     abstract fun layoutId() : Int
     lateinit var binding: T
 
-    private fun initBinding() {
+    fun initBinding() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId(), this, false)
         addView(binding.root)
     }

@@ -10,5 +10,6 @@ data class UIMovieVideoItem(
     val name: String,
     val publishedAt: String,
     val site: String,
-    val type: String
+    val type: String,
+    val thumbnail: String
 )

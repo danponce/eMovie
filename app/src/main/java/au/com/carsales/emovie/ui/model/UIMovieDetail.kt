@@ -20,4 +20,6 @@ data class UIMovieDetail(
         val minutes = runtime % 60
         return String.format("%d h %02d m", hours, minutes)
     }
+
+    fun getMainVideoThumbnail() = videos.firstOrNull()?.thumbnail
 }
