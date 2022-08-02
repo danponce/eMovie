@@ -8,6 +8,7 @@ import au.com.carsales.emovie.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 /**
@@ -31,6 +32,16 @@ fun loadImageUrlWithRoundedCorners(imageView: ImageView, imageUrl: String) {
         .placeholder(R.drawable.ic_default_image_placeholder_48)
         .error(R.drawable.ic_baseline_broken_image_48)
         .transform(CenterInside(), RoundedCorners(36))
+        .into(imageView)
+}
+
+@BindingAdapter("loadImageUrlWithTopRoundedCorners")
+fun loadImageUrlWithTopRoundedCorners(imageView: ImageView, imageUrl: String) {
+    Glide.with(imageView.context)
+        .load(imageUrl)
+        .placeholder(R.drawable.ic_default_image_placeholder_48)
+        .error(R.drawable.ic_baseline_broken_image_48)
+        .transform(CenterInside(), GranularRoundedCorners(36f, 36f, 0f, 0f))
         .into(imageView)
 }
 

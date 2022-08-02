@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="12dp"
             app:layout_constraintLeft_toLeftOf="@id/mainMovieImageView"
             app:layout_constraintBottom_toBottomOf="@id/mainMovieImageView"
             android:src="@drawable/ic_baseline_play_circle_outline_24" />
