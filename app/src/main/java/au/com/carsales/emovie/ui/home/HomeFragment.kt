@@ -13,7 +13,6 @@ import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentHomeBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
-import au.com.carsales.emovie.utils.base.TransitionConstants
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.emovie.utils.base.getToolbarHeight
 import dagger.hilt.android.AndroidEntryPoint
