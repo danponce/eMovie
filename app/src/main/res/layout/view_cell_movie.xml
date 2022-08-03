@@ -23,13 +23,15 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{(v) -> clickHandler.onClickView(v, item)}">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/movieImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:loadImageUrlWithRoundedCorners="@{item.formattedPosterPath}"
+            app:shapeAppearance="@style/MovieImageCorners"
+            app:loadImageUrl="@{item.formattedPosterPath}"
             tools:src="@drawable/minion"
             android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package au.com.carsales.emovie.ui.detail
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,16 @@ import androidx.transition.TransitionInflater
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentMovieDetailBinding
 import au.com.carsales.emovie.ui.model.UIMovieDetail
+import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.TransitionConstants
 import au.com.carsales.emovie.utils.base.setBackButton
 import au.com.carsales.emovie.utils.getScreenHeight
 import au.com.carsales.emovie.utils.getScreenHeightPart
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +38,6 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
     }
 
     override fun onCreateView(
@@ -57,7 +62,18 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
         val args : MovieDetailFragmentArgs by navArgs()
 
+        // Add these two lines below
+        setSharedElementTransitionOnEnter()
+        postponeEnterTransition()
+
         val movie = args.movie
+
+        binding.collapsingImageView.apply {
+            //1
+            transitionName = TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
+            //2
+            startEnterTransitionAfterLoadingImage(movie)
+        }
 
         detailViewModel.setMovie(movie)
         detailViewModel.getMovieDetails()
@@ -94,6 +110,39 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
 
         initListeners()
+    }
+
+    private fun startEnterTransitionAfterLoadingImage(movie: UIMovieItem) {
+        Glide.with(this)
+            .load(movie.getFormattedPosterPath())
+            .dontAnimate() // 1
+            .listener(object : RequestListener<Drawable> { // 2
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    startPostponedEnterTransition()
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    model: Any,
+                    target: com.bumptech.glide.request.target.Target<Drawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    startPostponedEnterTransition()
+                    return false
+                }
+            })
+            .into(binding.collapsingImageView)
+    }
+
+    private fun setSharedElementTransitionOnEnter() {
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.shared_element_transition)
     }
 
     private fun setMovieImageHeight() {

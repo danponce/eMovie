@@ -6,7 +6,9 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import au.com.carsales.emovie.R
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -22,6 +24,16 @@ fun loadImageUrl(imageView: ImageView, url: String?) {
         .placeholder(R.drawable.ic_default_image_placeholder_48)
         .error(R.drawable.ic_baseline_broken_image_48)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(imageView)
+}
+
+@BindingAdapter("loadImageUrlInmediate")
+fun loadImageUrlInmediate(imageView: ImageView, url: String?) {
+    Glide.with(imageView.context)
+        .asBitmap()
+        .thumbnail(Glide.with(imageView.context).asBitmap().load(url).priority(Priority.IMMEDIATE).override(imageView.width, imageView.height))
+        .load(url)
+        .placeholder(R.drawable.ic_default_image_placeholder_48)
         .into(imageView)
 }
 

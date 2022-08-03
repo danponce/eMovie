@@ -42,12 +42,13 @@
                 <ImageView
                     android:id="@+id/collapsingImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
+                    android:transitionName="movie_image_transition"
                     tools:layout_height="250dp"
+                    tools:src="@drawable/minion"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    app:loadImageUrl="@{viewModel.movieItemLiveData.formattedPosterPath}" />
+                    app:layout_collapseMode="parallax"/>
 
                 <View
                     android:layout_width="match_parent"
