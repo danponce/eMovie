@@ -36,10 +36,6 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
     private val detailViewModel: MovieDetailViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,8 +48,6 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
         setMovieImageHeight()
 
-        binding.collapsingImageView.transitionName = TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
-
         return binding.root
     }
 
@@ -62,16 +56,15 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
         val args : MovieDetailFragmentArgs by navArgs()
 
-        // Add these two lines below
         setSharedElementTransitionOnEnter()
         postponeEnterTransition()
 
         val movie = args.movie
 
         binding.collapsingImageView.apply {
-            //1
-            transitionName = TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
-            //2
+
+            transitionName = movie.id.toString()
+
             startEnterTransitionAfterLoadingImage(movie)
         }
 
@@ -115,8 +108,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
     private fun startEnterTransitionAfterLoadingImage(movie: UIMovieItem) {
         Glide.with(this)
             .load(movie.getFormattedPosterPath())
-            .dontAnimate() // 1
-            .listener(object : RequestListener<Drawable> { // 2
+            .dontAnimate()
+            .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
@@ -142,7 +135,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
     }
 
     private fun setSharedElementTransitionOnEnter() {
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.shared_element_transition)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
     }
 
     private fun setMovieImageHeight() {

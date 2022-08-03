@@ -51,4 +51,11 @@ class HomeViewModel @Inject constructor(
             mapper = movieItemMapper
         )
 
+    fun hasData(): Boolean {
+        return (upcomingMoviesLiveData.value != null && topRatedMoviesLiveData.value != null)
+    }
+
+    fun getLastTopRatedData() = topRatedMoviesLiveData.value.orEmpty()
+    fun getLastUpcomingData() = upcomingMoviesLiveData.value.orEmpty()
+
 }

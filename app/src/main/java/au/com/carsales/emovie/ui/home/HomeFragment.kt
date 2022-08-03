@@ -32,6 +32,88 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private val homeViewModel : HomeViewModel by viewModels()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        binding.viewModel = homeViewModel
+
+        setObservers()
+
+        return binding.root
+    }
+
+    private fun setObservers() {
+
+        homeViewModel.apply {
+            upcomingMoviesLiveData.observe(viewLifecycleOwner) {
+                setDataToRecyclerView(it, binding.upcomingMoviesRecyclerView)
+            }
+
+            topRatedMoviesLiveData.observe(viewLifecycleOwner) {
+                setDataToRecyclerView(it, binding.topRatedMoviesRecyclerView)
+                setDataToRecyclerView(it, binding.recommendedMoviesRecyclerView)
+            }
+        }
+
+    }
+
+    private fun setDataToRecyclerView(data : List<UIMovieItem>, recyclerView: RecyclerView) {
+        val adapter = recyclerView.adapter
+
+        when(adapter) {
+            null -> {
+                when(recyclerView) {
+                    binding.upcomingMoviesRecyclerView -> setUpcomingRecyclerView(data)
+                    binding.topRatedMoviesRecyclerView -> setTopRatedRecyclerView(data)
+                    binding.recommendedMoviesRecyclerView -> setRecommendedRecyclerView(data)
+                }
+            }
+            else -> (adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(data)
+        }
+    }
+
+    private fun goToDetailsScreen(data: UIMovieItem, extras: FragmentNavigator.Extras) {
+        val direction = HomeFragmentDirections.goToDetailsAction(data)
+        navigate(direction, extras)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initView()
+
+        if(homeViewModel.hasData()) {
+            homeViewModel.apply {
+                setDataToRecyclerView(getLastUpcomingData(), binding.upcomingMoviesRecyclerView)
+                setDataToRecyclerView(getLastTopRatedData(), binding.topRatedMoviesRecyclerView)
+                setDataToRecyclerView(getLastTopRatedData(), binding.recommendedMoviesRecyclerView)
+            }
+
+        } else {
+            homeViewModel.apply {
+                getUpcomingMovies()
+                getTopRatedMovies()
+            }
+        }
+
+    }
+
+    private fun initView() {
+
+        // Let swipe refresh start just below toolbar
+        val toolbarHeight = getToolbarHeight() ?: 50
+
+        val endOffset = binding.swipeRefreshView.progressViewEndOffset
+        binding.swipeRefreshView.setProgressViewOffset(false, toolbarHeight, endOffset + toolbarHeight)
+        binding.swipeRefreshView.setOnRefreshListener {
+            homeViewModel.getUpcomingMovies()
+        }
+    }
+
     private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {
         setMoviesRecyclerView(binding.topRatedMoviesRecyclerView, data)
     }
@@ -60,81 +142,21 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 data,
                 clickHandler = { view, item ->
                     val movieImageView = view.findViewById<ImageView>(R.id.movieImageView)
-                    movieImageView.transitionName = TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
+                    movieImageView.transitionName = item.id.toString()
                     val extras = FragmentNavigatorExtras(
-                        movieImageView to TransitionConstants.MOVIE_IMAGE_TRANSITION_NAME
+                        movieImageView to item.id.toString()
                     )
                     goToDetailsScreen(item, extras)
                 })
 
             // Allows recycler view state restoration
             adapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        binding.viewModel = homeViewModel
-
-        setObservers()
-
-        homeViewModel.apply {
-            getUpcomingMovies()
-            getTopRatedMovies()
-        }
-
-        return binding.root
-    }
-
-    private fun setObservers() {
-
-        homeViewModel.apply {
-            upcomingMoviesLiveData.observe(viewLifecycleOwner) {
-                setUpcomingRecyclerView(it)
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
             }
-
-            topRatedMoviesLiveData.observe(viewLifecycleOwner) {
-                setTopRatedRecyclerView(it)
-                setRecommendedRecyclerView(it)
-            }
-        }
-
-    }
-
-    private fun setDataToRecyclerView(data : List<UIMovieItem>) {
-        val adapter = binding.upcomingMoviesRecyclerView.adapter
-
-        when(adapter) {
-            null -> setUpcomingRecyclerView(data)
-            else -> (adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(data)
-        }
-    }
-
-    private fun goToDetailsScreen(data: UIMovieItem, extras: FragmentNavigator.Extras) {
-        val direction = HomeFragmentDirections.goToDetailsAction(data)
-        navigate(direction, extras)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initView()
-    }
-
-    private fun initView() {
-
-        // Let swipe refresh start just below toolbar
-        val toolbarHeight = getToolbarHeight() ?: 50
-
-        val endOffset = binding.swipeRefreshView.progressViewEndOffset
-        binding.swipeRefreshView.setProgressViewOffset(false, toolbarHeight, endOffset + toolbarHeight)
-        binding.swipeRefreshView.setOnRefreshListener {
-            homeViewModel.getUpcomingMovies()
         }
     }
 
