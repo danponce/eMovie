@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
-        android:padding="@dimen/default_view_padding">
+        android:padding="@dimen/view_component_padding">
 
         <View
             android:id="@+id/titleDecorView"
@@ -34,7 +34,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
-            android:textSize="22sp" />
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:textSize="26sp" />
 
         <FrameLayout
             android:id="@+id/containerLayoutView"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

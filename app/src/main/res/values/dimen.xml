@@ -9,7 +9,7 @@
     <dimen name="view_component_detail_base_title_decor_width">6dp</dimen>
     <dimen name="view_component_detail_base_title_decor_height">18dp</dimen>
 
-    <dimen name="default_view_padding">16dp</dimen>
-    <dimen name="view_component_padding">@dimen/default_view_padding</dimen>
+    <dimen name="default_view_padding">20dp</dimen>
+    <dimen name="view_component_padding">20dp</dimen>
 
 </resources>
