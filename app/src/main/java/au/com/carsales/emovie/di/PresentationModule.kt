@@ -60,4 +60,11 @@ object PresentationModule {
     ) : GetIsFavoriteMovieUseCase {
         return GetIsFavoriteMovieUseCase(localRepository)
     }
+
+    @Provides
+    fun provideDeleteFavoriteMovieUseCase(
+        localRepository: LocalMoviesRepositoryImpl
+    ) : DeleteFavoriteMovieUseCase {
+        return DeleteFavoriteMovieUseCase(localRepository)
+    }
 }

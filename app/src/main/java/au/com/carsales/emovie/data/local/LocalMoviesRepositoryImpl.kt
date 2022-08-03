@@ -4,7 +4,6 @@ import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
 import au.com.carsales.emovie.data.local.dao.MoviesFavoritesDao
 import au.com.carsales.emovie.data.local.mapper.*
-import au.com.carsales.emovie.data.local.model.EntityFavoriteMovieItem
 import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.repository.LocalMoviesRepository
@@ -26,7 +25,7 @@ class LocalMoviesRepositoryImpl @Inject constructor(
     private val entityToDomainMovieDetailMapper: LocalEntityToDomainMovieDetailMapper,
     private val domainToEntityMovieDetailMapper: LocalDomainToEntityMovieDetailMapper,
     private val domainToEntityMovieMapper: LocalDomainToEntityMovieMapper,
-    private val domainToEntityMovieItemMapper: LocalDomainToEntityMovieItemMapper
+    private val domainToEntityFavoriteMovieItemMapper: LocalDomainToEntityFavoriteMovieItemMapper
 ) : LocalMoviesRepository {
 
     override suspend fun getUpcomingMovies(): Flow<List<DomainMovieItem>> =
@@ -80,6 +79,10 @@ class LocalMoviesRepositoryImpl @Inject constructor(
         }
 
     override suspend fun addFavoriteMovie(movie: DomainMovieItem) {
-        moviesFavoritesDao.addFavoriteMovie(domainToEntityMovieItemMapper.executeMapping(movie) as EntityFavoriteMovieItem)
+        moviesFavoritesDao.addFavoriteMovie(domainToEntityFavoriteMovieItemMapper.executeMapping(movie))
+    }
+
+    override suspend fun deleteFavoriteMovie(movie: DomainMovieItem) {
+        moviesFavoritesDao.deleteFavoriteMovie(domainToEntityFavoriteMovieItemMapper.executeMapping(movie))
     }
 }

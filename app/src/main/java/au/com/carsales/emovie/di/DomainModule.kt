@@ -9,7 +9,6 @@ import au.com.carsales.emovie.data.remote.RemoteMoviesService
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
 import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieDetailMapper
 import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieMapper
-import au.com.carsales.emovie.data.remote.mapper.RemoteToEntityMovieMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,7 +43,7 @@ object DomainModule {
         entityToDomainMovieDetailMapper: LocalEntityToDomainMovieDetailMapper,
         domainToEntityMovieDetailMapper: LocalDomainToEntityMovieDetailMapper,
         domainToEntityMovieMapper: LocalDomainToEntityMovieMapper,
-        domainToEntityMovieItemMapper: LocalDomainToEntityMovieItemMapper
+        domainToEntityFavoriteMovieItemMapper: LocalDomainToEntityFavoriteMovieItemMapper
     ): LocalMoviesRepositoryImpl {
         return LocalMoviesRepositoryImpl(
             movieDao,
@@ -54,7 +53,7 @@ object DomainModule {
             entityToDomainMovieDetailMapper,
             domainToEntityMovieDetailMapper,
             domainToEntityMovieMapper,
-            domainToEntityMovieItemMapper
+            domainToEntityFavoriteMovieItemMapper
         )
     }
 }

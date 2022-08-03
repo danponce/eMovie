@@ -10,4 +10,6 @@ data class DomainMovieItem (
     val originalTitle: String,
     val voteAverage: Double,
     val releaseDate: String
-)
+) {
+    fun hello() {}
+}

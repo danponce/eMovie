@@ -18,8 +18,7 @@ class UIMovieItemListMapper @Inject constructor() : Mapper<List<DomainMovieItem>
                 posterPath = it.posterPath,
                 originalTitle = it.originalTitle,
                 voteAverage = it.voteAverage,
-                releaseDate = it.releaseDate,
-                isFavorite = it.isFavorite
+                releaseDate = it.releaseDate
             )
         }
     }

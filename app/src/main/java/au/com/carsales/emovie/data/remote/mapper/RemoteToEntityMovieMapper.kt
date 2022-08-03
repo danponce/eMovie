@@ -19,8 +19,7 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
                 posterPath = movie.posterPath,
                 originalTitle = movie.originalTitle ?: "",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate,
-                isFavorite = true
+                releaseDate = movie.releaseDate
             )
         }
     }
@@ -34,8 +33,7 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
                 posterPath = movie.posterPath,
                 originalTitle = movie.originalTitle ?: "",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate,
-                isFavorite = true
+                releaseDate = movie.releaseDate
             )
         }
     }
@@ -49,8 +47,7 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
                 posterPath = movie.posterPath,
                 originalTitle = movie.originalTitle ?: "",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate,
-                isFavorite = true
+                releaseDate = movie.releaseDate
             )
         }
     }
@@ -64,8 +61,7 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
                 posterPath = movie.posterPath,
                 originalTitle = movie.originalTitle ?: "",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate,
-                isFavorite = true
+                releaseDate = movie.releaseDate
             )
         }
     }
@@ -75,8 +71,7 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
         posterPath = posterPath,
         originalTitle = originalTitle ?: "",
         voteAverage = voteAverage ?: 0.0,
-        releaseDate = releaseDate,
-        isFavorite = false
+        releaseDate = releaseDate
     )
 
     fun EntityMovieItem.fromEntityToDomain() = DomainMovieItem(
@@ -84,8 +79,7 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
         posterPath = posterPath,
         originalTitle = originalTitle ?: "",
         voteAverage = voteAverage ?: 0.0,
-        releaseDate = releaseDate,
-        isFavorite = false
+        releaseDate = releaseDate
     )
 
 }

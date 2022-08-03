@@ -22,4 +22,7 @@ interface MoviesFavoritesDao {
 
     @Query("SELECT EXISTS (SELECT 1 FROM $MOVIE_FAVORITES WHERE id=:id)")
     fun isFavorite(id: String): Flow<Boolean>
+
+    @Delete
+    fun deleteFavoriteMovie(movie: EntityFavoriteMovieItem?)
 }

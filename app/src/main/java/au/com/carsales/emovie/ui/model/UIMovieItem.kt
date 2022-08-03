@@ -14,8 +14,7 @@ data class UIMovieItem(
     val posterPath: String = "",
     val originalTitle: String = "",
     val voteAverage: Double = 0.0,
-    val releaseDate: String = "",
-    var isFavorite: Boolean = false
+    val releaseDate: String = ""
 ) : Parcelable {
 
     fun getFormattedPosterPath() = BuildConfig.IMAGE_URL + posterPath

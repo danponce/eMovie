@@ -95,7 +95,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 //            setView(movie)
 //        }
 
-        detailViewModel.isShowFavorite()
+        detailViewModel.isShowFavorite(movie.id.toString())
 
         binding.viewModel = detailViewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -161,7 +161,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
                 R.drawable.ic_baseline_favorite_24
             } else { R.drawable.ic_baseline_favorite_border_24 })
 
-//        binding.fab.setImageDrawable(drawable)
+        binding.fab.setImageDrawable(drawable)
     }
 
     private fun setView(data: UIMovieDetail) {
@@ -175,6 +175,13 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         }
 
         binding.movieVideosViewComponent.setView(data)
+
+        binding.fab.setOnClickListener {
+            when(detailViewModel.isActualShowFavorite()) {
+                true -> detailViewModel.deleteFavorite()
+                false -> detailViewModel.addFavorite()
+            }
+        }
 
     }
 

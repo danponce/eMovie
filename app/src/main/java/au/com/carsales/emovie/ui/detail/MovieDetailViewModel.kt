@@ -2,12 +2,21 @@ package au.com.carsales.emovie.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import au.com.carsales.emovie.domain.usecase.AddFavoriteMovieUseCase
+import au.com.carsales.emovie.domain.usecase.DeleteFavoriteMovieUseCase
+import au.com.carsales.emovie.domain.usecase.GetIsFavoriteMovieUseCase
 import au.com.carsales.emovie.domain.usecase.GetMovieDetailUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieDetailMapper
+import au.com.carsales.emovie.ui.mapper.UIMovieItemMapper
 import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -17,7 +26,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
-    private val movieDetailMapper: UIMovieDetailMapper
+    private val isFavoriteMovieUseCase: GetIsFavoriteMovieUseCase,
+    private val addFavoriteMovieUseCase: AddFavoriteMovieUseCase,
+    private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
+    private val movieDetailMapper: UIMovieDetailMapper,
+    private val movieItemMapper: UIMovieItemMapper
 ): BaseViewModel() {
 
     val movieItemLiveData = MutableLiveData<UIMovieItem>()
@@ -31,40 +44,41 @@ class MovieDetailViewModel @Inject constructor(
 
     fun setMovie(data : UIMovieItem) {
         movieItemLiveData.postValue(data)
-//        showId = data.id
         movieItem = data
     }
 
     fun getLastMovie() = movieItem
 
-    fun isShowFavorite() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val result = async { FavoriteTVShowsManager.isFavorite(showId ?: 0) }
-//            val isFavorite = result.await()
-//
-//            _isFavoriteLiveData.postValue(isFavorite)
-//        }
+    fun isShowFavorite(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            isFavoriteMovieUseCase.isMovieFavorite(id).collect {
+                _isFavoriteLiveData.postValue(it)
+            }
+        }
+    }
+
+    fun addFavorite() {
+        viewModelScope.launch(Dispatchers.IO) {
+            addFavoriteMovieUseCase.addFavoriteMovie(movieItemMapper.executeMapping(movieItem))
+        }
     }
 
     fun isActualShowFavorite() = _isFavoriteLiveData.value ?: false
 
     fun deleteFavorite() {
-//        showItem?.let {
-//            viewModelScope.launch(Dispatchers.IO) {
-//                FavoriteTVShowsManager.deleteItem(it)
-//                _isFavoriteLiveData.postValue(false)
-//            }
-//        }
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteFavoriteMovieUseCase.deleteFavoriteMovie(movieItemMapper.executeMapping(movieItem))
+        }
     }
 
-    fun addFavorite() {
+//    fun addFavorite() {
 //        showItem?.let {
 //            viewModelScope.launch(Dispatchers.IO) {
 //                FavoriteTVShowsManager.insertItem(it)
 //                _isFavoriteLiveData.postValue(true)
 //            }
 //        }
-    }
+//    }
 
     fun getMovieDetails() {
         useCaseCollect(
