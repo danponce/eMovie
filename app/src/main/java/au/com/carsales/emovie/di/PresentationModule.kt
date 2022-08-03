@@ -2,9 +2,7 @@ package au.com.carsales.emovie.di
 
 import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
-import au.com.carsales.emovie.domain.usecase.GetMovieDetailUseCase
-import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
-import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
+import au.com.carsales.emovie.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +38,26 @@ object PresentationModule {
         remoteRepository: RemoteMoviesRepositoryImpl
     ) : GetMovieDetailUseCase {
         return GetMovieDetailUseCase(localRepository, remoteRepository)
+    }
+
+    @Provides
+    fun provideAddFavoriteMovieUseCase(
+        localRepository: LocalMoviesRepositoryImpl
+    ) : AddFavoriteMovieUseCase {
+        return AddFavoriteMovieUseCase(localRepository)
+    }
+
+    @Provides
+    fun provideGetFavoriteMoviesUseCase(
+        localRepository: LocalMoviesRepositoryImpl
+    ) : GetFavoriteMoviesUseCase {
+        return GetFavoriteMoviesUseCase(localRepository)
+    }
+
+    @Provides
+    fun provideGetIsFavoriteMovieUseCase(
+        localRepository: LocalMoviesRepositoryImpl
+    ) : GetIsFavoriteMovieUseCase {
+        return GetIsFavoriteMovieUseCase(localRepository)
     }
 }

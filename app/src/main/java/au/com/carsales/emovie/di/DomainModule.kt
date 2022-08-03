@@ -3,10 +3,8 @@ package au.com.carsales.emovie.di
 import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
 import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
-import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieDetailMapper
-import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieMapper
-import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieDetailMapper
-import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieMapper
+import au.com.carsales.emovie.data.local.dao.MoviesFavoritesDao
+import au.com.carsales.emovie.data.local.mapper.*
 import au.com.carsales.emovie.data.remote.RemoteMoviesService
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
 import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieDetailMapper
@@ -41,17 +39,22 @@ object DomainModule {
     fun provideLocalMoviesRepository(
         movieDao: MoviesDao,
         movieDetailDao: MovieDetailDao,
+        moviesFavoritesDao: MoviesFavoritesDao,
         entityToDomainMovieMapper: LocalEntityToDomainMovieMapper,
         entityToDomainMovieDetailMapper: LocalEntityToDomainMovieDetailMapper,
         domainToEntityMovieDetailMapper: LocalDomainToEntityMovieDetailMapper,
-        domainToEntityMovieMapper: LocalDomainToEntityMovieMapper
+        domainToEntityMovieMapper: LocalDomainToEntityMovieMapper,
+        domainToEntityMovieItemMapper: LocalDomainToEntityMovieItemMapper
     ): LocalMoviesRepositoryImpl {
         return LocalMoviesRepositoryImpl(
             movieDao,
             movieDetailDao,
+            moviesFavoritesDao,
             entityToDomainMovieMapper,
             entityToDomainMovieDetailMapper,
             domainToEntityMovieDetailMapper,
-            domainToEntityMovieMapper)
+            domainToEntityMovieMapper,
+            domainToEntityMovieItemMapper
+        )
     }
 }
