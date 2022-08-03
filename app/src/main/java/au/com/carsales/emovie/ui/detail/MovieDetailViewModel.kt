@@ -71,15 +71,6 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-//    fun addFavorite() {
-//        showItem?.let {
-//            viewModelScope.launch(Dispatchers.IO) {
-//                FavoriteTVShowsManager.insertItem(it)
-//                _isFavoriteLiveData.postValue(true)
-//            }
-//        }
-//    }
-
     fun getMovieDetails() {
         useCaseCollect(
             flowCall = { getMovieDetailUseCase.getMovieDetail(movieItem?.id.toString()) },
