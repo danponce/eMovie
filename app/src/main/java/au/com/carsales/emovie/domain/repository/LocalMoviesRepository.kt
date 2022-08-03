@@ -17,4 +17,7 @@ interface LocalMoviesRepository {
     suspend fun insertMovies(movieList : List<DomainMovieItem>)
     suspend fun getMovie(id: String) : Flow<DomainMovieDetail>
     suspend fun insertMovieDetail(movieDetail: DomainMovieDetail)
+    suspend fun getFavoriteMovies() : Flow<List<DomainMovieItem>>
+    suspend fun isFavorite(id: String) : Flow<Boolean>
+    suspend fun addFavoriteMovie(movie: DomainMovieItem)
 }

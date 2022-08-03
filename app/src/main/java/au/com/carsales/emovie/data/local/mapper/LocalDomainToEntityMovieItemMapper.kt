@@ -10,16 +10,16 @@ import javax.inject.Inject
  * Created by Dan on 28, julio, 2022
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
-class LocalEntityToDomainMovieMapper @Inject constructor() : Mapper<List<BaseMovieEntity>?, List<DomainMovieItem>?> {
+class LocalDomainToEntityMovieItemMapper @Inject constructor() : Mapper<DomainMovieItem?, BaseMovieEntity?> {
 
-    override fun executeMapping(type: List<BaseMovieEntity>?): List<DomainMovieItem>? {
-        return type?.map { movie ->
-            DomainMovieItem(
-                id = movie.id?.toLong() ?: 0,
-                posterPath = movie.posterPath ?: "",
+    override fun executeMapping(type: DomainMovieItem?): BaseMovieEntity? {
+        return type?.let { movie ->
+            BaseMovieEntity(
+                id = movie.id.toString(),
+                posterPath = movie.posterPath,
                 originalTitle = movie.originalTitle ?: "",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate ?: ""
+                releaseDate = movie.releaseDate
             )
         }
     }

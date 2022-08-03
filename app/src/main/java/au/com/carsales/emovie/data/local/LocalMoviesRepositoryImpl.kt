@@ -2,10 +2,9 @@ package au.com.carsales.emovie.data.local
 
 import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
-import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieDetailMapper
-import au.com.carsales.emovie.data.local.mapper.LocalDomainToEntityMovieMapper
-import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieDetailMapper
-import au.com.carsales.emovie.data.local.mapper.LocalEntityToDomainMovieMapper
+import au.com.carsales.emovie.data.local.dao.MoviesFavoritesDao
+import au.com.carsales.emovie.data.local.mapper.*
+import au.com.carsales.emovie.data.local.model.EntityFavoriteMovieItem
 import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.repository.LocalMoviesRepository
@@ -22,10 +21,12 @@ import javax.inject.Inject
 class LocalMoviesRepositoryImpl @Inject constructor(
     private val moviesDao: MoviesDao,
     private val movieDetailDao: MovieDetailDao,
+    private val moviesFavoritesDao: MoviesFavoritesDao,
     private val entityToDomainMovieMapper: LocalEntityToDomainMovieMapper,
     private val entityToDomainMovieDetailMapper: LocalEntityToDomainMovieDetailMapper,
     private val domainToEntityMovieDetailMapper: LocalDomainToEntityMovieDetailMapper,
-    private val domainToEntityMovieMapper: LocalDomainToEntityMovieMapper
+    private val domainToEntityMovieMapper: LocalDomainToEntityMovieMapper,
+    private val domainToEntityMovieItemMapper: LocalDomainToEntityMovieItemMapper
 ) : LocalMoviesRepository {
 
     override suspend fun getUpcomingMovies(): Flow<List<DomainMovieItem>> =
@@ -62,5 +63,23 @@ class LocalMoviesRepositoryImpl @Inject constructor(
 
     override suspend fun insertMovieDetail(movieDetail: DomainMovieDetail) {
         movieDetailDao.addMovieDetail(domainToEntityMovieDetailMapper.executeMapping(movieDetail))
+    }
+
+    override suspend fun getFavoriteMovies(): Flow<List<DomainMovieItem>> =
+        flow {
+            moviesFavoritesDao.getAllFavoriteMovies().collect {
+                emit(entityToDomainMovieMapper.executeMapping(it?.filterNotNull()).orEmpty())
+            }
+        }
+
+    override suspend fun isFavorite(id: String): Flow<Boolean> =
+        flow {
+            moviesFavoritesDao.isFavorite(id).collect {
+                emit(it)
+            }
+        }
+
+    override suspend fun addFavoriteMovie(movie: DomainMovieItem) {
+        moviesFavoritesDao.addFavoriteMovie(domainToEntityMovieItemMapper.executeMapping(movie) as EntityFavoriteMovieItem)
     }
 }

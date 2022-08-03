@@ -6,6 +6,7 @@ import au.com.carsales.emovie.data.local.DBConstants
 import au.com.carsales.emovie.data.local.MoviesDatabase
 import au.com.carsales.emovie.data.local.dao.MovieDetailDao
 import au.com.carsales.emovie.data.local.dao.MoviesDao
+import au.com.carsales.emovie.data.local.dao.MoviesFavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +42,11 @@ object DataLocalModule {
     @Provides
     fun provideMoviesDetailDao(database: MoviesDatabase): MovieDetailDao {
         return database.movieDetailDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFavoriteMoviesDao(database: MoviesDatabase): MoviesFavoritesDao {
+        return database.movieFavoritesDao()
     }
 }
