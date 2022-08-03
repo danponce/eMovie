@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/videoImageView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/movie_image_height"
+            android:layout_height="@dimen/movie_video_image_cell_height"
             app:loadImageUrlWithTopRoundedCorners="@{item.thumbnail}"
             tools:src="@drawable/minion"
             android:adjustViewBounds="true"

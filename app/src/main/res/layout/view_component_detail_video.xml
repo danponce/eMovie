@@ -16,7 +16,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/mainMovieImageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/movie_video_image_height"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             app:loadImageUrl="@{itemDetail.mainVideoThumbnail}"
@@ -24,9 +24,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/minion" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="@id/mainMovieImageView"
+            android:background="@drawable/shape_gray_gradient_to_transparent_with_bottom_rounded_corners"/>
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_margin="12dp"
             app:layout_constraintLeft_toLeftOf="@id/mainMovieImageView"
             app:layout_constraintBottom_toBottomOf="@id/mainMovieImageView"
@@ -36,6 +43,9 @@
             android:id="@+id/videosRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:listitem="@layout/view_cell_video"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/mainMovieImageView"
             android:layout_marginTop="12dp" />
 
