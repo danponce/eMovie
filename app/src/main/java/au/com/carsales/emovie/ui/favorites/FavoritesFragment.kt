@@ -57,10 +57,12 @@ class FavoritesFragment : BaseNavFragment() {
         initObservers()
 
         return composeContentView(
-            compositionStrategy = ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner),
-            content = { ComposeView() } )
+            compositionStrategy = ViewCompositionStrategy.DisposeOnLifecycleDestroyed(
+                viewLifecycleOwner
+            ),
+            content = { ComposeView() })
     }
-    
+
     private fun initObservers() {
         favoritesViewModel.favoritesLiveData.observe(viewLifecycleOwner) {
 
@@ -72,8 +74,9 @@ class FavoritesFragment : BaseNavFragment() {
         MaterialTheme {
             BaseToolbar(
                 toolbarTitle = stringResource(
-                    id = R.string.favorites_title),
-                onBackAction = { navigateBack()},
+                    id = R.string.favorites_title
+                ),
+                onBackAction = { navigateBack() },
                 paddingAction = {
                     GeneralView(paddingValues = it)
                 },
@@ -96,6 +99,7 @@ class FavoritesFragment : BaseNavFragment() {
                 .padding(paddingValues)
                 .background(backgroundColor)
         ) {
+
             ComposableText(
                 text = stringResource(id = R.string.favorites_title),
                 color = Color.White,
@@ -103,19 +107,17 @@ class FavoritesFragment : BaseNavFragment() {
                 fontFamily = FontFamily(Font(R.font.open_sans_semi_bold)),
                 bottomPadding = 12.dp,
                 topPadding = 12.dp,
-                startPadding = 16.dp
+                startPadding = 10.dp
             )
 
             MoviesGrid(movies = favoriteMovies.orEmpty())
         }
-
     }
 
     @Composable
     fun MoviesGrid(movies: List<UIMovieItem>) {
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 128.dp),
-            modifier = Modifier.padding(start = 16.dp)
+            columns = GridCells.Adaptive(minSize = 128.dp)
         ) {
             items(movies) { movie ->
                 MovieItem(movie)
@@ -124,7 +126,7 @@ class FavoritesFragment : BaseNavFragment() {
     }
 
     @Composable
-    fun MovieItem(movie : UIMovieItem) {
+    fun MovieItem(movie: UIMovieItem) {
         ComposableAsyncImage(
             movie.getFormattedPosterPath(),
             R.drawable.ic_default_image_placeholder_48,
@@ -134,14 +136,14 @@ class FavoritesFragment : BaseNavFragment() {
                 bitmap = bitmap.asImageBitmap(),
                 contentDescription = stringResource(id = R.string.favorite_movie_content_description),
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(10.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .clickable { goToDetailScreen(movie) }
             )
         }
     }
 
-    private fun goToDetailScreen(item : UIMovieItem) {
+    private fun goToDetailScreen(item: UIMovieItem) {
         val direction = FavoritesFragmentDirections.goToMovieDetailsFromFavoriteAction(item)
 
         navigate(direction)
@@ -149,7 +151,7 @@ class FavoritesFragment : BaseNavFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         favoritesViewModel.getFavoritesTVShows()
     }
 }
