@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_favorites">
 
         <action
-            android:id="@+id/go_to_episode_detail_action"
+            android:id="@+id/go_to_movie_details_from_favorite_action"
             app:destination="@id/movieDetailFragment"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"

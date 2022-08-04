@@ -149,13 +149,6 @@ fun ComposableImageWithBitmap(
 
         false -> {
             content.invoke(bitmap)
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = "Avatar",
-                modifier = Modifier
-                    .size(30.dp)
-                    .clip(CircleShape)
-            )
         }
     }
 }

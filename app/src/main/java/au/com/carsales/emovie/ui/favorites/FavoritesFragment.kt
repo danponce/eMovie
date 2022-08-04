@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -26,20 +23,18 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import au.com.carsales.emovie.R
-import au.com.carsales.emovie.databinding.FragmentFavoritesBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
-import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.BaseNavFragment
-import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
-import au.com.carsales.emovie.utils.base.setBackButton
-import au.com.carsales.emovie.utils.base.state.observeStateLiveData
 import au.com.carsales.emovie.utils.compose.BaseToolbar
 import au.com.carsales.emovie.utils.compose.ComposableAsyncImage
+import au.com.carsales.emovie.utils.compose.ComposableText
 import au.com.carsales.emovie.utils.compose.composeContentView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,7 +72,7 @@ class FavoritesFragment : BaseNavFragment() {
         MaterialTheme {
             BaseToolbar(
                 toolbarTitle = stringResource(
-                    id = R.string.favorites_toolbar_title),
+                    id = R.string.favorites_title),
                 onBackAction = { navigateBack()},
                 paddingAction = {
                     GeneralView(paddingValues = it)
@@ -97,9 +92,20 @@ class FavoritesFragment : BaseNavFragment() {
 
         Column(
             Modifier
+                .fillMaxHeight()
                 .padding(paddingValues)
                 .background(backgroundColor)
         ) {
+            ComposableText(
+                text = stringResource(id = R.string.favorites_title),
+                color = Color.White,
+                size = 20.sp,
+                fontFamily = FontFamily(Font(R.font.open_sans_semi_bold)),
+                bottomPadding = 12.dp,
+                topPadding = 12.dp,
+                startPadding = 16.dp
+            )
+
             MoviesGrid(movies = favoriteMovies.orEmpty())
         }
 
@@ -108,7 +114,8 @@ class FavoritesFragment : BaseNavFragment() {
     @Composable
     fun MoviesGrid(movies: List<UIMovieItem>) {
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 128.dp)
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            modifier = Modifier.padding(start = 16.dp)
         ) {
             items(movies) { movie ->
                 MovieItem(movie)
@@ -127,13 +134,15 @@ class FavoritesFragment : BaseNavFragment() {
                 bitmap = bitmap.asImageBitmap(),
                 contentDescription = stringResource(id = R.string.favorite_movie_content_description),
                 modifier = Modifier
+                    .padding(8.dp)
                     .clip(RoundedCornerShape(10.dp))
+                    .clickable { goToDetailScreen(movie) }
             )
         }
     }
 
     private fun goToDetailScreen(item : UIMovieItem) {
-        val direction = FavoritesFragmentDirections.goToEpisodeDetailAction(item)
+        val direction = FavoritesFragmentDirections.goToMovieDetailsFromFavoriteAction(item)
 
         navigate(direction)
     }

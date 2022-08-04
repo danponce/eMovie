@@ -13,7 +13,7 @@
     <string name="recommended_title">Recommended to you</string>
 
     <!-- Favorites Fragment -->
-    <string name="favorites_toolbar_title">My Favorites</string>
+    <string name="favorites_title">My Favorites</string>
     <string name="favorites_empty_message">Wait no more! You can go back and add new favorites to your collection!</string>
     <string name="favorite_movie_content_description">Favorite Movie Image</string>
 
