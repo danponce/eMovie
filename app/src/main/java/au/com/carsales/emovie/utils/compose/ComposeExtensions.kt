@@ -4,17 +4,23 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
@@ -112,7 +118,7 @@ fun ComposableText(
     )
 }
 
-fun loadImageUrlWithCallback(url: String, context: Context, bitmapReadyListener : (Bitmap) -> Unit) {
+fun loadImageUrlWithCallback(context: Context, url: String, bitmapReadyListener : (Bitmap) -> Unit) {
     Glide.with(context).asBitmap()
         .load(url)
         .into(object : CustomTarget<Bitmap>() {
@@ -122,4 +128,55 @@ fun loadImageUrlWithCallback(url: String, context: Context, bitmapReadyListener 
 
             override fun onLoadCleared(placeholder: Drawable?) {}
         })
+}
+
+@Composable
+fun ComposableImageWithBitmap(
+    bitmap: Bitmap?,
+    drawableResource: Int,
+    placeHolderSize : Dp,
+    content : @Composable (Bitmap) -> Unit
+) {
+    when (bitmap == null) {
+        true -> {
+            Image(
+                painter = painterResource(drawableResource),
+                contentDescription = "Avatar",
+                modifier = Modifier
+                    .size(placeHolderSize)
+            )
+        }
+
+        false -> {
+            content.invoke(bitmap)
+            Image(
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = "Avatar",
+                modifier = Modifier
+                    .size(30.dp)
+                    .clip(CircleShape)
+            )
+        }
+    }
+}
+
+@Composable
+fun ComposableAsyncImage(
+    url: String,
+    drawableResource: Int,
+    placeHolderSize : Dp,
+    content : @Composable (Bitmap) -> Unit
+) {
+    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
+
+    loadImageUrlWithCallback(LocalContext.current, url) {
+        bitmap = it
+    }
+
+    ComposableImageWithBitmap(
+        bitmap,
+        drawableResource,
+        placeHolderSize,
+        content
+    )
 }

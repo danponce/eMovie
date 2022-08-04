@@ -54,3 +54,20 @@ fun <T> resultFlow(
 
     }.flowOn(Dispatchers.IO)
 
+/**
+ * Executes a database query
+ * returning a State object
+ */
+fun <T> databaseResultFlow(
+    databaseQuery: suspend () -> Flow<T>
+): Flow<State<T>> =
+    flow<State<T>> {
+        databaseQuery.invoke().collect { result ->
+            when(result) {
+                null -> emit(State.empty())
+                else -> emit(State.success(result))
+            }
+        }
+
+    }.flowOn(Dispatchers.IO)
+

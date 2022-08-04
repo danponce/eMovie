@@ -4,15 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentFavoritesBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
+import au.com.carsales.emovie.utils.base.BaseNavFragment
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.emovie.utils.base.setBackButton
 import au.com.carsales.emovie.utils.base.state.observeStateLiveData
+import au.com.carsales.emovie.utils.compose.BaseToolbar
+import au.com.carsales.emovie.utils.compose.ComposableAsyncImage
+import au.com.carsales.emovie.utils.compose.composeContentView
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -20,9 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 @AndroidEntryPoint
-class FavoritesFragment : BaseDataBindingFragment<FragmentFavoritesBinding>() {
-
-    override fun layoutId(): Int = R.layout.fragment_favorites
+class FavoritesFragment : BaseNavFragment() {
 
     private val favoritesViewModel: FavoritesViewModel by viewModels()
 
@@ -30,40 +56,78 @@ class FavoritesFragment : BaseDataBindingFragment<FragmentFavoritesBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
         initObservers()
 
-        binding.newToolbar.setBackButton(requireActivity()) { navigateBack() }
-
-        return binding.root
+        return composeContentView(
+            compositionStrategy = ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner),
+            content = { ComposeView() } )
     }
     
     private fun initObservers() {
-        favoritesViewModel.favoritesLiveData.observeStateLiveData(
-            viewLifecycleOwner,
-            onSuccess = { setFavoritesRecyclerView(it.data) }
-        )
+        favoritesViewModel.favoritesLiveData.observe(viewLifecycleOwner) {
+
+        }
     }
-    
-    private fun setFavoritesRecyclerView(favoritesList : List<UIMovieItem>?) {
-        binding.favoritesRecyclerView.apply { 
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = SingleLayoutBindRecyclerAdapter(
-                R.layout.view_cell_favorite,
-                favoritesList,
-                clickHandler = { view, item ->
 
-                    when(view.id) {
-                        R.id.favoriteContainer -> goToDetailScreen(item)
+    @Composable
+    private fun ComposeView() {
+        MaterialTheme {
+            BaseToolbar(
+                toolbarTitle = stringResource(
+                    id = R.string.favorites_toolbar_title),
+                onBackAction = { navigateBack()},
+                paddingAction = {
+                    GeneralView(paddingValues = it)
+                },
+            )
+        }
+    }
 
-                        R.id.favoriteImageView -> {
-                            favoritesViewModel.deleteFromFavorites(item)
-                        }
-                    }
-                    
-                }
+    @Composable
+    private fun GeneralView(paddingValues: PaddingValues) {
+        val context = LocalContext.current
+
+        val backgroundColor =
+            Color(ContextCompat.getColor(context, R.color.primaryDarkColor))
+
+        val favoriteMovies by favoritesViewModel.favoritesLiveData.observeAsState()
+
+        Column(
+            Modifier
+                .padding(paddingValues)
+                .background(backgroundColor)
+        ) {
+            MoviesGrid(movies = favoriteMovies.orEmpty())
+        }
+
+    }
+
+    @Composable
+    fun MoviesGrid(movies: List<UIMovieItem>) {
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = 128.dp)
+        ) {
+            items(movies) { movie ->
+                MovieItem(movie)
+            }
+        }
+    }
+
+    @Composable
+    fun MovieItem(movie : UIMovieItem) {
+        ComposableAsyncImage(
+            movie.getFormattedPosterPath(),
+            R.drawable.ic_default_image_placeholder_48,
+            30.dp
+        ) { bitmap ->
+            Image(
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = stringResource(id = R.string.favorite_movie_content_description),
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
             )
         }
     }
@@ -78,7 +142,5 @@ class FavoritesFragment : BaseDataBindingFragment<FragmentFavoritesBinding>() {
         super.onViewCreated(view, savedInstanceState)
         
         favoritesViewModel.getFavoritesTVShows()
-
-        binding.viewModel = favoritesViewModel
     }
 }

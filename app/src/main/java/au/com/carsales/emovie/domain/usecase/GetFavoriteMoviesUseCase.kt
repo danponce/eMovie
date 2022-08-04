@@ -1,6 +1,7 @@
 package au.com.carsales.emovie.domain.usecase
 
 import au.com.carsales.emovie.domain.repository.LocalMoviesRepository
+import au.com.carsales.emovie.domain.utils.databaseResultFlow
 import javax.inject.Inject
 
 /**
@@ -10,5 +11,6 @@ import javax.inject.Inject
 class GetFavoriteMoviesUseCase @Inject constructor(
     private val localMoviesRepository: LocalMoviesRepository
 ) {
-    suspend fun getFavoriteMovies() = localMoviesRepository.getFavoriteMovies()
+    suspend fun getFavoriteMovies() =
+        databaseResultFlow { localMoviesRepository.getFavoriteMovies() }
 }
