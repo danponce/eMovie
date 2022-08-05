@@ -25,20 +25,20 @@ class MoviesActivity : BaseNavActivity() {
 
         if (!splashWasDisplayed) {
             val splashScreen = installSplashScreen()
-//            splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
-//                splashScreenViewProvider.iconView
-//                    .animate()
-//                    .setDuration(splashFadeDurationMillis.toLong())
-//                    .alpha(0f)
-//                    .withEndAction {
-//                        splashScreenViewProvider.remove()
-//                        super.onCreate(savedInstanceState)
-//                    }.start()
-//            }
-            super.onCreate(savedInstanceState)
-        } else {
-            super.onCreate(savedInstanceState)
+            splashScreen.setOnExitAnimationListener { splashScreenViewProvider ->
+                splashScreenViewProvider.iconView
+                    .animate()
+                    .setDuration(splashFadeDurationMillis.toLong())
+                    .alpha(0f)
+                    .withEndAction {
+                        splashScreenViewProvider.remove()
+
+                    }.start()
+            }
         }
+
+        setTheme(R.style.Theme_TestApp)
+        super.onCreate(savedInstanceState)
 
     }
 }
