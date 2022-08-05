@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MoviesActivity : BaseNavActivity() {
 
     companion object {
-        const val splashFadeDurationMillis = 500
+        const val splashFadeDurationMillis = 300
     }
 
     override fun layoutViewBinding(): ViewBinding = ActivityMainBinding.inflate(layoutInflater)
