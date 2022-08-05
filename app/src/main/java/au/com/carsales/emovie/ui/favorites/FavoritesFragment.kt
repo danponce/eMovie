@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,10 +38,7 @@ import androidx.fragment.app.viewModels
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseNavFragment
-import au.com.carsales.emovie.utils.compose.BaseToolbar
-import au.com.carsales.emovie.utils.compose.ComposableAsyncImage
-import au.com.carsales.emovie.utils.compose.ComposableText
-import au.com.carsales.emovie.utils.compose.composeContentView
+import au.com.carsales.emovie.utils.compose.*
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -68,14 +67,13 @@ class FavoritesFragment : BaseNavFragment() {
     @Composable
     private fun ComposeView() {
         MaterialTheme {
-            BaseToolbar(
-                toolbarTitle = stringResource(
-                    id = R.string.favorites_title
-                ),
+            BaseToolbarWithImage(
+                elevation = 0.dp,
+                backgroundColor = colorResource(id = R.color.black),
                 onBackAction = { navigateBack() },
                 paddingAction = {
                     GeneralView(paddingValues = it)
-                },
+                }
             )
         }
     }
@@ -85,7 +83,7 @@ class FavoritesFragment : BaseNavFragment() {
         val context = LocalContext.current
 
         val backgroundColor =
-            Color(ContextCompat.getColor(context, R.color.primaryDarkColor))
+            Color(ContextCompat.getColor(context, R.color.black))
 
         val favoriteMovies by favoritesViewModel.favoritesLiveData.observeAsState()
 
@@ -103,20 +101,24 @@ class FavoritesFragment : BaseNavFragment() {
                 fontFamily = FontFamily(Font(R.font.open_sans_semi_bold)),
                 bottomPadding = 12.dp,
                 topPadding = 12.dp,
-                startPadding = 10.dp
+                startPadding = 16.dp
             )
 
             MoviesGrid(movies = favoriteMovies.orEmpty())
         }
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun MoviesGrid(movies: List<UIMovieItem>) {
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 128.dp)
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            modifier = Modifier.padding(start = 10.dp)
         ) {
             items(movies) { movie ->
-                MovieItem(movie)
+                Row(Modifier.animateItemPlacement(tween(durationMillis = 250))) {
+                    MovieItem(movie)
+                }
             }
         }
     }
@@ -125,7 +127,7 @@ class FavoritesFragment : BaseNavFragment() {
     fun MovieItem(movie: UIMovieItem) {
         ConstraintLayout {
 
-            val (image, button, spacer) = createRefs()
+            val (image, button) = createRefs()
 
             ComposableAsyncImage(
                 movie.getFormattedPosterPath(),
@@ -148,23 +150,14 @@ class FavoritesFragment : BaseNavFragment() {
                 )
             }
 
-            Spacer(modifier = Modifier
-                .width(0.dp)
-                .height(0.dp)
-                .constrainAs(spacer) {
-                    top.linkTo(image.top)
-                    end.linkTo(image.end)
-                }
-            )
-
             Icon(
                 painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
                 contentDescription = stringResource(id = R.string.favorite_movie_favorite_btn_description),
                 tint = colorResource(id = R.color.secondaryColor),
                 modifier = Modifier
                     .constrainAs(button) {
-                        top.linkTo(spacer.bottom)
-                        end.linkTo(spacer.start)
+                        top.linkTo(image.top)
+                        end.linkTo(image.end)
                     }
                     .width(36.dp)
                     .height(36.dp)

@@ -5,15 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -53,13 +51,12 @@ fun Fragment.composeContentView(
 }
 
 @Composable
-fun BaseToolbar(
-    toolbarTitle : String,
+fun BaseToolbarWithImage(
+    imageResource : Int?= null,
     onBackEnabled : Boolean = true,
     onBackAction : () -> Unit,
     backgroundColor: Color? = null,
     backButtonColor: Color = Color.White,
-    textColor: Color = Color.White,
     paddingAction : @Composable (PaddingValues) -> Unit,
     elevation: Dp = AppBarDefaults.TopAppBarElevation
 ) {
@@ -71,14 +68,9 @@ fun BaseToolbar(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(
-                    toolbarTitle,
-                    fontSize = 18.sp,
-                    color = textColor)
-                },
                 backgroundColor = backgroundColor ?: primaryColor,
                 elevation = elevation,
-                navigationIcon = {
+                content = {
                     if(onBackEnabled) {
                         IconButton(onClick = { onBackAction.invoke() }) {
                             Icon(
@@ -86,6 +78,20 @@ fun BaseToolbar(
                                 contentDescription = "Back",
                                 tint = backButtonColor
                             )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                        .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically) {
+
+                        if(imageResource != null) {
+                            Image(
+                                modifier = Modifier.padding(10.dp),
+                                painter = painterResource(id = imageResource),
+                                contentDescription = "Top Bar Image")
                         }
                     }
                 }
