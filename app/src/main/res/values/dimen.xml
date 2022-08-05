@@ -12,4 +12,6 @@
     <dimen name="default_view_padding">16dp</dimen>
     <dimen name="view_component_padding">16dp</dimen>
 
+    <dimen name="brand_logo_width">82dp</dimen>
+
 </resources>

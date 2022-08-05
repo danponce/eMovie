@@ -33,8 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:minHeight="?attr/actionBarSize"
-                app:titleTextColor="@color/white"
-                tools:title="@string/app_name">
+                app:titleTextColor="@color/white">
+
+                <ImageView
+                    android:layout_width="@dimen/brand_logo_width"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_brand_logo"
+                    android:layout_gravity="center"/>
 
             </androidx.appcompat.widget.Toolbar>
 
