@@ -3,15 +3,14 @@ package au.com.carsales.emovie.ui.favorites
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import au.com.carsales.emovie.domain.usecase.DeleteFavoriteMovieUseCase
 import au.com.carsales.emovie.domain.usecase.GetFavoriteMoviesUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
 import au.com.carsales.emovie.ui.mapper.UIMovieItemMapper
 import au.com.carsales.emovie.ui.model.UIMovieItem
-import au.com.carsales.emovie.utils.base.State
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
-    private val movieListMapper: UIMovieItemListMapper
+    private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
+    private val movieListMapper: UIMovieItemListMapper,
+    private val movieItemMapper: UIMovieItemMapper
 ) : BaseViewModel() {
 
     private val _favoritesLiveData = MutableLiveData<List<UIMovieItem>?>()
@@ -39,7 +40,7 @@ class FavoritesViewModel @Inject constructor(
 
     fun deleteFromFavorites(item: UIMovieItem) {
         viewModelScope.launch(Dispatchers.IO) {
-
+            deleteFavoriteMovieUseCase.deleteFavoriteMovie(movieItemMapper.executeMapping(item))
         }
     }
 }

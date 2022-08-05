@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,11 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import au.com.carsales.emovie.R
@@ -54,19 +58,11 @@ class FavoritesFragment : BaseNavFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        initObservers()
-
         return composeContentView(
             compositionStrategy = ViewCompositionStrategy.DisposeOnLifecycleDestroyed(
                 viewLifecycleOwner
             ),
             content = { ComposeView() })
-    }
-
-    private fun initObservers() {
-        favoritesViewModel.favoritesLiveData.observe(viewLifecycleOwner) {
-
-        }
     }
 
     @Composable
@@ -127,20 +123,59 @@ class FavoritesFragment : BaseNavFragment() {
 
     @Composable
     fun MovieItem(movie: UIMovieItem) {
-        ComposableAsyncImage(
-            movie.getFormattedPosterPath(),
-            R.drawable.ic_default_image_placeholder_48,
-            30.dp
-        ) { bitmap ->
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = stringResource(id = R.string.favorite_movie_content_description),
-                modifier = Modifier
-                    .padding(10.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .clickable { goToDetailScreen(movie) }
+        ConstraintLayout {
+
+            val (image, button, spacer) = createRefs()
+
+            ComposableAsyncImage(
+                movie.getFormattedPosterPath(),
+                R.drawable.ic_default_image_placeholder_48,
+                30.dp,
+                modifier = Modifier.constrainAs(image) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+            ) { bitmap ->
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = stringResource(id = R.string.favorite_movie_content_description),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .clickable { goToDetailScreen(movie) }
+                )
+            }
+
+            Spacer(modifier = Modifier
+                .width(0.dp)
+                .height(0.dp)
+                .constrainAs(spacer) {
+                    top.linkTo(image.top)
+                    end.linkTo(image.end)
+                }
             )
+
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
+                contentDescription = stringResource(id = R.string.favorite_movie_favorite_btn_description),
+                tint = colorResource(id = R.color.secondaryColor),
+                modifier = Modifier
+                    .constrainAs(button) {
+                        top.linkTo(spacer.bottom)
+                        end.linkTo(spacer.start)
+                    }
+                    .width(36.dp)
+                    .height(36.dp)
+                    .clickable { removeFavorite(movie) }
+            )
+
         }
+    }
+
+    private fun removeFavorite(movie: UIMovieItem) {
+        favoritesViewModel.deleteFromFavorites(movie)
     }
 
     private fun goToDetailScreen(item: UIMovieItem) {

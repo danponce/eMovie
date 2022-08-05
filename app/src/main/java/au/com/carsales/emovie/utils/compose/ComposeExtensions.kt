@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -135,20 +136,23 @@ fun ComposableImageWithBitmap(
     bitmap: Bitmap?,
     drawableResource: Int,
     placeHolderSize : Dp,
-    content : @Composable (Bitmap) -> Unit
+    content : @Composable (Bitmap) -> Unit,
+    modifier: Modifier
 ) {
-    when (bitmap == null) {
-        true -> {
-            Image(
-                painter = painterResource(drawableResource),
-                contentDescription = "Avatar",
-                modifier = Modifier
-                    .size(placeHolderSize)
-            )
-        }
+    Column(modifier) {
+        when (bitmap == null) {
+            true -> {
+                Image(
+                    painter = painterResource(drawableResource),
+                    contentDescription = "Avatar",
+                    modifier = Modifier
+                        .size(placeHolderSize)
+                )
+            }
 
-        false -> {
-            content.invoke(bitmap)
+            false -> {
+                content.invoke(bitmap)
+            }
         }
     }
 }
@@ -158,6 +162,7 @@ fun ComposableAsyncImage(
     url: String,
     drawableResource: Int,
     placeHolderSize : Dp,
+    modifier: Modifier,
     content : @Composable (Bitmap) -> Unit
 ) {
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
@@ -170,6 +175,7 @@ fun ComposableAsyncImage(
         bitmap,
         drawableResource,
         placeHolderSize,
-        content
+        content,
+        modifier
     )
 }
