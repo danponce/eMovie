@@ -22,10 +22,10 @@ fun <T> resultFlow(
 
         combine(databaseQuery.invoke(), networkCall.invoke()) { db, network ->
 
+            emit(State.loading<T>())
+
             if (db != null) {
                 emit(State.success<T>(db))
-            } else {
-                emit(State.empty<T>())
             }
 
             if(!isNetworkExecuted) {
