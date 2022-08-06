@@ -57,6 +57,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 setDataToRecyclerView(it, binding.topRatedMoviesRecyclerView)
                 setDataToRecyclerView(it, binding.recommendedMoviesRecyclerView)
 
+                initFilterInfo(getString(R.string.language_default_selection), getString(R.string.release_year_default_selection))
                 // Call to get last user preferences data
                 getUserPreferences()
             }
@@ -123,7 +124,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 openListSelection(
                     homeViewModel.getRecommendedMoviesLanguages().toTypedArray()
                 ) {
-                    homeViewModel.filterRecommendedMoviesByLanguage(it)
+                    // If it's the default then pass the empty so we update correctly the filter
+                    val languageFilter = if(it == getString(R.string.language_default_selection)) "" else it
+                    homeViewModel.filterRecommendedMoviesByLanguage(languageFilter)
                 }
             }
 
@@ -131,7 +134,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 openListSelection(
                     homeViewModel.getRecommendedMoviesYears().toTypedArray()
                 ) {
-                    homeViewModel.filterRecommendedMoviesByYear(it)
+                    // If it's the default then pass the empty so we update correctly the filter
+                    val yearFilter = if(it == getString(R.string.release_year_default_selection)) "" else it
+                    homeViewModel.filterRecommendedMoviesByYear(yearFilter)
                 }
             }
         }

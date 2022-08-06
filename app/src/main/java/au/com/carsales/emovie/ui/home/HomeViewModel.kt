@@ -29,6 +29,9 @@ class HomeViewModel @Inject constructor(
         emit(userPreferencesRepository.fetchInitialPreferences())
     }
 
+    lateinit var allLanguagesString : String
+    lateinit var allReleaseYearsString : String
+
     // Keep the user preferences as a stream of changes
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
     val userPreferencesFlowLiveData = userPreferencesRepository.userPreferencesFlow.asLiveData()
@@ -41,6 +44,22 @@ class HomeViewModel @Inject constructor(
 
     private val _topRatedMoviesLiveData = MutableLiveData<List<UIMovieItem>>()
     val topRatedMoviesLiveData: LiveData<List<UIMovieItem>> = _topRatedMoviesLiveData
+
+    private val _recommendedMoviesLiveData = MutableLiveData<List<UIMovieItem>>()
+    val recommendedMoviesLiveData: LiveData<List<UIMovieItem>> = _recommendedMoviesLiveData
+
+    /**
+     * Used to set the strings that
+     * will be used later as the
+     * option to "select all"
+     *
+     * @param allLanguages      the all languages string option
+     * @param allYears          the all years string option
+     */
+    fun initFilterInfo(allLanguages : String, allYears: String) {
+        allLanguagesString = allLanguages
+        allReleaseYearsString = allYears
+    }
 
     /**
      * Collects data within this view model
@@ -73,7 +92,7 @@ class HomeViewModel @Inject constructor(
     fun getTopRatedMovies() =
         useCaseCollect(
             flowCall = { getTopRatedMoviesUseCase.getTopRatedMovies() },
-            liveData = _topRatedMoviesLiveData,
+            liveDatas = arrayOf(_topRatedMoviesLiveData, _recommendedMoviesLiveData),
             mapper = movieItemMapper
         )
 
@@ -85,9 +104,13 @@ class HomeViewModel @Inject constructor(
     fun getLastUpcomingData() = upcomingMoviesLiveData.value.orEmpty()
 
     fun getRecommendedMoviesLanguages() : List<String> {
-        return topRatedMoviesLiveData.value?.map { movie ->
+        val languagesString = mutableListOf<String>()
+        languagesString.add(allLanguagesString)
+        languagesString.addAll(recommendedMoviesLiveData.value?.map { movie ->
             movie.displayLanguage
-        }?.distinct().orEmpty()
+        }?.distinct().orEmpty())
+
+        return languagesString
     }
 
     fun filterRecommendedMoviesByLanguage(language : String) {
@@ -97,9 +120,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getRecommendedMoviesYears() : List<String> {
-        return topRatedMoviesLiveData.value?.map { movie ->
+        val yearsString = mutableListOf<String>()
+        yearsString.add(allReleaseYearsString)
+        yearsString.addAll(recommendedMoviesLiveData.value?.map { movie ->
             movie.releaseYear
-        }?.distinct().orEmpty()
+        }?.distinct().orEmpty())
+
+        return yearsString
     }
 
     fun filterRecommendedMoviesByYear(releaseYear : String) {
@@ -110,26 +137,23 @@ class HomeViewModel @Inject constructor(
 
     fun getFilteredRecommendedList(userPreferences: UserPreferences?): List<UIMovieItem> {
         return when(userPreferences) {
-            null -> topRatedMoviesLiveData.value.orEmpty()
+            null -> recommendedMoviesLiveData.value.orEmpty()
             else -> {
-                topRatedMoviesLiveData.value?.filter { movie ->
-                    when {
-                        userPreferences.languageFilter.isNotEmpty() &&
-                                userPreferences.releaseYearFilter.isNotEmpty()-> {
-                            (userPreferences.languageFilter == movie.displayLanguage && userPreferences.releaseYearFilter == movie.releaseYear)
-                                }
+                recommendedMoviesLiveData.value?.filter { movie ->
+                    var valid = true
 
-                        userPreferences.languageFilter.isNotEmpty() -> {
-                            userPreferences.languageFilter == movie.displayLanguage
-                        }
+                    val language = userPreferences.languageFilter
+                    val year = userPreferences.releaseYearFilter
 
-                        userPreferences.releaseYearFilter.isNotEmpty() -> {
-                            userPreferences.releaseYearFilter == movie.releaseYear
-                        }
-
-                        else -> true
-
+                    if(language.isNotEmpty()) {
+                        valid = (language == movie.displayLanguage)
                     }
+
+                    if(year.isNotEmpty()) {
+                        valid = (year == movie.releaseYear)
+                    }
+
+                    valid
                 }.orEmpty()
             }
         }

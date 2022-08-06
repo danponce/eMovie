@@ -114,4 +114,49 @@ abstract class BaseViewModel : ViewModel() {
                 }
         }
     }
+
+    /**
+     * Executes a use case flow call using
+     * corresponding mapper and updating
+     * given live data objects
+     *
+     * @param flowCall      the flow call of the use case
+     * @param liveDatas     the live data object to update with values
+     * @param mapper        the related mapper
+     */
+    fun <T, K> useCaseCollect(
+        flowCall : suspend () -> Flow<State<T>>,
+        vararg liveDatas : MutableLiveData<K>,
+        mapper : Mapper<T, K>
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            setLoadingStatus()
+
+            flowCall()
+                .distinctUntilChanged()
+                .catch { setErrorStatus() }
+                .collect { state ->
+
+                    when (state) {
+                        is State.Loading -> {
+                            setLoadingStatus()
+                        }
+
+                        is State.Success -> {
+                            liveDatas.map { it.postValue(mapper.executeMapping(state.data)) }
+                            setSuccessStatus()
+                        }
+
+                        is State.Empty -> {
+                            setEmptyStatus()
+                        }
+
+                        is State.Error -> {
+                            setErrorStatus()
+                        }
+                    }
+                }
+        }
+    }
 }
