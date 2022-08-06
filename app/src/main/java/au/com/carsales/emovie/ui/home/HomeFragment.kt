@@ -126,6 +126,9 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private fun filterByLanguage(language: String) {
         binding.filterLanguageButton.text = language
+        setDataToRecyclerView(
+            homeViewModel.getRecommendedMoviesLanguagesFilteredByLanguage(language),
+            binding.recommendedMoviesRecyclerView)
     }
 
     private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {

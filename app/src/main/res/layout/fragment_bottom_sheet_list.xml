@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="@dimen/bottom_sheet_dialog_close_button_size"
+        android:layout_height="@dimen/bottom_sheet_dialog_close_button_size"
+        android:src="@drawable/ic_baseline_close_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primaryDarkColor"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/bottom_sheet_dialog_recycler_view_top_margin"
+        android:layout_marginHorizontal="@dimen/default_view_padding"
+        app:layout_constraintTop_toBottomOf="@id/closeButton"
         android:maxHeight="@dimen/bottom_sheet_dialog_max_height"
         tools:listitem="@layout/view_cell_bottom_sheet_list_item"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

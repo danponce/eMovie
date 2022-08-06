@@ -61,8 +61,16 @@ class HomeViewModel @Inject constructor(
 
     fun getRecommendedMoviesLanguages() : List<String> {
         return topRatedMoviesLiveData.value?.map { movie ->
-            LanguageHelper.getISOToLanguage(movie.originalLanguage)
+
+            // Set the display language so
+            // we can filter them after
+            movie.displayLanguage = LanguageHelper.getISOToLanguage(movie.originalLanguage)
+            movie.displayLanguage.orEmpty()
         }?.distinct().orEmpty()
+    }
+
+    fun getRecommendedMoviesLanguagesFilteredByLanguage(language : String) : List<UIMovieItem> {
+        return topRatedMoviesLiveData.value?.filter { movie -> movie.displayLanguage == language }.orEmpty()
     }
 
 }
