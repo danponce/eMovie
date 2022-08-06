@@ -101,6 +101,9 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
+    // Lottie for Compose
+    implementation "com.airbnb.android:lottie-compose:5.0.3"
+
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
