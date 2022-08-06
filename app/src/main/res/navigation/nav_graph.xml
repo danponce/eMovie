@@ -52,7 +52,7 @@
 
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/bottomSheetDialogList"
         android:name="au.com.carsales.emovie.utils.base.views.BottomSheetDialogList"
         android:label="BottomSheetDialogList"
@@ -62,5 +62,5 @@
             android:name="stringList"
             app:argType="string[]"/>
 
-    </fragment>
+    </dialog>
 </navigation>
