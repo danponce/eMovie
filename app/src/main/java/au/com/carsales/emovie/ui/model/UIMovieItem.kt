@@ -22,5 +22,8 @@ class UIMovieItem(
     @IgnoredOnParcel
     var displayLanguage : String ?= null
 
+    @IgnoredOnParcel
+    var releaseYear : String ?= null
+
     fun getFormattedPosterPath() = BuildConfig.IMAGE_URL + posterPath
 }

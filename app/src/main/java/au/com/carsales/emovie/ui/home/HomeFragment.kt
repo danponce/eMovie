@@ -110,24 +110,45 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             }
 
             filterLanguageButton.setOnClickListener {
-                val direction = HomeFragmentDirections
-                    .goToBottomSheetDialogListFromHome(
-                        homeViewModel.getRecommendedMoviesLanguages().toTypedArray(),
-                        object : BottomSheetDialogListListener {
-                            override fun onStringSelected(language: String) {
-                                filterByLanguage(language)
-                            }
-                        }
-                    )
-                navigate(direction)
+                openListSelection(
+                    homeViewModel.getRecommendedMoviesLanguages().toTypedArray()
+                ) {
+                    filterByLanguage(it)
+                }
+            }
+
+            filterYearButton.setOnClickListener {
+                openListSelection(
+                    homeViewModel.getRecommendedMoviesYears().toTypedArray()
+                ) {
+                    filterByYears(it)
+                }
             }
         }
     }
 
+    private fun openListSelection(stringArray: Array<String>, selectionAction: (String) -> Unit) {
+        val direction = HomeFragmentDirections
+            .goToBottomSheetDialogListFromHome(
+                stringArray,
+                object : BottomSheetDialogListListener {
+                    override fun onStringSelected(string: String) {
+                        selectionAction.invoke(string)
+                    }
+                }
+            )
+        navigate(direction)
+    }
+
     private fun filterByLanguage(language: String) {
-        binding.filterLanguageButton.text = language
         setDataToRecyclerView(
             homeViewModel.getRecommendedMoviesLanguagesFilteredByLanguage(language),
+            binding.recommendedMoviesRecyclerView)
+    }
+
+    private fun filterByYears(year: String) {
+        setDataToRecyclerView(
+            homeViewModel.getRecommendedMoviesLanguagesFilteredByYear(year),
             binding.recommendedMoviesRecyclerView)
     }
 
