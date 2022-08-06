@@ -13,6 +13,8 @@
     <string name="recommended_title">Recommended to you</string>
     <string name="year_button_message">Released in %s</string>
     <string name="language_button_message">In %s</string>
+    <string name="language_default_selection">All Languages</string>
+    <string name="release_year_default_selection">All Years</string>
 
     <!-- Favorites Fragment -->
     <string name="favorites_title">My Favorites</string>

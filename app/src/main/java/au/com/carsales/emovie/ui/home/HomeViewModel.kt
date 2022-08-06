@@ -6,6 +6,7 @@ import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
+import au.com.carsales.emovie.utils.datastore.UserPreferences
 import au.com.carsales.emovie.utils.datastore.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -29,13 +30,28 @@ class HomeViewModel @Inject constructor(
     }
 
     // Keep the user preferences as a stream of changes
-    private val userPreferencesFlowLiveData = userPreferencesRepository.userPreferencesFlow.asLiveData()
+    private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
+    val userPreferencesFlowLiveData = userPreferencesRepository.userPreferencesFlow.asLiveData()
+
+    private val _userPreferencesLiveData = MutableLiveData<UserPreferences>()
+    val userPreferencesLiveData: LiveData<UserPreferences> = _userPreferencesLiveData
 
     private val _upcomingMoviesLiveData = MutableLiveData<List<UIMovieItem>>()
     val upcomingMoviesLiveData: LiveData<List<UIMovieItem>> = _upcomingMoviesLiveData
 
     private val _topRatedMoviesLiveData = MutableLiveData<List<UIMovieItem>>()
     val topRatedMoviesLiveData: LiveData<List<UIMovieItem>> = _topRatedMoviesLiveData
+
+    /**
+     * Collects data within this view model
+     * scope related to upcoming movies
+     * updating the live data object
+     */
+    fun getUserPreferences() =
+        useCaseCollect (
+            flowCall =  { userPreferencesFlow },
+            liveData = _userPreferencesLiveData
+        )
 
     /**
      * Collects data within this view model
@@ -74,12 +90,10 @@ class HomeViewModel @Inject constructor(
         }?.distinct().orEmpty()
     }
 
-    fun getRecommendedMoviesLanguagesFilteredByLanguage(language : String) : List<UIMovieItem> {
+    fun filterRecommendedMoviesByLanguage(language : String) {
         viewModelScope.launch(Dispatchers.IO) {
             userPreferencesRepository.updateLanguageFilter(language)
         }
-
-        return topRatedMoviesLiveData.value?.filter { movie -> movie.displayLanguage == language }.orEmpty()
     }
 
     fun getRecommendedMoviesYears() : List<String> {
@@ -88,12 +102,37 @@ class HomeViewModel @Inject constructor(
         }?.distinct().orEmpty()
     }
 
-    fun getRecommendedMoviesLanguagesFilteredByYear(releaseYear : String) : List<UIMovieItem> {
+    fun filterRecommendedMoviesByYear(releaseYear : String) {
         viewModelScope.launch(Dispatchers.IO) {
             userPreferencesRepository.updateReleaseYearFilter(releaseYear)
         }
+    }
 
-        return topRatedMoviesLiveData.value?.filter { movie -> movie.releaseYear == releaseYear }.orEmpty()
+    fun getFilteredRecommendedList(userPreferences: UserPreferences?): List<UIMovieItem> {
+        return when(userPreferences) {
+            null -> topRatedMoviesLiveData.value.orEmpty()
+            else -> {
+                topRatedMoviesLiveData.value?.filter { movie ->
+                    when {
+                        userPreferences.languageFilter.isNotEmpty() &&
+                                userPreferences.releaseYearFilter.isNotEmpty()-> {
+                            (userPreferences.languageFilter == movie.displayLanguage && userPreferences.releaseYearFilter == movie.releaseYear)
+                                }
+
+                        userPreferences.languageFilter.isNotEmpty() -> {
+                            userPreferences.languageFilter == movie.displayLanguage
+                        }
+
+                        userPreferences.releaseYearFilter.isNotEmpty() -> {
+                            userPreferences.releaseYearFilter == movie.releaseYear
+                        }
+
+                        else -> true
+
+                    }
+                }.orEmpty()
+            }
+        }
     }
 
 }

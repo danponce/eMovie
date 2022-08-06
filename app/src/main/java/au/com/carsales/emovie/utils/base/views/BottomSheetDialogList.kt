@@ -32,9 +32,17 @@ class BottomSheetDialogList : BottomSheetDialogFragment() {
 
         val stringList = args.stringList
 
-        setStringRecyclerView(stringList.toList(), args.selectionListener)
+        setView(stringList.toList(), args.selectionListener)
 
         return binding.root
+    }
+
+    private fun setView(stringList : List<String>, listListener: BottomSheetDialogListListener) {
+        binding.closeButton.setOnClickListener {
+            dismiss()
+        }
+
+        setStringRecyclerView(stringList, listListener)
     }
 
     private fun setStringRecyclerView(stringList : List<String>, listListener: BottomSheetDialogListListener) {

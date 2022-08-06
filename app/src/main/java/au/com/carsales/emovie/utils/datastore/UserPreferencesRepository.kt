@@ -9,8 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import androidx.datastore.preferences.core.emptyPreferences
-import au.com.carsales.emovie.utils.datastore.UserPreferencesConstants.DEFAULT_LANGUAGE_FILTER
-import au.com.carsales.emovie.utils.datastore.UserPreferencesConstants.DEFAULT_RELEASE_YEAR_FILTER
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -57,10 +55,10 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
 
     private fun mapUserPreferences(preferences: Preferences): UserPreferences {
         // Get the language filter stored
-        val languageFilter = preferences[PreferencesKeys.LANGUAGE_FILTER] ?: DEFAULT_LANGUAGE_FILTER
+        val languageFilter = preferences[PreferencesKeys.LANGUAGE_FILTER] ?: ""
 
         // Get the release year stored
-        val releaseYearFilter = preferences[PreferencesKeys.RELEASE_YEAR_FILTER] ?: DEFAULT_RELEASE_YEAR_FILTER
+        val releaseYearFilter = preferences[PreferencesKeys.RELEASE_YEAR_FILTER] ?: ""
 
         return UserPreferences(languageFilter, releaseYearFilter)
     }

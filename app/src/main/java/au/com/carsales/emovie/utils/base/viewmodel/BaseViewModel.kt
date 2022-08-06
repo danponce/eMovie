@@ -48,6 +48,29 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     /**
+     * Executes a use case flow
+     * call and updating
+     * given live data object
+     *
+     * @param flowCall      the flow call of the use case
+     * @param liveData      the live data object to update with values
+     */
+    fun <T> useCaseCollect(
+        flowCall : suspend () -> Flow<T>,
+        liveData : MutableLiveData<T>
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            flowCall()
+                .distinctUntilChanged()
+                .catch { setErrorStatus() }
+                .collect {
+                    liveData.postValue(it)
+                }
+        }
+    }
+
+    /**
      * Executes a use case flow call using
      * corresponding mapper and updating
      * given live data object

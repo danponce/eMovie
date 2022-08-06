@@ -39,6 +39,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding.viewModel = homeViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         setObservers()
 
@@ -55,6 +56,15 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             topRatedMoviesLiveData.observe(viewLifecycleOwner) {
                 setDataToRecyclerView(it, binding.topRatedMoviesRecyclerView)
                 setDataToRecyclerView(it, binding.recommendedMoviesRecyclerView)
+
+                // Call to get last user preferences data
+                getUserPreferences()
+            }
+
+            userPreferencesLiveData.observe(viewLifecycleOwner) {
+                val filteredList = homeViewModel.getFilteredRecommendedList(it)
+
+                setDataToRecyclerView(filteredList, binding.recommendedMoviesRecyclerView)
             }
 
         }
@@ -113,7 +123,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 openListSelection(
                     homeViewModel.getRecommendedMoviesLanguages().toTypedArray()
                 ) {
-                    filterByLanguage(it)
+                    homeViewModel.filterRecommendedMoviesByLanguage(it)
                 }
             }
 
@@ -121,7 +131,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 openListSelection(
                     homeViewModel.getRecommendedMoviesYears().toTypedArray()
                 ) {
-                    filterByYears(it)
+                    homeViewModel.filterRecommendedMoviesByYear(it)
                 }
             }
         }
@@ -138,18 +148,6 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 }
             )
         navigate(direction)
-    }
-
-    private fun filterByLanguage(language: String) {
-        setDataToRecyclerView(
-            homeViewModel.getRecommendedMoviesLanguagesFilteredByLanguage(language),
-            binding.recommendedMoviesRecyclerView)
-    }
-
-    private fun filterByYears(year: String) {
-        setDataToRecyclerView(
-            homeViewModel.getRecommendedMoviesLanguagesFilteredByYear(year),
-            binding.recommendedMoviesRecyclerView)
     }
 
     private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {

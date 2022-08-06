@@ -85,7 +85,6 @@ object PresentationModule {
         return DeleteFavoriteMovieUseCase(localRepository)
     }
 
-    @Singleton
     @Provides
     fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
@@ -98,7 +97,6 @@ object PresentationModule {
         )
     }
 
-    @Singleton
     @Provides
     fun provideUserPreferencesRepository(
         preferencesDataStore: DataStore<Preferences>
