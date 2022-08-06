@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import au.com.carsales.emovie.R
@@ -52,18 +53,18 @@ fun Fragment.composeContentView(
 
 @Composable
 fun BaseToolbarWithImage(
-    imageResource : Int?= null,
-    onBackEnabled : Boolean = true,
-    onBackAction : () -> Unit,
+    imageResource: Int? = null,
+    onBackEnabled: Boolean = true,
+    onBackAction: () -> Unit,
     backgroundColor: Color? = null,
     backButtonColor: Color = Color.White,
-    paddingAction : @Composable (PaddingValues) -> Unit,
+    paddingAction: @Composable (PaddingValues) -> Unit,
     elevation: Dp = AppBarDefaults.TopAppBarElevation
 ) {
 
     val context = LocalContext.current
 
-    val primaryColor  = Color(ContextCompat.getColor(context, R.color.primaryColor))
+    val primaryColor = Color(ContextCompat.getColor(context, R.color.primaryColor))
 
     Scaffold(
         topBar = {
@@ -71,29 +72,44 @@ fun BaseToolbarWithImage(
                 backgroundColor = backgroundColor ?: primaryColor,
                 elevation = elevation,
                 content = {
-                    if(onBackEnabled) {
-                        IconButton(onClick = { onBackAction.invoke() }) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Back",
-                                tint = backButtonColor
+                    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+
+                        val (navIcon, image) = createRefs()
+
+                        if (onBackEnabled) {
+                            IconButton(
+                                onClick = { onBackAction.invoke() },
+                                modifier = Modifier.constrainAs(navIcon) {
+                                    start.linkTo(parent.start)
+                                    top.linkTo(parent.top)
+                                    bottom.linkTo(parent.bottom)
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = backButtonColor
+                                )
+                            }
+                        }
+
+                        if (imageResource != null) {
+                            Image(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .constrainAs(image) {
+                                        start.linkTo(parent.start)
+                                        end.linkTo(parent.end)
+                                        top.linkTo(parent.top)
+                                        bottom.linkTo(parent.bottom)
+                                    },
+                                painter = painterResource(id = imageResource),
+                                contentDescription = "Top Bar Image"
                             )
                         }
+
                     }
 
-                    Row(
-                        modifier = Modifier
-                        .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically) {
-
-                        if(imageResource != null) {
-                            Image(
-                                modifier = Modifier.padding(10.dp),
-                                painter = painterResource(id = imageResource),
-                                contentDescription = "Top Bar Image")
-                        }
-                    }
                 }
             )
         },
@@ -118,14 +134,19 @@ fun ComposableText(
     Text(
         text = text,
         style = MaterialTheme.typography.body1.merge(),
-        modifier = Modifier.padding(start = startPadding, top = topPadding, bottom = bottomPadding, end = endPadding ),
+        modifier = Modifier.padding(
+            start = startPadding,
+            top = topPadding,
+            bottom = bottomPadding,
+            end = endPadding
+        ),
         fontSize = size ?: 17.sp,
         color = color ?: Color.DarkGray,
         fontFamily = fontFamily
     )
 }
 
-fun loadImageUrlWithCallback(context: Context, url: String, bitmapReadyListener : (Bitmap) -> Unit) {
+fun loadImageUrlWithCallback(context: Context, url: String, bitmapReadyListener: (Bitmap) -> Unit) {
     Glide.with(context).asBitmap()
         .load(url)
         .into(object : CustomTarget<Bitmap>() {
@@ -141,8 +162,8 @@ fun loadImageUrlWithCallback(context: Context, url: String, bitmapReadyListener 
 fun ComposableImageWithBitmap(
     bitmap: Bitmap?,
     drawableResource: Int,
-    placeHolderSize : Dp,
-    content : @Composable (Bitmap) -> Unit,
+    placeHolderSize: Dp,
+    content: @Composable (Bitmap) -> Unit,
     modifier: Modifier
 ) {
     Column(modifier) {
@@ -167,9 +188,9 @@ fun ComposableImageWithBitmap(
 fun ComposableAsyncImage(
     url: String,
     drawableResource: Int,
-    placeHolderSize : Dp,
+    placeHolderSize: Dp,
     modifier: Modifier,
-    content : @Composable (Bitmap) -> Unit
+    content: @Composable (Bitmap) -> Unit
 ) {
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 

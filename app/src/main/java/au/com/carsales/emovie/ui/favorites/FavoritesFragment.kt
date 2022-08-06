@@ -81,6 +81,7 @@ class FavoritesFragment : BaseNavFragment() {
                 elevation = 0.dp,
                 backgroundColor = colorResource(id = R.color.black),
                 onBackAction = { navigateBack() },
+                imageResource = R.drawable.ic_brand_logo,
                 paddingAction = {
                     GeneralView(paddingValues = it)
                 }
