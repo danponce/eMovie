@@ -62,5 +62,9 @@
             android:name="stringList"
             app:argType="string[]"/>
 
+        <argument
+            android:name="selectionListener"
+            app:argType="au.com.carsales.emovie.utils.base.views.BottomSheetDialogListListener"/>
+
     </dialog>
 </navigation>

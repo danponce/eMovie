@@ -14,7 +14,7 @@ import au.com.carsales.emovie.databinding.FragmentHomeBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
-import au.com.carsales.emovie.utils.base.getToolbarHeight
+import au.com.carsales.emovie.utils.base.views.BottomSheetDialogListListener
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -56,6 +56,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
                 setDataToRecyclerView(it, binding.topRatedMoviesRecyclerView)
                 setDataToRecyclerView(it, binding.recommendedMoviesRecyclerView)
             }
+
         }
 
     }
@@ -109,12 +110,22 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             }
 
             filterLanguageButton.setOnClickListener {
-                val direction = HomeFragmentDirections.goToBottomSheetDialogListFromHome(homeViewModel.getRecommendedMoviesLanguages().toTypedArray())
+                val direction = HomeFragmentDirections
+                    .goToBottomSheetDialogListFromHome(
+                        homeViewModel.getRecommendedMoviesLanguages().toTypedArray(),
+                        object : BottomSheetDialogListListener {
+                            override fun onStringSelected(language: String) {
+                                filterByLanguage(language)
+                            }
+                        }
+                    )
                 navigate(direction)
             }
         }
+    }
 
-
+    private fun filterByLanguage(language: String) {
+        binding.filterLanguageButton.text = language
     }
 
     private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {

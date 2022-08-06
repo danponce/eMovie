@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import au.com.carsales.emovie.R
@@ -28,23 +29,23 @@ class BottomSheetDialogList : BottomSheetDialogFragment() {
 
         // Get args
         val args : BottomSheetDialogListArgs by navArgs()
+
         val stringList = args.stringList
 
-        setStringRecyclerView(stringList.toList())
+        setStringRecyclerView(stringList.toList(), args.selectionListener)
 
         return binding.root
     }
 
-    private fun setStringRecyclerView(stringList : List<String>) {
+    private fun setStringRecyclerView(stringList : List<String>, listListener: BottomSheetDialogListListener) {
         binding.listRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = SingleLayoutBindRecyclerAdapter(
                 R.layout.view_cell_bottom_sheet_list_item,
                 stringList
             ) { _, stringSelected ->
-
-
-
+                listListener.onStringSelected(stringSelected)
+                dismiss()
             }
         }
     }

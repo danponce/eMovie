@@ -21,7 +21,7 @@
 
     <!-- Bottom Sheet Dialog -->
     <dimen name="bottom_sheet_dialog_max_height">300dp</dimen>
-    <dimen name="bottom_sheet_dialog_item_text_size">18sp</dimen>
-    <dimen name="bottom_sheet_dialog_item_vertical_padding">6dp</dimen>
+    <dimen name="bottom_sheet_dialog_item_text_size">20sp</dimen>
+    <dimen name="bottom_sheet_dialog_item_vertical_padding">8dp</dimen>
 
 </resources>

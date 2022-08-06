@@ -19,6 +19,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/bottom_sheet_dialog_item_text_size"
         android:textColor="@color/primaryDarkColor"
+        android:textAllCaps="true"
+        android:onClick="@{(v) -> clickHandler.onClickView(v, item)}"
         tools:text="Simple Item"
         android:paddingHorizontal="@dimen/default_view_padding"
         android:paddingVertical="@dimen/bottom_sheet_dialog_item_vertical_padding"
