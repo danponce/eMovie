@@ -119,6 +119,7 @@
                 <au.com.carsales.emovie.utils.base.views.EmptyAllPurposeView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_empty_view_margin_top"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:visibility="@{( viewModel.isError() | viewModel.isEmpty() ) ? View.VISIBLE : View.GONE}"
