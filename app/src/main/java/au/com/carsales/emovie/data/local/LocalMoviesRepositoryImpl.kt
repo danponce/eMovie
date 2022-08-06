@@ -52,7 +52,7 @@ class LocalMoviesRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun getMovie(id: String): Flow<DomainMovieDetail> =
+    override suspend fun getMovie(id: String): Flow<DomainMovieDetail?> =
         flow {
             movieDetailDao.getMovieDetail(id).collect {
                 emit(entityToDomainMovieDetailMapper.executeMapping(it))

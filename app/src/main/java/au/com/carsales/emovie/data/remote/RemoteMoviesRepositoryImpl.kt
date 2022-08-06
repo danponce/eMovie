@@ -7,10 +7,13 @@ import au.com.carsales.emovie.domain.DomainMovieDataState
 import au.com.carsales.emovie.domain.DomainMovieDetailDataState
 import au.com.carsales.emovie.domain.model.DomainMovieDetail
 import au.com.carsales.emovie.domain.repository.RemoteMoviesRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 /**
@@ -68,6 +71,6 @@ class RemoteMoviesRepositoryImpl @Inject constructor(
                 }
 
             }
-        }
+        }.catch { emit(APIState.Error("API request error")) }.flowOn(Dispatchers.IO)
 
 }

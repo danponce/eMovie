@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.*
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 fun <T> resultFlow(
-    databaseQuery: suspend () -> Flow<T>,
+    databaseQuery: suspend () -> Flow<T?>,
     networkCall: suspend () -> Flow<APIState<T>>,
     saveCallResult: suspend (T) -> Unit
 ): Flow<State<T>> =

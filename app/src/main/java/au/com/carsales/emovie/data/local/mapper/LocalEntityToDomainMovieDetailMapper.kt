@@ -12,8 +12,8 @@ import javax.inject.Inject
 class LocalEntityToDomainMovieDetailMapper @Inject constructor(
     private val videoItemMapper : LocalEntityToDomainMovieVideoMapper
 ) : Mapper<EntityMovieDetail, DomainMovieDetail> {
-    override fun executeMapping(type: EntityMovieDetail?): DomainMovieDetail {
-        return type.let {
+    override fun executeMapping(type: EntityMovieDetail?): DomainMovieDetail? {
+        return type?.let {
             DomainMovieDetail(
                 id = it?.id?.toInt() ?: 0,
                 posterPath = it?.posterPath ?: "",
