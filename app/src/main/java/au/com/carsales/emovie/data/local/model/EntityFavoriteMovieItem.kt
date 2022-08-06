@@ -8,6 +8,7 @@ import au.com.carsales.emovie.data.local.DBConstants.MOVIES_TABLE
 import au.com.carsales.emovie.data.local.DBConstants.MOVIE_FAVORITES
 import au.com.carsales.emovie.data.remote.RemoteConstants.ID
 import au.com.carsales.emovie.data.remote.RemoteConstants.IS_FAVORITE
+import au.com.carsales.emovie.data.remote.RemoteConstants.ORIGINAL_LANGUAGE
 import au.com.carsales.emovie.data.remote.RemoteConstants.ORIGINAL_TITLE
 import au.com.carsales.emovie.data.remote.RemoteConstants.POSTER_PATH
 import au.com.carsales.emovie.data.remote.RemoteConstants.RELEASE_DATE
@@ -26,4 +27,5 @@ data class EntityFavoriteMovieItem (
     @ColumnInfo(name = ORIGINAL_TITLE) override val originalTitle: String,
     @ColumnInfo(name = VOTE_AVERAGE) override val voteAverage: Double,
     @ColumnInfo(name = RELEASE_DATE) override val releaseDate: String,
-) : BaseMovieEntity(), Parcelable
+    @ColumnInfo(name = ORIGINAL_LANGUAGE) override val originalLanguage: String,
+    ) : BaseMovieEntity(), Parcelable

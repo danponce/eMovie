@@ -90,6 +90,7 @@ class FavoritesFragment : BaseNavFragment() {
         Column(
             Modifier
                 .fillMaxHeight()
+                .fillMaxWidth()
                 .padding(paddingValues)
                 .background(backgroundColor)
         ) {

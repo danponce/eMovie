@@ -8,6 +8,7 @@ import au.com.carsales.emovie.domain.utils.Mapper
 import au.com.carsales.emovie.utils.base.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -66,6 +67,7 @@ abstract class BaseViewModel : ViewModel() {
 
             flowCall()
                 .distinctUntilChanged()
+                .catch { setErrorStatus() }
                 .collect { state ->
 
                     when (state) {

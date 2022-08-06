@@ -20,7 +20,8 @@ class LocalDomainToEntityFavoriteMovieItemMapper @Inject constructor() :
                 posterPath = movie.posterPath,
                 originalTitle = movie.originalTitle,
                 voteAverage = movie.voteAverage,
-                releaseDate = movie.releaseDate
+                releaseDate = movie.releaseDate,
+                originalLanguage = movie.originalLanguage
             )
         }
     }

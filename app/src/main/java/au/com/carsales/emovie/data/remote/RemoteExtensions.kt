@@ -3,6 +3,7 @@ package au.com.carsales.emovie.data.remote
 import au.com.carsales.emovie.data.remote.state.APIState
 import au.com.carsales.emovie.domain.utils.Mapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
@@ -39,5 +40,5 @@ fun <T, K, Y> apiFlow(
 
             else -> emit(APIState.Error(response.message()))
         }
-    }
+    }.catch { emit(APIState.Error("API request error")) }
 }
