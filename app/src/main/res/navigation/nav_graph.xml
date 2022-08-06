@@ -19,6 +19,10 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"/>
 
+        <action
+            android:id="@+id/go_to_bottomSheetDialogList_from_home"
+            app:destination="@id/bottomSheetDialogList" />
+
     </fragment>
 
     <fragment
@@ -36,8 +40,7 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="au.com.carsales.emovie.ui.favorites.FavoritesFragment"
-        android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites">
+        android:label="FavoritesFragment">
 
         <action
             android:id="@+id/go_to_movie_details_from_favorite_action"
@@ -46,6 +49,18 @@
             app:popExitAnim="@anim/fade_out"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/bottomSheetDialogList"
+        android:name="au.com.carsales.emovie.utils.base.views.BottomSheetDialogList"
+        android:label="BottomSheetDialogList"
+        tools:layout="@layout/fragment_bottom_sheet_list">
+
+        <argument
+            android:name="stringList"
+            app:argType="string[]"/>
 
     </fragment>
 </navigation>

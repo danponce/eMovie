@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="String" />
+
+        <variable
+            name="clickHandler"
+            type="au.com.carsales.emovie.utils.base.databinding.BaseBindClickHandler" />
+
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/bottom_sheet_dialog_item_text_size"
+        android:textColor="@color/primaryDarkColor"
+        tools:text="Simple Item"
+        android:paddingHorizontal="@dimen/default_view_padding"
+        android:paddingVertical="@dimen/bottom_sheet_dialog_item_vertical_padding"
+        android:text="@{item}" />
+</layout>
+

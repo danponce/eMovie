@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/shape_splash_gradient.xml" value="0.1285" />
         <entry key="app/src/main/res/drawable/shape_video_item_background.xml" value="0.3025" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14322916666666666" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_list.xml" value="0.1296875" />
         <entry key="app/src/main/res/layout/fragment_episode_detail.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/fragment_episode_list.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.29791666666666666" />
@@ -24,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_movie_detail.xml" value="0.19053708439897699" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1421875" />
         <entry key="app/src/main/res/layout/fragment_tvshow_detail.xml" value="0.21678321678321677" />
+        <entry key="app/src/main/res/layout/view_cell_bottom_sheet_list_item.xml" value="0.1296875" />
         <entry key="app/src/main/res/layout/view_cell_episode.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/view_cell_favorite.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/view_cell_movie.xml" value="0.29791666666666666" />
