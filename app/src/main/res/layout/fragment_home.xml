@@ -122,7 +122,7 @@
                             android:id="@+id/filterLanguageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/language_button_message(viewModel.languageSelected)}"
+                            android:text="@{@string/language_button_message(viewModel.userPreferencesFlowLiveData.languageFilter)}"
                             android:layout_marginHorizontal="6dp"
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="6dp"

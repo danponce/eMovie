@@ -2,6 +2,8 @@ package au.com.carsales.emovie.ui.model
 
 import android.os.Parcelable
 import au.com.carsales.emovie.BuildConfig
+import au.com.carsales.emovie.utils.DateUtils
+import au.com.carsales.emovie.utils.LanguageHelper
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
@@ -20,10 +22,10 @@ class UIMovieItem(
 ) : Parcelable {
 
     @IgnoredOnParcel
-    var displayLanguage : String ?= null
+    val displayLanguage : String = LanguageHelper.getISOToLanguage(originalLanguage)
 
     @IgnoredOnParcel
-    var releaseYear : String ?= null
+    val releaseYear : String = DateUtils.getYearFromDate(releaseDate, DateUtils.yyyyMMddFormat)
 
     fun getFormattedPosterPath() = BuildConfig.IMAGE_URL + posterPath
 }

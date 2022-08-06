@@ -3,11 +3,14 @@ package au.com.carsales.emovie.utils.datastore
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import androidx.datastore.preferences.core.emptyPreferences
+import au.com.carsales.emovie.utils.datastore.UserPreferencesConstants.DEFAULT_LANGUAGE_FILTER
+import au.com.carsales.emovie.utils.datastore.UserPreferencesConstants.DEFAULT_RELEASE_YEAR_FILTER
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -40,13 +43,24 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
     suspend fun fetchInitialPreferences() =
         mapUserPreferences(dataStore.data.first().toPreferences())
 
+    suspend fun updateLanguageFilter(language: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.LANGUAGE_FILTER] = language
+        }
+    }
+
+    suspend fun updateReleaseYearFilter(releaseYear: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.RELEASE_YEAR_FILTER] = releaseYear
+        }
+    }
 
     private fun mapUserPreferences(preferences: Preferences): UserPreferences {
         // Get the language filter stored
-        val languageFilter = preferences[PreferencesKeys.LANGUAGE_FILTER] ?: ""
+        val languageFilter = preferences[PreferencesKeys.LANGUAGE_FILTER] ?: DEFAULT_LANGUAGE_FILTER
 
         // Get the release year stored
-        val releaseYearFilter = preferences[PreferencesKeys.RELEASE_YEAR_FILTER] ?: ""
+        val releaseYearFilter = preferences[PreferencesKeys.RELEASE_YEAR_FILTER] ?: DEFAULT_RELEASE_YEAR_FILTER
 
         return UserPreferences(languageFilter, releaseYearFilter)
     }
