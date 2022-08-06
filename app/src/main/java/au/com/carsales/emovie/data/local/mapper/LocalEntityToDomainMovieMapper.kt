@@ -15,11 +15,11 @@ class LocalEntityToDomainMovieMapper @Inject constructor() : Mapper<List<BaseMov
         return type?.map { movie ->
             DomainMovieItem(
                 id = movie.id?.toLong() ?: 0,
-                posterPath = movie.posterPath ?: "",
-                originalTitle = movie.originalTitle ?: "",
+                posterPath = movie.posterPath ?:"",
+                originalTitle = movie.originalTitle ?:"",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate ?: "",
-                originalLanguage = movie.originalLanguage ?: ""
+                releaseDate = movie.releaseDate ?:"",
+                originalLanguage = movie.originalLanguage ?:""
             )
         }
     }

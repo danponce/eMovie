@@ -9,7 +9,6 @@ import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.repository.LocalMoviesRepository
 import au.com.carsales.emovie.utils.DateUtils
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

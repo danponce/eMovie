@@ -1,6 +1,5 @@
 package au.com.carsales.emovie.data.local.mapper
 
-import au.com.carsales.emovie.data.local.model.BaseMovieEntity
 import au.com.carsales.emovie.data.local.model.EntityMovieItem
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.utils.Mapper
