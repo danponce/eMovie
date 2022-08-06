@@ -108,7 +108,7 @@ class HomeViewModel @Inject constructor(
         languagesString.add(allLanguagesString)
         languagesString.addAll(recommendedMoviesLiveData.value?.map { movie ->
             movie.displayLanguage
-        }?.distinct().orEmpty())
+        }?.distinct()?.sorted().orEmpty())
 
         return languagesString
     }
@@ -124,7 +124,7 @@ class HomeViewModel @Inject constructor(
         yearsString.add(allReleaseYearsString)
         yearsString.addAll(recommendedMoviesLiveData.value?.map { movie ->
             movie.releaseYear
-        }?.distinct().orEmpty())
+        }?.distinct()?.sorted().orEmpty())
 
         return yearsString
     }
