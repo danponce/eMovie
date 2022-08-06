@@ -16,6 +16,8 @@
 
     <!-- Movie Detail -->
     <dimen name="detail_empty_view_margin_top">50dp</dimen>
+    <dimen name="detail_progress_bar_size">40dp</dimen>
+    <dimen name="detail_progress_bar_margin_top">50dp</dimen>
 
     <!-- Bottom Sheet Dialog -->
     <dimen name="bottom_sheet_dialog_max_height">300dp</dimen>

@@ -71,6 +71,10 @@ abstract class BaseViewModel : ViewModel() {
                 .collect { state ->
 
                     when (state) {
+                        is State.Loading -> {
+                            setLoadingStatus()
+                        }
+
                         is State.Success -> {
                             liveData.postValue(mapper.executeMapping(state.data))
                             setSuccessStatus()

@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 /**
  * Created by Dan on 25, junio, 2022
@@ -22,18 +23,9 @@ fun loadImageUrl(imageView: ImageView, url: String?) {
     Glide.with(imageView.context)
         .load(url)
         .placeholder(R.drawable.ic_default_image_placeholder_48)
+        .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.ic_baseline_broken_image_48)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .into(imageView)
-}
-
-@BindingAdapter("loadImageUrlInmediate")
-fun loadImageUrlInmediate(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context)
-        .asBitmap()
-        .thumbnail(Glide.with(imageView.context).asBitmap().load(url).priority(Priority.IMMEDIATE).override(imageView.width, imageView.height))
-        .load(url)
-        .placeholder(R.drawable.ic_default_image_placeholder_48)
         .into(imageView)
 }
 
@@ -43,6 +35,7 @@ fun loadImageUrlWithRoundedCorners(imageView: ImageView, imageUrl: String) {
         .load(imageUrl)
         .placeholder(R.drawable.ic_default_image_placeholder_48)
         .error(R.drawable.ic_baseline_broken_image_48)
+        .transition(DrawableTransitionOptions.withCrossFade())
         .transform(CenterInside(), RoundedCorners(36))
         .into(imageView)
 }
@@ -52,16 +45,8 @@ fun loadImageUrlWithTopRoundedCorners(imageView: ImageView, imageUrl: String) {
     Glide.with(imageView.context)
         .load(imageUrl)
         .placeholder(R.drawable.ic_default_image_placeholder_48)
+        .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.ic_baseline_broken_image_48)
         .transform(CenterInside(), GranularRoundedCorners(36f, 36f, 0f, 0f))
         .into(imageView)
-}
-
-@BindingAdapter("setHTMLText")
-fun setHTMLText(textView: TextView, text: String?) {
-    if(text == null) {
-        return
-    }
-
-    textView.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
