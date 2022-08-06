@@ -6,6 +6,7 @@ import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
 import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
 import au.com.carsales.emovie.ui.model.UIMovieItem
+import au.com.carsales.emovie.utils.LanguageHelper
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -60,7 +61,8 @@ class HomeViewModel @Inject constructor(
 
     fun getRecommendedMoviesLanguages() : List<String> {
         return topRatedMoviesLiveData.value?.map { movie ->
-            movie.originalLanguage }?.distinct().orEmpty()
+            LanguageHelper.getISOToLanguage(movie.originalLanguage)
+        }?.distinct().orEmpty()
     }
 
 }
