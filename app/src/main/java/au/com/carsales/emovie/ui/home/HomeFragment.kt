@@ -109,8 +109,8 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
             }
 
             filterLanguageButton.setOnClickListener {
-//                val direction = HomeFragmentDirections.goToBottomSheetDialogListFromHome()
-//                navigate(direction)
+                val direction = HomeFragmentDirections.goToBottomSheetDialogListFromHome(homeViewModel.getRecommendedMoviesLanguages().toTypedArray())
+                navigate(direction)
             }
         }
 
