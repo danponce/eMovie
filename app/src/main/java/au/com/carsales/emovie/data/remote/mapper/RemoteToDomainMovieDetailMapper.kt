@@ -1,11 +1,8 @@
 package au.com.carsales.emovie.data.remote.mapper
 
 import au.com.carsales.emovie.data.remote.model.MovieDetailData
-import au.com.carsales.emovie.data.remote.model.MovieItemData
 import au.com.carsales.emovie.data.remote.model.MovieVideosResultData
 import au.com.carsales.emovie.domain.model.DomainMovieDetail
-import au.com.carsales.emovie.domain.model.DomainMovieItem
-import au.com.carsales.emovie.domain.utils.Mapper
 import javax.inject.Inject
 
 /**

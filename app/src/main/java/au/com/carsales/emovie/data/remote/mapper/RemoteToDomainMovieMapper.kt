@@ -16,9 +16,10 @@ class RemoteToDomainMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
             DomainMovieItem(
                 id = movie.id,
                 posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate
+                originalTitle = movie.originalTitle,
+                voteAverage = movie.voteAverage,
+                releaseDate = movie.releaseDate,
+                originalLanguage = movie.originalLanguage
             )
         }
     }

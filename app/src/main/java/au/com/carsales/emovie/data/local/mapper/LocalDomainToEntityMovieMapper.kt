@@ -16,9 +16,10 @@ class LocalDomainToEntityMovieMapper @Inject constructor() : Mapper<List<DomainM
             EntityMovieItem(
                 id = movie.id.toString(),
                 posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate
+                originalTitle = movie.originalTitle,
+                voteAverage = movie.voteAverage,
+                releaseDate = movie.releaseDate,
+                originalLanguage = movie.originalLanguage
             )
         }
     }

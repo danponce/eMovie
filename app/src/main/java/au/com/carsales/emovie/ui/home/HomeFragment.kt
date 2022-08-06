@@ -103,14 +103,18 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private fun initView() {
 
-        // Let swipe refresh start just below toolbar
-        val toolbarHeight = getToolbarHeight() ?: 50
+        binding.apply {
+            swipeRefreshView.setOnRefreshListener {
+                homeViewModel.getUpcomingMovies()
+            }
 
-        val endOffset = binding.swipeRefreshView.progressViewEndOffset
-        binding.swipeRefreshView.setProgressViewOffset(false, toolbarHeight, endOffset + toolbarHeight)
-        binding.swipeRefreshView.setOnRefreshListener {
-            homeViewModel.getUpcomingMovies()
+            filterLanguageButton.setOnClickListener {
+//                val direction = HomeFragmentDirections.goToBottomSheetDialogListFromHome()
+//                navigate(direction)
+            }
         }
+
+
     }
 
     private fun setTopRatedRecyclerView(data : List<UIMovieItem>?) {

@@ -58,4 +58,9 @@ class HomeViewModel @Inject constructor(
     fun getLastTopRatedData() = topRatedMoviesLiveData.value.orEmpty()
     fun getLastUpcomingData() = upcomingMoviesLiveData.value.orEmpty()
 
+    fun getRecommendedMoviesLanguages() : List<String> {
+//        topRatedMoviesLiveData.value.map { movie -> movie. }
+        return listOf()
+    }
+
 }

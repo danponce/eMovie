@@ -2,7 +2,6 @@ package au.com.carsales.emovie.data.remote.mapper
 
 import au.com.carsales.emovie.data.local.model.EntityMovieItem
 import au.com.carsales.emovie.data.remote.model.MovieItemData
-import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.utils.Mapper
 import javax.inject.Inject
 
@@ -17,69 +16,12 @@ class RemoteToEntityMovieMapper @Inject constructor() : Mapper<List<MovieItemDat
             EntityMovieItem(
                 id = movie.id.toString(),
                 posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate
+                originalTitle = movie.originalTitle,
+                voteAverage = movie.voteAverage,
+                releaseDate = movie.releaseDate,
+                originalLanguage = movie.originalLanguage
             )
         }
     }
-
-    fun fromRemoteToEntity(
-        results: List<MovieItemData>?,
-    ): List<EntityMovieItem> {
-        return results!!.map { movie ->
-            EntityMovieItem(
-                id = movie.id.toString(),
-                posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate
-            )
-        }
-    }
-
-    fun fromEntityToDomain(
-        results: List<EntityMovieItem>?,
-    ): List<DomainMovieItem> {
-        return results!!.map { movie ->
-            DomainMovieItem(
-                id = movie.id.toLong(),
-                posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate
-            )
-        }
-    }
-
-    fun fromDomainToEntity(
-        results: List<DomainMovieItem>?,
-    ): List<EntityMovieItem> {
-        return results!!.map { movie ->
-            EntityMovieItem(
-                id = movie.id.toString(),
-                posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate
-            )
-        }
-    }
-
-    fun MovieItemData.fromRemoteToDomain() = DomainMovieItem(
-        id = id ?: 0,
-        posterPath = posterPath,
-        originalTitle = originalTitle ?: "",
-        voteAverage = voteAverage ?: 0.0,
-        releaseDate = releaseDate
-    )
-
-    fun EntityMovieItem.fromEntityToDomain() = DomainMovieItem(
-        id = id.toLong(),
-        posterPath = posterPath,
-        originalTitle = originalTitle ?: "",
-        voteAverage = voteAverage ?: 0.0,
-        releaseDate = releaseDate
-    )
 
 }

@@ -18,8 +18,8 @@ class LocalDomainToEntityFavoriteMovieItemMapper @Inject constructor() :
             EntityFavoriteMovieItem(
                 id = movie.id.toString(),
                 posterPath = movie.posterPath,
-                originalTitle = movie.originalTitle ?: "",
-                voteAverage = movie.voteAverage ?: 0.0,
+                originalTitle = movie.originalTitle,
+                voteAverage = movie.voteAverage,
                 releaseDate = movie.releaseDate
             )
         }

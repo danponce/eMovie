@@ -1,7 +1,6 @@
 package au.com.carsales.emovie.data.local.mapper
 
 import au.com.carsales.emovie.data.local.model.BaseMovieEntity
-import au.com.carsales.emovie.data.local.model.EntityMovieItem
 import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.domain.utils.Mapper
 import javax.inject.Inject
@@ -19,7 +18,8 @@ class LocalEntityToDomainMovieMapper @Inject constructor() : Mapper<List<BaseMov
                 posterPath = movie.posterPath ?: "",
                 originalTitle = movie.originalTitle ?: "",
                 voteAverage = movie.voteAverage ?: 0.0,
-                releaseDate = movie.releaseDate ?: ""
+                releaseDate = movie.releaseDate ?: "",
+                originalLanguage = movie.originalLanguage ?: ""
             )
         }
     }

@@ -9,5 +9,6 @@ open class BaseMovieEntity(
     open val posterPath: String? = null,
     open val originalTitle: String ?= null,
     open val voteAverage: Double ?= null,
-    open val releaseDate: String? = null
+    open val releaseDate: String? = null,
+    open val originalLanguage: String?= null
 )

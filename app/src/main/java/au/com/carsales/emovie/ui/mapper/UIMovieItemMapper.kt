@@ -18,7 +18,8 @@ class UIMovieItemMapper @Inject constructor() : Mapper<UIMovieItem, DomainMovieI
                 posterPath = it?.posterPath ?: "",
                 originalTitle = it?.originalTitle ?: "",
                 voteAverage = it?.voteAverage ?: 0.0,
-                releaseDate = it?.releaseDate ?: ""
+                releaseDate = it?.releaseDate ?: "",
+                originalLanguage = it?.originalLanguage ?: ""
             )
         }
     }
