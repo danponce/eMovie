@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:text="@string/empty_all_message"
         android:layout_marginTop="30dp"
+        android:gravity="center"
         android:textSize="18sp"
         android:layout_marginHorizontal="54dp"
         app:layout_constraintLeft_toLeftOf="parent"

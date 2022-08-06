@@ -20,6 +20,7 @@
 
     <!-- Details Fragment -->
     <string name="detail_video_section_title">Videos</string>
+    <string name="detail_no_movie_information_message">No movie details found…</string>
 
     <!-- Others -->
     <string name="empty_all_message">No results found</string>
