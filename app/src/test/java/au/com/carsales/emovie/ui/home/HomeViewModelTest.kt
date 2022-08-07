@@ -1,13 +1,11 @@
-package au.com.carsales.emovie.home
+package au.com.carsales.emovie.ui.home
 
 import au.com.carsales.emovie.base.BaseUnitTest
 import au.com.carsales.emovie.base.coroutines.TestCoroutineContextProvider
 import au.com.carsales.emovie.domain.model.DomainMovieItem
-import au.com.carsales.emovie.ui.home.HomeViewModel
 import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
 import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
-import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.State
 import au.com.carsales.emovie.utils.datastore.UserPreferencesRepository
 import com.nhaarman.mockito_kotlin.whenever
@@ -38,10 +36,6 @@ class HomeViewModelTest : BaseUnitTest() {
     lateinit var userPreferencesRepository: UserPreferencesRepository
 
     lateinit var homeViewModel: HomeViewModel
-
-    override fun initDataMocks() {
-        MockitoAnnotations.openMocks(this)
-    }
 
     override fun initViewModel() {
         homeViewModel = HomeViewModel(
