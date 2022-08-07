@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General -->
+    <dimen name="default_view_padding">16dp</dimen>
+    <dimen name="view_component_padding">16dp</dimen>
+    <dimen name="brand_logo_width">82dp</dimen>
+
+    <!-- Movie cells -->
     <dimen name="movie_image_height">200dp</dimen>
     <dimen name="movie_video_image_cell_height">130dp</dimen>
     <dimen name="movie_video_image_height">220dp</dimen>
     <dimen name="movie_image_padding">8dp</dimen>
+    <dimen name="movie_placeholder_padding">22dp</dimen>
 
+    <!-- Detail base view component -->
     <dimen name="view_component_detail_base_title_decor_width">6dp</dimen>
     <dimen name="view_component_detail_base_title_decor_height">18dp</dimen>
-
-    <dimen name="default_view_padding">16dp</dimen>
-    <dimen name="view_component_padding">16dp</dimen>
-
-    <dimen name="brand_logo_width">82dp</dimen>
 
     <!-- Home Fragment -->
     <dimen name="home_empty_view_margin_top">30dp</dimen>

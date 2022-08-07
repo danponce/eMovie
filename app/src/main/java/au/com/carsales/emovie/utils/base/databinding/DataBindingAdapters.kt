@@ -22,7 +22,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 fun loadImageUrl(imageView: ImageView, url: String?) {
     Glide.with(imageView.context)
         .load(url)
-        .placeholder(R.drawable.ic_default_image_placeholder_48)
+        .placeholder(R.drawable.ic_baseline_movie_24)
         .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.ic_baseline_broken_image_48)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -33,7 +33,7 @@ fun loadImageUrl(imageView: ImageView, url: String?) {
 fun loadImageUrlWithRoundedCorners(imageView: ImageView, imageUrl: String) {
     Glide.with(imageView.context)
         .load(imageUrl)
-        .placeholder(R.drawable.ic_default_image_placeholder_48)
+        .placeholder(R.drawable.ic_baseline_movie_24)
         .error(R.drawable.ic_baseline_broken_image_48)
         .transition(DrawableTransitionOptions.withCrossFade())
         .transform(CenterInside(), RoundedCorners(36))
@@ -44,7 +44,7 @@ fun loadImageUrlWithRoundedCorners(imageView: ImageView, imageUrl: String) {
 fun loadImageUrlWithTopRoundedCorners(imageView: ImageView, imageUrl: String) {
     Glide.with(imageView.context)
         .load(imageUrl)
-        .placeholder(R.drawable.ic_default_image_placeholder_48)
+        .placeholder(R.drawable.ic_baseline_movie_24)
         .transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.ic_baseline_broken_image_48)
         .transform(CenterInside(), GranularRoundedCorners(36f, 36f, 0f, 0f))

@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.first
 import androidx.datastore.preferences.core.emptyPreferences
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
 
-class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
+class UserPreferencesRepository @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     private val TAG: String = "UserPreferencesRepo"
 

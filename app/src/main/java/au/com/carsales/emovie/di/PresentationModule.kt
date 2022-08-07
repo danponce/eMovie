@@ -1,14 +1,7 @@
 package au.com.carsales.emovie.di
 
-import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
-import androidx.datastore.migrations.SharedPreferencesMigration
-import androidx.datastore.preferences.SharedPreferencesMigration
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.preferencesDataStoreFile
 import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
 import au.com.carsales.emovie.domain.usecase.*
@@ -17,11 +10,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import javax.inject.Singleton
 
 /**
  * Created by Dan on 25, julio, 2022
@@ -30,8 +18,6 @@ import javax.inject.Singleton
 @InstallIn(ViewModelComponent::class)
 @Module
 object PresentationModule {
-
-    private const val USER_PREFERENCES = "user_preferences"
 
     @Provides
     fun provideGetLatestMoviesUseCase(
@@ -83,18 +69,6 @@ object PresentationModule {
         localRepository: LocalMoviesRepositoryImpl
     ) : DeleteFavoriteMovieUseCase {
         return DeleteFavoriteMovieUseCase(localRepository)
-    }
-
-    @Provides
-    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
-        return PreferenceDataStoreFactory.create(
-            corruptionHandler = ReplaceFileCorruptionHandler(
-                produceNewData = { emptyPreferences() }
-            ),
-            migrations = listOf(SharedPreferencesMigration(appContext,USER_PREFERENCES)),
-            scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(USER_PREFERENCES) }
-        )
     }
 
     @Provides

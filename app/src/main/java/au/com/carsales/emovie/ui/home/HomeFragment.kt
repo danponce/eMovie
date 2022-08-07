@@ -62,7 +62,11 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         val itemsByRow = resources.getInteger(R.integer.home_recommended_grid_span)
         val maxItems = resources.getInteger(R.integer.home_recommended_grid_max_items)
-        val recyclerViewHeight = rowHeight * (maxItems / itemsByRow)
+        var recyclerViewHeight = rowHeight * (maxItems / itemsByRow)
+
+        // To improve ui we'll remove toolbar height
+        val toolbarHeight = binding.appBar.measuredHeight
+        recyclerViewHeight -= toolbarHeight
 
         // We set the height of the recycler view
         // according to the height calculated rows
@@ -74,10 +78,12 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         homeViewModel.apply {
             upcomingMoviesLiveData.observe(viewLifecycleOwner) {
+                binding.swipeRefreshView.isRefreshing = false
                 setDataToRecyclerView(it, binding.upcomingMoviesRecyclerView)
             }
 
             topRatedMoviesLiveData.observe(viewLifecycleOwner) {
+                binding.swipeRefreshView.isRefreshing = false
                 setDataToRecyclerView(it, binding.topRatedMoviesRecyclerView)
                 setDataToRecyclerView(it, binding.recommendedMoviesRecyclerView)
 
@@ -142,6 +148,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
         binding.apply {
             swipeRefreshView.setOnRefreshListener {
                 homeViewModel.getUpcomingMovies()
+                homeViewModel.getTopRatedMovies()
             }
 
             filterLanguageButton.setOnClickListener {
@@ -188,9 +195,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
     }
 
     private fun setRecommendedRecyclerView(data : List<UIMovieItem>?) {
-
         val layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.home_recommended_grid_span))
-
         setMoviesRecyclerView(binding.recommendedMoviesRecyclerView, data, layoutManager, R.layout.view_cell_movie_grid)
     }
 
