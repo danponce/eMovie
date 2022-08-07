@@ -15,6 +15,7 @@
     <string name="language_button_message">In %s</string>
     <string name="language_default_selection">All Languages</string>
     <string name="release_year_default_selection">All Years</string>
+    <string name="empty_recommended_movies_message">No movies found. Try changing the filters…</string>
 
     <!-- Favorites Fragment -->
     <string name="favorites_title">My Favorites</string>

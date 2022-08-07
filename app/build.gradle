@@ -101,8 +101,10 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
-    // Lottie for Compose
-    implementation "com.airbnb.android:lottie-compose:5.0.3"
+    // Lottie (including Compose)
+    def lottieVersion = "5.0.3"
+    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     // Jetpack DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"

@@ -145,6 +145,13 @@
 
                     </LinearLayout>
 
+                    <au.com.carsales.emovie.utils.base.views.EmptyListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_empty_view_margin_top"
+                        app:text="@string/empty_recommended_movies_message"
+                        android:visibility="@{viewModel.isRecommendedMoviesEmpty ? View.VISIBLE : View.GONE}"/>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recommendedMoviesRecyclerView"
                         android:layout_width="match_parent"

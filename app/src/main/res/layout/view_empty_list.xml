@@ -4,18 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:background="@color/primaryDarkColor">
+    tools:background="@color/black">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/emptyAllImageView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="60dp"
-        android:src="@drawable/ic_baseline_format_list_bulleted_24"
+        android:layout_height="@dimen/empty_list_view_image_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/centeredView"
-        app:tint="@color/secondaryColor" />
+        android:layout_marginBottom="60dp"
+        app:lottie_rawRes="@raw/movie"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
 
     <View
         android:id="@+id/centeredView"

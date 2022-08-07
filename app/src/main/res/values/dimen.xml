@@ -14,6 +14,9 @@
 
     <dimen name="brand_logo_width">82dp</dimen>
 
+    <!-- Home Fragment -->
+    <dimen name="home_empty_view_margin_top">30dp</dimen>
+
     <!-- Movie Detail -->
     <dimen name="detail_empty_view_margin_top">50dp</dimen>
     <dimen name="detail_progress_bar_size">40dp</dimen>
@@ -25,5 +28,8 @@
     <dimen name="bottom_sheet_dialog_item_vertical_padding">12dp</dimen>
     <dimen name="bottom_sheet_dialog_close_button_size">36dp</dimen>
     <dimen name="bottom_sheet_dialog_recycler_view_top_margin">8dp</dimen>
+
+    <!-- Empty List View -->
+    <dimen name="empty_list_view_image_size">90dp</dimen>
 
 </resources>

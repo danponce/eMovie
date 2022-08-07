@@ -1,5 +1,6 @@
 package au.com.carsales.emovie.ui.home
 
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
 import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
@@ -25,9 +26,7 @@ class HomeViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository
 ) : BaseViewModel() {
 
-    val initialUserPreferencesEvent = liveData {
-        emit(userPreferencesRepository.fetchInitialPreferences())
-    }
+    val isRecommendedMoviesEmpty = ObservableBoolean(false)
 
     lateinit var allLanguagesString : String
     lateinit var allReleaseYearsString : String
@@ -136,7 +135,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getFilteredRecommendedList(userPreferences: UserPreferences?): List<UIMovieItem> {
-        return when(userPreferences) {
+        val list = when(userPreferences) {
             null -> recommendedMoviesLiveData.value.orEmpty()
             else -> {
                 recommendedMoviesLiveData.value?.filter { movie ->
@@ -145,15 +144,15 @@ class HomeViewModel @Inject constructor(
                     val language = userPreferences.languageFilter
                     val year = userPreferences.releaseYearFilter
 
-                    if(language.isNotEmpty()) {
+                    if (language.isNotEmpty()) {
                         valid = (language == movie.displayLanguage)
 
-                        if(!valid) {
+                        if (!valid) {
                             return@filter valid
                         }
                     }
 
-                    if(year.isNotEmpty()) {
+                    if (year.isNotEmpty()) {
                         valid = (year == movie.releaseYear)
                     }
 
@@ -161,6 +160,11 @@ class HomeViewModel @Inject constructor(
                 }.orEmpty()
             }
         }
+
+        // Update value if is empty or not
+        isRecommendedMoviesEmpty.set(list.isEmpty())
+
+        return list
     }
 
 }
