@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import au.com.carsales.emovie.domain.utils.Mapper
 import au.com.carsales.emovie.utils.base.State
+import au.com.carsales.emovie.utils.base.coroutines.CoroutinesContextProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -18,6 +19,8 @@ import kotlinx.coroutines.launch
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 abstract class BaseViewModel : ViewModel() {
+
+    abstract fun getCoroutinesCtxProvider() : CoroutinesContextProvider
 
     var isLoading: ObservableBoolean = ObservableBoolean(false)
     var isError: ObservableBoolean = ObservableBoolean(false)
@@ -84,7 +87,7 @@ abstract class BaseViewModel : ViewModel() {
         liveData : MutableLiveData<K>,
         mapper : Mapper<T, K>
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(getCoroutinesCtxProvider().IO) {
 
             setLoadingStatus()
 
@@ -129,7 +132,7 @@ abstract class BaseViewModel : ViewModel() {
         vararg liveDatas : MutableLiveData<K>,
         mapper : Mapper<T, K>
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(getCoroutinesCtxProvider().IO) {
 
             setLoadingStatus()
 

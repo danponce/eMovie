@@ -12,6 +12,7 @@ import au.com.carsales.emovie.ui.mapper.UIMovieDetailMapper
 import au.com.carsales.emovie.ui.mapper.UIMovieItemMapper
 import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.ui.model.UIMovieItem
+import au.com.carsales.emovie.utils.base.coroutines.CoroutinesContextProvider
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +31,13 @@ class MovieDetailViewModel @Inject constructor(
     private val addFavoriteMovieUseCase: AddFavoriteMovieUseCase,
     private val deleteFavoriteMovieUseCase: DeleteFavoriteMovieUseCase,
     private val movieDetailMapper: UIMovieDetailMapper,
-    private val movieItemMapper: UIMovieItemMapper
+    private val movieItemMapper: UIMovieItemMapper,
+    private val coroutinesContextProvider: CoroutinesContextProvider
 ): BaseViewModel() {
+
+    override fun getCoroutinesCtxProvider(): CoroutinesContextProvider {
+        return coroutinesContextProvider
+    }
 
     val movieItemLiveData = MutableLiveData<UIMovieItem>()
     var movieItem : UIMovieItem?= null

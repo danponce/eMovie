@@ -1,21 +1,21 @@
 package au.com.carsales.emovie.home
 
-import androidx.lifecycle.Observer
 import au.com.carsales.emovie.base.BaseUnitTest
 import au.com.carsales.emovie.base.coroutines.TestCoroutineContextProvider
-import au.com.carsales.emovie.data.remote.model.TVSeriesData
-import au.com.carsales.emovie.domain.GetSeriesSearchUseCase
-import au.com.carsales.emovie.domain.GetShowsUseCase
+import au.com.carsales.emovie.domain.model.DomainMovieItem
 import au.com.carsales.emovie.ui.home.HomeViewModel
-import au.com.carsales.emovie.ui.mapper.TVSeriesShowMapper
-import au.com.carsales.emovie.data.local.model.EntityMovieItem
+import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
+import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
+import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
+import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.State
-import com.nhaarman.mockito_kotlin.doReturn
+import au.com.carsales.emovie.utils.datastore.UserPreferencesRepository
 import com.nhaarman.mockito_kotlin.whenever
+import junit.framework.TestCase.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 /**
@@ -26,16 +26,16 @@ import org.mockito.MockitoAnnotations
 class HomeViewModelTest : BaseUnitTest() {
 
     @Mock
-    lateinit var tvSeriesShowMapper: TVSeriesShowMapper
+    lateinit var movieItemListMapper: UIMovieItemListMapper
 
     @Mock
-    lateinit var getShowsUseCase: GetShowsUseCase
+    lateinit var getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
 
     @Mock
-    lateinit var getSeriesSearchUseCase: GetSeriesSearchUseCase
+    lateinit var getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase
 
     @Mock
-    lateinit var searchObserver : Observer<State<List<EntityMovieItem>>>
+    lateinit var userPreferencesRepository: UserPreferencesRepository
 
     lateinit var homeViewModel: HomeViewModel
 
@@ -45,44 +45,57 @@ class HomeViewModelTest : BaseUnitTest() {
 
     override fun initViewModel() {
         homeViewModel = HomeViewModel(
-            tvSeriesShowMapper,
-            getShowsUseCase,
-            getSeriesSearchUseCase,
+            getUpcomingMoviesUseCase,
+            getTopRatedMoviesUseCase,
+            movieItemListMapper,
+            userPreferencesRepository,
             TestCoroutineContextProvider()
-        ).apply {
-            tvShowSearchLiveData.observeForever(searchObserver)
-        }
+        )
     }
 
-    @Test(expected = Exception::class)
-    fun should_setStateError_when_searchingIsExecuted() {
+    @Test
+    fun should_setStateError_when_getUpcomingMovies_IsExecuted() {
         testCoroutineRule.runBlockingTest {
-            val exception = Exception("Error ")
+            val exception = State.Error<List<DomainMovieItem>>("Error ")
 
             whenever(
-                getSeriesSearchUseCase.getTVSeriesSearch(Mockito.anyString())
-            ).thenThrow(exception)
+                getUpcomingMoviesUseCase.getUpcomingMovies()
+            ).thenAnswer{ flowOf(exception) }
 
-            homeViewModel.searchTVShows("")
+            homeViewModel.getUpcomingMovies()
 
-            Mockito.verify(searchObserver).onChanged(Mockito.refEq(State.error()))
+            assertTrue(homeViewModel.upcomingMoviesLiveData.value == null)
         }
     }
 
     @Test
-    fun should_setViewStateSuccess_when_updateSourcingIsExecuted() {
+    fun should_setStateEmpty_when_getUpcomingMovies_IsExecuted() {
         testCoroutineRule.runBlockingTest {
-
-            val responseData = listOf(TVSeriesData())
+            val exception = State.Empty<List<DomainMovieItem>>()
 
             whenever(
-                getSeriesSearchUseCase.getTVSeriesSearch(Mockito.anyString())
-            ).doReturn(responseData)
+                getUpcomingMoviesUseCase.getUpcomingMovies()
+            ).thenAnswer{ flowOf(exception) }
 
-            homeViewModel.searchTVShows("")
+            homeViewModel.getUpcomingMovies()
 
-//            Mockito.verify(searchObserver).onChanged(Mockito.refEq(State.Success()))
-            assert(homeViewModel.tvShowSearchLiveData.value is State.Success)
+            assertTrue(homeViewModel.upcomingMoviesLiveData.value == null)
+        }
+    }
+
+    @Test
+    fun should_setViewStateSuccess_when_getUpcomingMovies_is_executed() {
+        testCoroutineRule.runBlockingTest {
+
+            val successResponse = State.Success(listOf<DomainMovieItem>())
+
+            whenever(
+                getUpcomingMoviesUseCase.getUpcomingMovies()
+            ).thenAnswer { flowOf(successResponse) }
+
+            homeViewModel.getUpcomingMovies()
+
+            assertNotNull(homeViewModel.upcomingMoviesLiveData.value)
         }
     }
 

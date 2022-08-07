@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
 import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
 import au.com.carsales.emovie.domain.usecase.*
+import au.com.carsales.emovie.utils.base.coroutines.CoroutinesContextProvider
 import au.com.carsales.emovie.utils.datastore.UserPreferencesRepository
 import dagger.Module
 import dagger.Provides
@@ -76,5 +77,10 @@ object PresentationModule {
         preferencesDataStore: DataStore<Preferences>
     ) : UserPreferencesRepository {
         return UserPreferencesRepository(preferencesDataStore)
+    }
+
+    @Provides
+    fun provideCoroutinesContextProvider() : CoroutinesContextProvider {
+        return CoroutinesContextProvider()
     }
 }

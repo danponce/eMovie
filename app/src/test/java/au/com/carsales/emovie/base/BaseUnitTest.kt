@@ -16,25 +16,17 @@ import org.junit.jupiter.api.extension.BeforeAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(JUnit4::class)
+@RunWith(MockitoJUnitRunner::class)
 @ExperimentalCoroutinesApi
-abstract class BaseUnitTest : BeforeAllCallback, AfterAllCallback {
+abstract class BaseUnitTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
 
     @get: Rule
     var testCoroutineRule = TestCoroutineRule()
-
-    //JUnit5
-    val testDispatcher = TestCoroutineDispatcher()
-    private val testScope = TestCoroutineScope(testDispatcher)
-
-    /**
-     * Initializes the argument captors for the use cases that will be used to testing.
-     **/
-    open fun initCaptors(){}
 
     /**
      * Mock the necessary variables that will be used to testing.
@@ -48,18 +40,7 @@ abstract class BaseUnitTest : BeforeAllCallback, AfterAllCallback {
 
     @Before
     open fun setUp() {
-        initCaptors()
         initDataMocks()
         initViewModel()
-    }
-
-    override fun beforeAll(context: ExtensionContext?) {
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    override fun afterAll(context: ExtensionContext?) {
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
-        testScope.cleanupTestCoroutines()
     }
 }

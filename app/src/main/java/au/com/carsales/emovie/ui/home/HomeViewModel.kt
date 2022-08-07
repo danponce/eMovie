@@ -6,6 +6,7 @@ import au.com.carsales.emovie.domain.usecase.GetTopRatedMoviesUseCase
 import au.com.carsales.emovie.domain.usecase.GetUpcomingMoviesUseCase
 import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
 import au.com.carsales.emovie.ui.model.UIMovieItem
+import au.com.carsales.emovie.utils.base.coroutines.CoroutinesContextProvider
 import au.com.carsales.emovie.utils.base.viewmodel.BaseViewModel
 import au.com.carsales.emovie.utils.datastore.UserPreferences
 import au.com.carsales.emovie.utils.datastore.UserPreferencesRepository
@@ -25,8 +26,13 @@ class HomeViewModel @Inject constructor(
     private val getLatestMoviesUseCase: GetUpcomingMoviesUseCase,
     private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
     private val movieItemMapper: UIMovieItemListMapper,
-    private val userPreferencesRepository: UserPreferencesRepository
+    private val userPreferencesRepository: UserPreferencesRepository,
+    private val coroutinesContextProvider: CoroutinesContextProvider
 ) : BaseViewModel() {
+
+    override fun getCoroutinesCtxProvider(): CoroutinesContextProvider {
+        return coroutinesContextProvider
+    }
 
     val isRecommendedMoviesEmpty = ObservableBoolean(false)
 
@@ -35,7 +41,6 @@ class HomeViewModel @Inject constructor(
 
     // Keep the user preferences as a stream of changes
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
-    val userPreferencesFlowLiveData = userPreferencesRepository.userPreferencesFlow.asLiveData()
 
     private val _userPreferencesLiveData = MutableLiveData<UserPreferences>()
     val userPreferencesLiveData: LiveData<UserPreferences> = _userPreferencesLiveData
