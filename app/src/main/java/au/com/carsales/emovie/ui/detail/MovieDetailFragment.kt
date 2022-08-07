@@ -68,32 +68,21 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
             startEnterTransitionAfterLoadingImage(movie)
         }
 
-        detailViewModel.setMovie(movie)
-        detailViewModel.getMovieDetails()
+        if(detailViewModel.hasData()) {
 
-//        setView(movie)
+            val lastMovie = detailViewModel.getLastMovieDetail()
+            lastMovie?.let {
+                setView(it)
+            }
 
-//        val viewModelData = detailViewModel.getExistentEpisodesData()
+        } else {
+            val args : MovieDetailFragmentArgs by navArgs()
 
-//        if(viewModelData != null) {
-////            setEpisodesTabLayout(detailViewModel.getEpisodesSeasons())
-//            val lastShow = detailViewModel.getLastShow()
-//
-//            // Set again views with last show from API
-//            lastShow?.let {
-//                setView(it)
-//            }
-//
-//        } else {
-//            val args : MovieDetailFragmentArgs by navArgs()
-//
-//            val movie = args.movie
-//
-//            detailViewModel.setMovie(movie)
-//            detailViewModel.getEpisodes()
-//
-//            setView(movie)
-//        }
+            val movie = args.movie
+
+            detailViewModel.setMovie(movie)
+            detailViewModel.getMovieDetails()
+        }
 
         detailViewModel.isShowFavorite(movie.id.toString())
 
@@ -166,7 +155,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
     private fun setView(data: UIMovieDetail) {
 
-        // Add the genre Chips
+        // Clean if any and then add the genre Chips
+        binding.chipGroupView.removeAllViews()
         data.genres.forEach {
             val chip = Chip(requireContext())
             chip.text = it

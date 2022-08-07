@@ -53,7 +53,7 @@ class MovieDetailViewModel @Inject constructor(
         movieItem = data
     }
 
-    fun getLastMovie() = movieItem
+    fun getLastMovieDetail() = movieDetailsLiveData.value
 
     fun isShowFavorite(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -83,5 +83,9 @@ class MovieDetailViewModel @Inject constructor(
             liveData = _movieDetailsLiveData,
             mapper = movieDetailMapper
         )
+    }
+
+    fun hasData(): Boolean {
+        return movieDetailsLiveData.value != null
     }
 }
