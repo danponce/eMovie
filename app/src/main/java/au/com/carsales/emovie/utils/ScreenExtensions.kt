@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
  */
 
 fun Fragment.getScreenHeight() = resources.displayMetrics.heightPixels
+fun Fragment.getScreenWidth() = resources.displayMetrics.widthPixels
+fun Fragment.getScreenWidthInDP() = ( getScreenWidth() / resources.displayMetrics.density )
 
 fun Fragment.getScreenHeightPart(portion : Int) : Int {
 

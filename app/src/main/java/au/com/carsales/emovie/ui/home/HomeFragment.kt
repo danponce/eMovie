@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import au.com.carsales.emovie.R
 import au.com.carsales.emovie.databinding.FragmentHomeBinding
 import au.com.carsales.emovie.ui.model.UIMovieItem
+import au.com.carsales.emovie.utils.MovieDBConstants
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
 import au.com.carsales.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import au.com.carsales.emovie.utils.base.views.BottomSheetDialogListListener
+import au.com.carsales.emovie.utils.getScreenWidth
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -43,7 +45,29 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
         setObservers()
 
+        setRecommendedRecyclerViewHeight()
+
         return binding.root
+    }
+
+    private fun setRecommendedRecyclerViewHeight() {
+        val screenPadding = resources.getDimension(R.dimen.default_view_padding)
+
+        // Minus left and right paddings
+        val screenWidthMinusPadding = getScreenWidth() - (screenPadding * 2)
+        val splitWidth = (screenWidthMinusPadding / 2).toInt()
+
+        // Following aspect ratio
+        val rowHeight = (splitWidth * MovieDBConstants.ASPECT_RATIO_HEIGHT) / MovieDBConstants.ASPECT_RATIO_WIDTH
+
+        val itemsByRow = resources.getInteger(R.integer.home_recommended_grid_span)
+        val maxItems = resources.getInteger(R.integer.home_recommended_grid_max_items)
+        val recyclerViewHeight = rowHeight * (maxItems / itemsByRow)
+
+        // We set the height of the recycler view
+        // according to the height calculated rows
+        // related with max items to be showed in grid
+        binding.recommendedMoviesRecyclerView.layoutParams.height = recyclerViewHeight
     }
 
     private fun setObservers() {
@@ -165,7 +189,7 @@ class HomeFragment : BaseDataBindingFragment<FragmentHomeBinding>() {
 
     private fun setRecommendedRecyclerView(data : List<UIMovieItem>?) {
 
-        val layoutManager = GridLayoutManager(requireContext(), 2)
+        val layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.home_recommended_grid_span))
 
         setMoviesRecyclerView(binding.recommendedMoviesRecyclerView, data, layoutManager, R.layout.view_cell_movie_grid)
     }

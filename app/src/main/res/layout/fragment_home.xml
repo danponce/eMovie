@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         android:animateLayoutChanges="true"
-        android:padding="16dp">
+        android:padding="@dimen/default_view_padding">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"

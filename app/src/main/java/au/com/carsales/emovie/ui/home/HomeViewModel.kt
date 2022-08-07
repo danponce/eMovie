@@ -147,6 +147,10 @@ class HomeViewModel @Inject constructor(
 
                     if(language.isNotEmpty()) {
                         valid = (language == movie.displayLanguage)
+
+                        if(!valid) {
+                            return@filter valid
+                        }
                     }
 
                     if(year.isNotEmpty()) {
