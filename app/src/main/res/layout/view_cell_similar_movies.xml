@@ -13,7 +13,7 @@
 
         <variable
             name="item"
-            type="com.danponce.emovie.ui.model.UIMovieVideoItem" />
+            type="com.danponce.emovie.ui.model.UIMovieItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,19 +26,11 @@
         <ImageView
             android:id="@+id/videoImageView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/movie_video_image_cell_height"
-            app:loadImageUrlWithTopRoundedCorners="@{item.thumbnail}"
+            android:layout_height="@dimen/movie_item_image_cell_height"
+            app:loadImageUrlWithTopRoundedCorners="@{item.formattedPosterPath}"
             tools:src="@drawable/minion"
             android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/video_item_play_icon_margin"
-            app:layout_constraintLeft_toLeftOf="@id/videoImageView"
-            app:layout_constraintBottom_toBottomOf="@id/videoImageView"
-            android:src="@drawable/ic_baseline_play_circle_outline_24" />
 
         <FrameLayout
             android:layout_width="0dp"
@@ -51,10 +43,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.name}"
+                android:text="@{item.originalTitle}"
                 tools:text="Official Trailer"
                 android:textSize="@dimen/video_item_title_text_size"
                 android:textColor="@color/white"
+                android:ellipsize="marquee"
                 android:layout_marginLeft="@dimen/video_item_title_margin_left"
                 android:layout_marginVertical="@dimen/video_item_title_margin_vertical"/>
 

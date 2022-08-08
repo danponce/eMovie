@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.danponce.emovie.R
 import com.danponce.emovie.databinding.ViewComponentDetailSimilarMoviesBinding
 import com.danponce.emovie.ui.model.UIMovieDetail
+import com.danponce.emovie.ui.model.UIMovieItem
 import com.danponce.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 
 /**
@@ -32,12 +33,18 @@ class SimilarMoviesViewComponent : BaseMovieDetailViewComponent {
     fun setView(detail : UIMovieDetail) {
         val binding = ViewComponentDetailSimilarMoviesBinding.inflate(LayoutInflater.from(context), this, false)
 
-        binding.similarMoviesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = SingleLayoutBindRecyclerAdapter(
-                R.layout.view_cell_similar_movies,
-                detail.videos
-            )
+        val recyclerAdapter = binding.similarMoviesRecyclerView.adapter
+
+        when(recyclerAdapter) {
+            null -> binding.similarMoviesRecyclerView.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = SingleLayoutBindRecyclerAdapter(
+                    R.layout.view_cell_similar_movies,
+                    detail.similarMovies
+                )
+            }
+
+            else -> (binding.similarMoviesRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(detail.similarMovies)
         }
 
         insertView(binding.root)
