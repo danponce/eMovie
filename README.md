@@ -1,5 +1,3 @@
-# android.anibalbastias.moviesapp
-
 ## eMovie Application Challenge
 
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.6.10-blue.svg)](https://kotlinlang.org)
