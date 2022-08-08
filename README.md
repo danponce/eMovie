@@ -55,9 +55,9 @@ you can watch the details of it.
 
     * di: Contains logic of Dependency Injection using Dagger Hilt, separating the scopes for any
       layer and the ViewModel.
-
-![packages](art/packages.png?raw=true)
-
+  
+    * utils: Some tools related with general utilities used through the entire app
+    
 # Screenshots
 
 <p float="left">
