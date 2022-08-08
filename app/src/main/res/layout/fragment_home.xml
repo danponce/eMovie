@@ -119,6 +119,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/filterYearButton"
+                            style="@style/HomeFilterButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/home_filter_button_horizontal_margin"

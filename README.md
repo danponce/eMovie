@@ -12,7 +12,7 @@ you can watch the details of it.
 
 ## Developed with
 
-[comment]: <> (<img src="art/movies_flow.gif" width="300" align="right" hspace="20">)
+<img src="art/emovie_sample_high.gif" width="300" align="right" hspace="20">
 
 * UI
    * [Compose](https://developer.android.com/jetpack/compose) declarative UI framework
