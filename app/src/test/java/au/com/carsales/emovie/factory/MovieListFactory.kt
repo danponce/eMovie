@@ -18,4 +18,6 @@ object MovieListFactory {
             originalLanguage = ""
         )
     }
+
+    fun emptyMoviesList() = listOf<DomainMovieItem>()
 }
