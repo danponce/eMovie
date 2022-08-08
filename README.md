@@ -8,7 +8,7 @@
 
 **eMovie** is an Android application that provides information of movies. The goal of this app is to show 
 some movies from TheMovie DB servers showing the "Upcoming" and "Top Rated" movies. When pressing any movie 
-you can watch the details of it
+you can watch the details of it.
 
 ## Developed with
 
