@@ -9,9 +9,9 @@ import com.danponce.emovie.data.remote.mapper.RemoteToDomainMovieMapper
 import com.danponce.emovie.data.remote.state.APIState
 import com.danponce.emovie.domain.model.DomainMovieItem
 import com.nhaarman.mockito_kotlin.whenever
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
 import junit.framework.TestCase
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before

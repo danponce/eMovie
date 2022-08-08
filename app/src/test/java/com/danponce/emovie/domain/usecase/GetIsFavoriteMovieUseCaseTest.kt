@@ -2,8 +2,6 @@ package com.danponce.emovie.domain.usecase
 
 import com.danponce.emovie.base.BaseUnitTest
 import com.danponce.emovie.data.local.LocalMoviesRepositoryImpl
-import com.danponce.emovie.data.remote.state.APIState
-import com.danponce.emovie.factory.MovieListFactory
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.Flow
