@@ -54,19 +54,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args : MovieDetailFragmentArgs by navArgs()
-
         setSharedElementTransitionOnEnter()
         postponeEnterTransition()
-
-        val movie = args.movie
-
-        binding.collapsingImageView.apply {
-
-            transitionName = movie.id.toString()
-
-            startEnterTransitionAfterLoadingImage(movie)
-        }
 
         if(detailViewModel.hasData()) {
 
@@ -82,16 +71,25 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
             detailViewModel.setMovie(movie)
             detailViewModel.getMovieDetails()
+            initViews(movie)
         }
-
-        detailViewModel.isShowFavorite(movie.id.toString())
 
         binding.viewModel = detailViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
 
-        initListeners()
+    }
+
+    private fun initViews(movie: UIMovieItem) {
+        binding.collapsingImageView.apply {
+
+            transitionName = movie.id.toString()
+
+            startEnterTransitionAfterLoadingImage(movie)
+        }
+
+        detailViewModel.isShowFavorite(movie.id.toString())
     }
 
     private fun startEnterTransitionAfterLoadingImage(movie: UIMovieItem) {
@@ -130,17 +128,6 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
     private fun setMovieImageHeight() {
         // Set movie image to take full screen height
         binding.collapsingImageView.layoutParams.height = getScreenHeightPart(3)
-    }
-
-    private fun initListeners() {
-
-//        binding.fab.setOnClickListener {
-//            when(detailViewModel.isActualShowFavorite()) {
-//                true -> detailViewModel.deleteFavorite()
-//                false -> detailViewModel.addFavorite()
-//            }
-//        }
-
     }
 
     private fun setFabDrawable(isFavorite : Boolean) {

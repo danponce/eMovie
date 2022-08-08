@@ -5,15 +5,16 @@ import au.com.carsales.autogate.utils.coroutines.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
+@RunWith(MockitoJUnitRunner.Silent::class)
 @ExperimentalCoroutinesApi
 abstract class BaseUnitTest {
     @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
+    var instantTaskExecutorRule : TestRule = InstantTaskExecutorRule()
 
 
     @get: Rule
@@ -22,11 +23,11 @@ abstract class BaseUnitTest {
     /**
      * Initializes the view model that will be tested.
      **/
-    abstract fun initViewModel()
+    abstract fun initMockCases()
 
     @Before
     open fun setUp() {
         MockitoAnnotations.openMocks(this)
-        initViewModel()
+        initMockCases()
     }
 }

@@ -37,7 +37,7 @@ class HomeViewModelTest : BaseUnitTest() {
 
     lateinit var homeViewModel: HomeViewModel
 
-    override fun initViewModel() {
+    override fun initMockCases() {
         homeViewModel = HomeViewModel(
             getUpcomingMoviesUseCase,
             getTopRatedMoviesUseCase,
@@ -48,7 +48,7 @@ class HomeViewModelTest : BaseUnitTest() {
     }
 
     @Test
-    fun should_setStateError_when_getUpcomingMovies_IsExecuted() {
+    fun `should setStateError when getUpcomingMovies IsExecuted`() {
         testCoroutineRule.runBlockingTest {
             val exception = State.Error<List<DomainMovieItem>>("Error ")
 
@@ -63,7 +63,7 @@ class HomeViewModelTest : BaseUnitTest() {
     }
 
     @Test
-    fun should_setStateEmpty_when_getUpcomingMovies_IsExecuted() {
+    fun `should setStateEmpty when getUpcomingMovies IsExecuted`() {
         testCoroutineRule.runBlockingTest {
             val exception = State.Empty<List<DomainMovieItem>>()
 
@@ -78,7 +78,7 @@ class HomeViewModelTest : BaseUnitTest() {
     }
 
     @Test
-    fun should_setViewStateSuccess_when_getUpcomingMovies_is_executed() {
+    fun `should setViewStateSuccess when getUpcomingMovies is executed`() {
         testCoroutineRule.runBlockingTest {
 
             val successResponse = State.Success(listOf<DomainMovieItem>())
