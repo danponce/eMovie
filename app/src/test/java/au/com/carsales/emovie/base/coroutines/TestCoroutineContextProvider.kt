@@ -1,6 +1,6 @@
-package au.com.carsales.emovie.base.coroutines
+package com.danponce.emovie.base.coroutines
 
-import au.com.carsales.emovie.utils.base.coroutines.CoroutinesContextProvider
+import com.danponce.emovie.utils.base.coroutines.CoroutinesContextProvider
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

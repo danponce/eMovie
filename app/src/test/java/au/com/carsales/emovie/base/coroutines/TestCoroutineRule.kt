@@ -1,4 +1,4 @@
-package au.com.carsales.autogate.utils.coroutines
+package com.danponce.autogate.utils.coroutines
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,8 +1,8 @@
-package au.com.carsales.emovie.domain.usecase
+package com.danponce.emovie.domain.usecase
 
-import au.com.carsales.emovie.base.BaseUnitTest
-import au.com.carsales.emovie.data.local.LocalMoviesRepositoryImpl
-import au.com.carsales.emovie.factory.MovieListFactory
+import com.danponce.emovie.base.BaseUnitTest
+import com.danponce.emovie.data.local.LocalMoviesRepositoryImpl
+import com.danponce.emovie.factory.MovieListFactory
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

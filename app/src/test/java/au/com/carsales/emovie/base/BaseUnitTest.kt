@@ -1,7 +1,7 @@
-package au.com.carsales.emovie.base
+package com.danponce.emovie.base
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import au.com.carsales.autogate.utils.coroutines.TestCoroutineRule
+import com.danponce.autogate.utils.coroutines.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule

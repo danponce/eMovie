@@ -14,7 +14,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "au.com.carsales.emovie"
+        applicationId "com.danponce.emovie"
         minSdk 21
         targetSdk 32
         versionCode 1

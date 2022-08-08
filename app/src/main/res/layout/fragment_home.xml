@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="au.com.carsales.emovie.ui.home.HomeViewModel" />
+            type="com.danponce.emovie.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -131,7 +131,7 @@
 
                     </LinearLayout>
 
-                    <au.com.carsales.emovie.utils.base.views.EmptyListView
+                    <com.danponce.emovie.utils.base.views.EmptyListView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/home_empty_view_margin_top"
@@ -165,7 +165,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
-        <au.com.carsales.emovie.utils.base.views.EmptyListView
+        <com.danponce.emovie.utils.base.views.EmptyListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="@{viewModel.isLoading() || !viewModel.isEmpty() ? View.GONE : View.VISIBLE}"
@@ -174,7 +174,7 @@
             app:text="@string/home_empty_results_message"
             tools:visibility="gone" />
 
-        <au.com.carsales.emovie.utils.base.views.ErrorView
+        <com.danponce.emovie.utils.base.views.ErrorView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="@{viewModel.isLoading() || !viewModel.isError() ? View.GONE : View.VISIBLE}"

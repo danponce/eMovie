@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemDetail"
-            type="au.com.carsales.emovie.ui.model.UIMovieDetail" />
+            type="com.danponce.emovie.ui.model.UIMovieDetail" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

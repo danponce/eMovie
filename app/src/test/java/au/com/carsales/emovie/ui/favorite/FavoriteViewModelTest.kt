@@ -1,14 +1,14 @@
-package au.com.carsales.emovie.ui.favorite
+package com.danponce.emovie.ui.favorite
 
-import au.com.carsales.emovie.base.BaseUnitTest
-import au.com.carsales.emovie.base.coroutines.TestCoroutineContextProvider
-import au.com.carsales.emovie.domain.model.DomainMovieItem
-import au.com.carsales.emovie.domain.usecase.DeleteFavoriteMovieUseCase
-import au.com.carsales.emovie.domain.usecase.GetFavoriteMoviesUseCase
-import au.com.carsales.emovie.ui.favorites.FavoritesViewModel
-import au.com.carsales.emovie.ui.mapper.UIMovieItemListMapper
-import au.com.carsales.emovie.ui.mapper.UIMovieItemMapper
-import au.com.carsales.emovie.utils.base.State
+import com.danponce.emovie.base.BaseUnitTest
+import com.danponce.emovie.base.coroutines.TestCoroutineContextProvider
+import com.danponce.emovie.domain.model.DomainMovieItem
+import com.danponce.emovie.domain.usecase.DeleteFavoriteMovieUseCase
+import com.danponce.emovie.domain.usecase.GetFavoriteMoviesUseCase
+import com.danponce.emovie.ui.favorites.FavoritesViewModel
+import com.danponce.emovie.ui.mapper.UIMovieItemListMapper
+import com.danponce.emovie.ui.mapper.UIMovieItemMapper
+import com.danponce.emovie.utils.base.State
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

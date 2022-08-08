@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="au.com.carsales.emovie.ui.detail.MovieDetailViewModel" />
+            type="com.danponce.emovie.ui.detail.MovieDetailViewModel" />
 
     </data>
 
@@ -107,7 +107,7 @@
                     android:text="@{viewModel.movieDetailsLiveData.overview}"
                     tools:text="Girl Meets World is based on ABC's hugely popular sitcom, Boy Meets World (1993). Set in New York City, the show tells the wonderfully funny heartfelt stories that Boy Meets World is" />
 
-                <au.com.carsales.emovie.ui.detail.component.MovieVideosViewComponent
+                <com.danponce.emovie.ui.detail.component.MovieVideosViewComponent
                     android:id="@+id/movieVideosViewComponent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                     app:layout_constraintTop_toBottomOf="@id/summaryTextView"
                     android:layout_marginTop="@dimen/detail_video_component_margin_top"/>
 
-                <au.com.carsales.emovie.utils.base.views.EmptyAllPurposeView
+                <com.danponce.emovie.utils.base.views.EmptyAllPurposeView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/detail_empty_view_margin_top"

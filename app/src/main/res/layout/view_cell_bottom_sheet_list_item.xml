@@ -10,7 +10,7 @@
 
         <variable
             name="clickHandler"
-            type="au.com.carsales.emovie.utils.base.databinding.BaseBindClickHandler" />
+            type="com.danponce.emovie.utils.base.databinding.BaseBindClickHandler" />
 
     </data>
 

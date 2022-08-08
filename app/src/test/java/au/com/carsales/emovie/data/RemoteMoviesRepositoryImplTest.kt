@@ -1,13 +1,13 @@
-package au.com.carsales.emovie.data
+package com.danponce.emovie.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import au.com.carsales.autogate.utils.coroutines.TestCoroutineRule
-import au.com.carsales.emovie.data.remote.RemoteMoviesRepositoryImpl
-import au.com.carsales.emovie.data.remote.RemoteMoviesService
-import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieDetailMapper
-import au.com.carsales.emovie.data.remote.mapper.RemoteToDomainMovieMapper
-import au.com.carsales.emovie.data.remote.state.APIState
-import au.com.carsales.emovie.domain.model.DomainMovieItem
+import com.danponce.autogate.utils.coroutines.TestCoroutineRule
+import com.danponce.emovie.data.remote.RemoteMoviesRepositoryImpl
+import com.danponce.emovie.data.remote.RemoteMoviesService
+import com.danponce.emovie.data.remote.mapper.RemoteToDomainMovieDetailMapper
+import com.danponce.emovie.data.remote.mapper.RemoteToDomainMovieMapper
+import com.danponce.emovie.data.remote.state.APIState
+import com.danponce.emovie.domain.model.DomainMovieItem
 import com.nhaarman.mockito_kotlin.whenever
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull

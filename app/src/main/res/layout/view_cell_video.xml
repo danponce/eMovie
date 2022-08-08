@@ -9,11 +9,11 @@
 
         <variable
             name="clickHandler"
-            type="au.com.carsales.emovie.utils.base.databinding.BaseBindClickHandler" />
+            type="com.danponce.emovie.utils.base.databinding.BaseBindClickHandler" />
 
         <variable
             name="item"
-            type="au.com.carsales.emovie.ui.model.UIMovieVideoItem" />
+            type="com.danponce.emovie.ui.model.UIMovieVideoItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

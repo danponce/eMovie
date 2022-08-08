@@ -1,6 +1,6 @@
-package au.com.carsales.emovie.factory
+package com.danponce.emovie.factory
 
-import au.com.carsales.emovie.domain.model.DomainMovieItem
+import com.danponce.emovie.domain.model.DomainMovieItem
 
 /**
  * Created by Dan on 07, agosto, 2022
