@@ -61,15 +61,10 @@ you can watch the details of it.
 # Screenshots
 
 <p float="left">
-<img src="art/fragment_list.png" width="250">
-<img src="art/fragment_details.png" width="250">
-<img src="art/fragment_favorites.png" width="250">
-<img src="art/search_list.png" width="250">
-<img src="art/search_recents.png" width="250">
-<img src="art/youtube_video_list.png" width="250">
-<img src="art/movies_translations.png" width="250">
-<img src="art/youtube_video_list_selected.png" width="250">
-<img src="art/youtube_video_list_selected_playing.png" width="250">
+<img src="art/emovie_screenshot_1.png" width="250">
+<img src="art/emovie_screenshot_2.png" width="250">
+<img src="art/emovie_screenshot_3.png" width="250">
+<img src="art/emovie_screenshot_4.png" width="250">
 </p>
 
 # Extra functionalities
