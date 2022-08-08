@@ -92,6 +92,15 @@ class GetMovieDetailUseCaseTest : BaseUnitTest() {
             }
         }
 
+    /**
+     * Mocks local and remote repositories
+     * given some flow results and then
+     * execute use case call
+     *
+     * @param movieId           the movie id to make the repo and use case calls
+     * @param localResult       the local result flow to return when mocking the local repository
+     * @param remoteResult      the remote result flow to return when mocking the remote repository
+     */
     private suspend fun <Local, Remote> mockRepositoriesAndExecuteCall(
         movieId: String,
         localResult: Flow<Local>,

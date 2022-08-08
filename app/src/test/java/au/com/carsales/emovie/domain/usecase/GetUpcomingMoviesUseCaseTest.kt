@@ -18,7 +18,7 @@ import org.mockito.Mock
  * Copyright (c) 2022 Carsales. All rights reserved.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-class GetTopRatedMoviesUseCaseTest : BaseUnitTest() {
+class GetUpcomingMoviesUseCaseTest : BaseUnitTest() {
 
     @Mock
     internal lateinit var mockRemoteRepository: RemoteMoviesRepositoryImpl
@@ -26,11 +26,11 @@ class GetTopRatedMoviesUseCaseTest : BaseUnitTest() {
     @Mock
     internal lateinit var mockLocalRepository: LocalMoviesRepositoryImpl
 
-    private lateinit var getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase
+    private lateinit var getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
 
     override fun initMockCases() {
-        getTopRatedMoviesUseCase =
-            GetTopRatedMoviesUseCase(mockLocalRepository, mockRemoteRepository)
+        getUpcomingMoviesUseCase =
+            GetUpcomingMoviesUseCase(mockLocalRepository, mockRemoteRepository)
     }
 
     @Test
@@ -103,12 +103,12 @@ class GetTopRatedMoviesUseCaseTest : BaseUnitTest() {
         localResult: Flow<Local>,
         remoteResult: Flow<Remote>
     ) {
-        whenever(mockLocalRepository.getTopRatedMovies()).thenAnswer {
+        whenever(mockLocalRepository.getUpcomingMovies()).thenAnswer {
             localResult
         }
-        whenever(mockRemoteRepository.getTopRatedMovies()).thenAnswer {
+        whenever(mockRemoteRepository.getUpcomingMovies()).thenAnswer {
             remoteResult
         }
-        getTopRatedMoviesUseCase.getTopRatedMovies()
+        getUpcomingMoviesUseCase.getUpcomingMovies()
     }
 }
