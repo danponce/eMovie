@@ -33,10 +33,12 @@
         <entry key="app/src/main/res/layout/view_cell_movie.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/view_cell_movie_grid.xml" value="0.11041666666666666" />
         <entry key="app/src/main/res/layout/view_cell_paging_loader.xml" value="0.3015625" />
+        <entry key="app/src/main/res/layout/view_cell_similar_movies.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/view_cell_tvshow.xml" value="0.1" />
         <entry key="app/src/main/res/layout/view_cell_tvshow_schedule.xml" value="0.20885416666666667" />
         <entry key="app/src/main/res/layout/view_cell_video.xml" value="0.6022727272727273" />
         <entry key="app/src/main/res/layout/view_component_detail_base.xml" value="0.29791666666666666" />
+        <entry key="app/src/main/res/layout/view_component_detail_similar_movies.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/view_component_detail_video.xml" value="0.3814453125" />
         <entry key="app/src/main/res/layout/view_empty_all.xml" value="0.296875" />
         <entry key="app/src/main/res/layout/view_empty_list.xml" value="0.29791666666666666" />

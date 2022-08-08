@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MoviesDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMovie(movie: EntityMovieItem?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import com.danponce.emovie.R
 import com.danponce.emovie.databinding.FragmentMovieDetailBinding
 import com.danponce.emovie.ui.model.UIMovieDetail
 import com.danponce.emovie.ui.model.UIMovieItem
@@ -17,6 +16,7 @@ import com.danponce.emovie.utils.base.BaseDataBindingFragment
 import com.danponce.emovie.utils.base.setBackButton
 import com.danponce.emovie.utils.getScreenHeightPart
 import com.bumptech.glide.Glide
+import com.danponce.emovie.R
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -150,6 +150,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         }
 
         binding.movieVideosViewComponent.setView(data)
+        binding.similarMoviesViewComponent.setView(data)
 
         binding.fab.setOnClickListener {
             when(detailViewModel.isActualShowFavorite()) {

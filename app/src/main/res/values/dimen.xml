@@ -23,7 +23,7 @@
 
     <!-- Base Video View Component -->
     <dimen name="video_component_title_margin_left">8dp</dimen>
-    <dimen name="video_component_title_text_size">26sp</dimen>
+    <dimen name="video_component_title_text_size">22sp</dimen>
     <dimen name="video_component_container_margin_top">16dp</dimen>
 
     <!-- Video View Component -->
@@ -54,7 +54,7 @@
     <dimen name="detail_chip_group_margin_vertical">8dp</dimen>
     <dimen name="detail_chip_spacing">6dp</dimen>
     <dimen name="detail_overview_text_size">16sp</dimen>
-    <dimen name="detail_video_component_margin_top">12dp</dimen>
+    <dimen name="detail_component_margin_top">12dp</dimen>
 
     <!-- Bottom Sheet Dialog -->
     <dimen name="bottom_sheet_dialog_max_height">300dp</dimen>

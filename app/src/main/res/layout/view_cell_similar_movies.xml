@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="clickHandler"
+            type="com.danponce.emovie.utils.base.databinding.BaseBindClickHandler" />
+
+        <variable
+            name="item"
+            type="com.danponce.emovie.ui.model.UIMovieVideoItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/movie_image_padding"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{(v) -> clickHandler.onClickView(v, item)}">
+
+        <ImageView
+            android:id="@+id/videoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/movie_video_image_cell_height"
+            app:loadImageUrlWithTopRoundedCorners="@{item.thumbnail}"
+            tools:src="@drawable/minion"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/video_item_play_icon_margin"
+            app:layout_constraintLeft_toLeftOf="@id/videoImageView"
+            app:layout_constraintBottom_toBottomOf="@id/videoImageView"
+            android:src="@drawable/ic_baseline_play_circle_outline_24" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/videoImageView"
+            app:layout_constraintRight_toRightOf="@id/videoImageView"
+            app:layout_constraintLeft_toLeftOf="@id/videoImageView"
+            android:background="@drawable/shape_video_item_background">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.name}"
+                tools:text="Official Trailer"
+                android:textSize="@dimen/video_item_title_text_size"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/video_item_title_margin_left"
+                android:layout_marginVertical="@dimen/video_item_title_margin_vertical"/>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -84,7 +84,7 @@
                     android:id="@+id/chipGroupView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/default_view_padding"
+                    android:paddingHorizontal="@dimen/default_view_padding"
                     android:layout_marginVertical="@dimen/detail_chip_group_margin_vertical"
                     android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
                     app:chipSpacing="@dimen/detail_chip_spacing"
@@ -113,7 +113,15 @@
                     android:layout_height="wrap_content"
                     android:visibility="@{( viewModel.isLoading() | viewModel.isError() | viewModel.isEmpty() ) ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/summaryTextView"
-                    android:layout_marginTop="@dimen/detail_video_component_margin_top"/>
+                    android:layout_marginTop="@dimen/detail_component_margin_top"/>
+
+                <com.danponce.emovie.ui.detail.component.SimilarMoviesViewComponent
+                    android:id="@+id/similarMoviesViewComponent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{( viewModel.isLoading() | viewModel.isError() | viewModel.isEmpty() ) ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@id/movieVideosViewComponent"
+                    android:layout_marginTop="@dimen/detail_component_margin_top"/>
 
                 <com.danponce.emovie.utils.base.views.EmptyAllPurposeView
                     android:layout_width="match_parent"

@@ -25,6 +25,8 @@
 
     <!-- Details Fragment -->
     <string name="detail_video_section_title">Videos</string>
+    <string name="detail_similar_movies_section_title">Similar movies</string>
+    <string name="detail_similar_movies_subtitle">You might also like</string>
     <string name="detail_no_movie_information_message">No movie details found…</string>
 
     <!-- Others -->
