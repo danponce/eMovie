@@ -17,7 +17,7 @@ class LocalEntityToDomainMovieMapper @Inject constructor() : Mapper<List<BaseMov
                 id = movie.id?.toLong() ?: 0,
                 posterPath = movie.posterPath ?:"",
                 originalTitle = movie.originalTitle ?:"",
-                voteAverage = movie.voteAverage ?: 0.0,
+                voteAverage = movie.voteAverage ?: Double.MIN_VALUE,
                 releaseDate = movie.releaseDate ?:"",
                 originalLanguage = movie.originalLanguage ?:""
             )

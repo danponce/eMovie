@@ -31,7 +31,7 @@ fun <T> resultFlow(
             if(!isNetworkExecuted) {
                 when (network) {
                     is APIState.Success -> {
-                        saveCallResult.invoke(network.data as T)
+                        saveCallResult.invoke(network.data)
                     }
 
                     is APIState.Error -> {

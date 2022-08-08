@@ -13,12 +13,12 @@ class LocalEntityToDomainMovieVideoMapper @Inject constructor() : Mapper<EntityM
     override fun executeMapping(type: EntityMovieVideo?): DomainMovieVideoItem? {
         return type?.let {
             DomainMovieVideoItem(
-                id = it.id ?: "",
-                key = it.key ?: "",
-                name = it.name ?: "",
-                publishedAt = it.publishedAt ?: "",
-                site = it.site ?: "",
-                type = it.type ?: ""
+                id = it.id,
+                key = it.key,
+                name = it.name,
+                publishedAt = it.publishedAt,
+                site = it.site,
+                type = it.type
             )
         }
     }

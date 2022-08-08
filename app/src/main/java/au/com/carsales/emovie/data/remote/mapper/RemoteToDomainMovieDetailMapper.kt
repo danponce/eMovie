@@ -25,7 +25,7 @@ class RemoteToDomainMovieDetailMapper @Inject constructor(
                 releaseDate = it?.releaseDate ?: "",
                 overview = it?.overview ?: "",
                 genres = it?.genres?.map { it.name ?: "" } ?: listOf(),
-                voteAverage = it?.voteAverage ?: 0.0,
+                voteAverage = it?.voteAverage ?: Double.MIN_VALUE,
                 voteCount = it?.voteCount ?: 0,
                 videos = videosResultData?.results?.mapNotNull { item -> videoItemMapper.executeMapping(item) } ?: listOf()
             )

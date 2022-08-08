@@ -20,8 +20,8 @@ object DateUtils {
         return SimpleDateFormat(format, Locale.getDefault()).format(Date())
     }
 
-    fun getYearFromDate(dateInString : String, format: String) : String {
-        var format = SimpleDateFormat(format, Locale.getDefault())
+    fun getYearFromDate(dateInString : String, dateFormat: String) : String {
+        var format = SimpleDateFormat(dateFormat, Locale.getDefault())
         var date : Date? = null
 
         try {

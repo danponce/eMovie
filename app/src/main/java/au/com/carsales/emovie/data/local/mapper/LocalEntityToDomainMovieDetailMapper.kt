@@ -15,18 +15,18 @@ class LocalEntityToDomainMovieDetailMapper @Inject constructor(
     override fun executeMapping(type: EntityMovieDetail?): DomainMovieDetail? {
         return type?.let {
             DomainMovieDetail(
-                id = it?.id?.toInt() ?: 0,
-                posterPath = it?.posterPath ?: "",
-                backdropPath = it?.backdropPath ?: "",
-                originalTitle = it?.originalTitle ?: "",
-                title = it?.title ?: "",
-                releaseDate = it?.releaseDate ?: "",
-                runtime = it?.runtime ?: 0,
-                overview = it?.overview ?: "",
-                genres = it?.genres.orEmpty(),
-                voteAverage = it?.voteAverage ?: 0.0,
-                voteCount = it?.voteCount ?: 0,
-                videos = it?.videos?.mapNotNull { video -> videoItemMapper.executeMapping(video) }.orEmpty()
+                id = it.id.toInt(),
+                posterPath = it.posterPath,
+                backdropPath = it.backdropPath,
+                originalTitle = it.originalTitle,
+                title = it.title,
+                releaseDate = it.releaseDate,
+                runtime = it.runtime,
+                overview = it.overview,
+                genres = it.genres,
+                voteAverage = it.voteAverage,
+                voteCount = it.voteCount,
+                videos = it.videos.mapNotNull { video -> videoItemMapper.executeMapping(video) }
             )
         }
     }

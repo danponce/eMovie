@@ -14,9 +14,7 @@ import au.com.carsales.emovie.databinding.FragmentMovieDetailBinding
 import au.com.carsales.emovie.ui.model.UIMovieDetail
 import au.com.carsales.emovie.ui.model.UIMovieItem
 import au.com.carsales.emovie.utils.base.BaseDataBindingFragment
-import au.com.carsales.emovie.utils.base.TransitionConstants
 import au.com.carsales.emovie.utils.base.setBackButton
-import au.com.carsales.emovie.utils.getScreenHeight
 import au.com.carsales.emovie.utils.getScreenHeightPart
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
