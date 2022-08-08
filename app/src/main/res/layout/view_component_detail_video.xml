@@ -13,6 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtubePlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/mainMovieImageView"
             android:layout_width="match_parent"
@@ -21,7 +27,7 @@
             android:adjustViewBounds="true"
             app:loadImageUrl="@{itemDetail.mainVideoThumbnail}"
             app:shapeAppearance="@style/MovieVideoCorners"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/youtubePlayerView"
             tools:src="@drawable/minion" />
 
         <View

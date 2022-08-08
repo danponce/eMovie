@@ -15,6 +15,8 @@ abstract class BaseMovieDetailViewComponent : BaseDataBindingViewComponent<ViewC
 
     abstract fun sectionTitle() : Int
     fun insertView(view : View) {
+        if(binding.containerLayoutView.childCount > 0)
+            return
         binding.containerLayoutView.addView(view)
         binding.item = this
     }
