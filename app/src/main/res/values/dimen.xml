@@ -12,6 +12,24 @@
     <dimen name="movie_video_image_height">220dp</dimen>
     <dimen name="movie_image_padding">8dp</dimen>
     <dimen name="movie_placeholder_padding">22dp</dimen>
+    <dimen name="movie_gradient_size">120dp</dimen>
+
+    <!-- Video Cell -->
+    <dimen name="video_item_play_icon_margin">10dp</dimen>
+    <dimen name="video_item_title_text_size">12sp</dimen>
+    <dimen name="video_item_title_margin_left">12dp</dimen>
+    <dimen name="video_item_title_margin_vertical">16sp</dimen>
+    <dimen name="favorite_item_title_left_margin">12dp</dimen>
+
+    <!-- Base Video View Component -->
+    <dimen name="video_component_title_margin_left">8dp</dimen>
+    <dimen name="video_component_title_text_size">26sp</dimen>
+    <dimen name="video_component_container_margin_top">16dp</dimen>
+
+    <!-- Video View Component -->
+    <dimen name="video_component_play_icon_size">48dp</dimen>
+    <dimen name="video_component_play_icon_margin">12dp</dimen>
+    <dimen name="video_component_recycler_margin_top">12dp</dimen>
 
     <!-- Detail base view component -->
     <dimen name="view_component_detail_base_title_decor_width">6dp</dimen>
@@ -19,11 +37,24 @@
 
     <!-- Home Fragment -->
     <dimen name="home_empty_view_margin_top">30dp</dimen>
+    <dimen name="home_title_text_size">20sp</dimen>
+    <dimen name="home_title_left_margin">8dp</dimen>
+    <dimen name="home_progress_bar_size">80dp</dimen>
+    <dimen name="home_filter_button_horizontal_margin">6dp</dimen>
+    <dimen name="home_filter_button_horizontal_padding">12dp</dimen>
+    <dimen name="home_filter_button_vertical_padding">6dp</dimen>
+    <dimen name="home_filter_button_vertical_margin">6dp</dimen>
+    <dimen name="home_filter_button_corner_radius">20dp</dimen>
 
     <!-- Movie Detail -->
     <dimen name="detail_empty_view_margin_top">50dp</dimen>
     <dimen name="detail_progress_bar_size">40dp</dimen>
     <dimen name="detail_progress_bar_margin_top">50dp</dimen>
+    <dimen name="detail_gradient_size">120dp</dimen>
+    <dimen name="detail_chip_group_margin_vertical">8dp</dimen>
+    <dimen name="detail_chip_spacing">6dp</dimen>
+    <dimen name="detail_overview_text_size">16sp</dimen>
+    <dimen name="detail_video_component_margin_top">12dp</dimen>
 
     <!-- Bottom Sheet Dialog -->
     <dimen name="bottom_sheet_dialog_max_height">300dp</dimen>
@@ -34,5 +65,9 @@
 
     <!-- Empty List View -->
     <dimen name="empty_list_view_image_size">90dp</dimen>
+    <dimen name="empty_list_view_image_margin_bottom">60dp</dimen>
+    <dimen name="empty_list_view_message_margin_top">30dp</dimen>
+    <dimen name="empty_list_view_message_text_size">18sp</dimen>
+    <dimen name="empty_list_view_message_horizontal_margin">54dp</dimen>
 
 </resources>

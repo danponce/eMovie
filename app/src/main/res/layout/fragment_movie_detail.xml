@@ -53,7 +53,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="@dimen/detail_gradient_size"
                     android:layout_gravity="bottom"
                     android:background="@drawable/shape_gray_gradient_to_transparent"/>
 
@@ -85,9 +85,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/default_view_padding"
-                    android:layout_marginVertical="8dp"
+                    android:layout_marginVertical="@dimen/detail_chip_group_margin_vertical"
                     android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
-                    app:chipSpacing="4dp"
+                    app:chipSpacing="@dimen/detail_chip_spacing"
                     tools:visibility="visible"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -98,11 +98,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/default_view_padding"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/default_view_padding"
                     android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
                     android:fontFamily="@font/open_sans_regular"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/detail_overview_text_size"
                     app:layout_constraintTop_toBottomOf="@id/chipGroupView"
                     android:text="@{viewModel.movieDetailsLiveData.overview}"
                     tools:text="Girl Meets World is based on ABC's hugely popular sitcom, Boy Meets World (1993). Set in New York City, the show tells the wonderfully funny heartfelt stories that Boy Meets World is" />
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="@{( viewModel.isLoading() | viewModel.isError() | viewModel.isEmpty() ) ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/summaryTextView"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="@dimen/detail_video_component_margin_top"/>
 
                 <au.com.carsales.emovie.utils.base.views.EmptyAllPurposeView
                     android:layout_width="match_parent"

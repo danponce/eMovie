@@ -33,9 +33,9 @@
             app:layout_constraintLeft_toRightOf="@id/titleDecorView"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/white"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/video_component_title_margin_left"
             android:fontFamily="@font/open_sans_semi_bold"
-            android:textSize="26sp" />
+            android:textSize="@dimen/video_component_title_text_size" />
 
         <FrameLayout
             android:id="@+id/containerLayoutView"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="@dimen/video_component_container_margin_top" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
