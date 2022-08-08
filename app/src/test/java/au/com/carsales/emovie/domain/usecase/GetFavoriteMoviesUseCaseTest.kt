@@ -57,7 +57,7 @@ class GetFavoriteMoviesUseCaseTest : BaseUnitTest() {
 
             // then
             localFlowResult.collect { state ->
-                TestCase.assertEquals(result, state)
+                TestCase.assertTrue(state.isEmpty())
             }
         }
 

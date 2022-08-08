@@ -35,14 +35,13 @@ class FavoritesViewModel @Inject constructor(
     private val _favoritesLiveData = MutableLiveData<List<UIMovieItem>?>()
     val favoritesLiveData : LiveData<List<UIMovieItem>?> = _favoritesLiveData
 
-    fun getFavoritesTVShows() {
+    fun getFavoritesMovies() {
         useCaseCollect(
             flowCall = { getFavoriteMoviesUseCase.getFavoriteMovies() },
             liveData = _favoritesLiveData,
             mapper = movieListMapper
         )
     }
-
 
     fun deleteFromFavorites(item: UIMovieItem) {
         viewModelScope.launch(Dispatchers.IO) {

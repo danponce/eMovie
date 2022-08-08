@@ -93,5 +93,4 @@ class HomeViewModelTest : BaseUnitTest() {
         }
     }
 
-
 }
