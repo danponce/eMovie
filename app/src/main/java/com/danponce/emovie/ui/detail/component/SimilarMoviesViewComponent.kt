@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.danponce.emovie.R
 import com.danponce.emovie.databinding.ViewComponentDetailSimilarMoviesBinding
 import com.danponce.emovie.ui.model.UIMovieDetail
-import com.danponce.emovie.ui.model.UIMovieItem
 import com.danponce.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 
 /**

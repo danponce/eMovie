@@ -22,6 +22,9 @@
     <dimen name="video_item_title_margin_vertical">16sp</dimen>
     <dimen name="favorite_item_title_left_margin">12dp</dimen>
 
+    <!-- Similar Movie Cell -->
+    <dimen name="similar_cell_bottom_container_height">60dp</dimen>
+
     <!-- Base Video View Component -->
     <dimen name="video_component_title_margin_left">8dp</dimen>
     <dimen name="video_component_title_text_size">22sp</dimen>

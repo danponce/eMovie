@@ -34,7 +34,7 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/similar_cell_bottom_container_height"
             app:layout_constraintTop_toBottomOf="@id/videoImageView"
             app:layout_constraintRight_toRightOf="@id/videoImageView"
             app:layout_constraintLeft_toLeftOf="@id/videoImageView"
@@ -47,8 +47,10 @@
                 tools:text="Official Trailer"
                 android:textSize="@dimen/video_item_title_text_size"
                 android:textColor="@color/white"
-                android:ellipsize="marquee"
-                android:layout_marginLeft="@dimen/video_item_title_margin_left"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:singleLine="false"
+                android:layout_marginHorizontal="@dimen/video_item_title_margin_left"
                 android:layout_marginVertical="@dimen/video_item_title_margin_vertical"/>
 
         </FrameLayout>
