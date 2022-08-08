@@ -68,14 +68,13 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
             val movie = args.movie
 
             detailViewModel.setMovie(movie)
+
+            binding.viewModel = detailViewModel
+            binding.lifecycleOwner = viewLifecycleOwner
+
             detailViewModel.getMovieDetails()
             initViews(movie)
         }
-
-        binding.viewModel = detailViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
 
     }
 
@@ -86,6 +85,8 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
 
             startEnterTransitionAfterLoadingImage(movie)
         }
+
+        binding.toolbar.setBackButton(requireActivity()) { navigateBack() }
 
         detailViewModel.isShowFavorite(movie.id.toString())
     }
@@ -153,6 +154,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         binding.similarMoviesViewComponent.setView(data)
 
         binding.fab.setOnClickListener {
+            binding.similarMoviesViewComponent.setView(data)
             when(detailViewModel.isActualShowFavorite()) {
                 true -> detailViewModel.deleteFavorite()
                 false -> detailViewModel.addFavorite()

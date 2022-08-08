@@ -14,7 +14,7 @@ fun <T> resultFlow(
     networkCall: suspend () -> Flow<APIState<T>>,
     saveCallResult: suspend (T) -> Unit
 ): Flow<State<T>> =
-    flow<State<T>> {
+    flow {
 
         // Just to make sure that the network
         // call flow is executed just once
@@ -52,8 +52,6 @@ fun <T> resultFlow(
 
         }.collect()
 
-    }.catch {
-        it
     }.flowOn(Dispatchers.IO)
 
 /**

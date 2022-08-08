@@ -30,21 +30,22 @@ class SimilarMoviesViewComponent : BaseMovieDetailViewComponent {
 
     override fun sectionTitle(): Int = R.string.detail_similar_movies_section_title
 
+    private var recyclerSet = false
+
     fun setView(detail : UIMovieDetail) {
         val binding = ViewComponentDetailSimilarMoviesBinding.inflate(LayoutInflater.from(context), this, false)
 
-        val recyclerAdapter = binding.similarMoviesRecyclerView.adapter
-
-        when(recyclerAdapter) {
-            null -> binding.similarMoviesRecyclerView.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        if(!recyclerSet) {
+            binding.similarMoviesRecyclerView.apply {
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = SingleLayoutBindRecyclerAdapter(
                     R.layout.view_cell_similar_movies,
                     detail.similarMovies
                 )
-            }
 
-            else -> (binding.similarMoviesRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieItem>).setData(detail.similarMovies)
+                recyclerSet = true
+            }
         }
 
         insertView(binding.root)

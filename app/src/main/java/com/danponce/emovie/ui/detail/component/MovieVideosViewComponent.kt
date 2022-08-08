@@ -29,22 +29,25 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent {
         initBinding()
     }
 
+    private var recyclerSet = false
+
     override fun sectionTitle(): Int = R.string.detail_video_section_title
 
     fun setView(detail : UIMovieDetail) {
         val binding = ViewComponentDetailVideoBinding.inflate(LayoutInflater.from(context), this, false)
         binding.itemDetail = detail
 
-        when(binding.videosRecyclerView.adapter) {
-            null -> binding.videosRecyclerView.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        if(!recyclerSet) {
+            binding.videosRecyclerView.apply {
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = SingleLayoutBindRecyclerAdapter(
                     R.layout.view_cell_video,
                     detail.videos
                 )
-            }
 
-            else -> (binding.videosRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieVideoItem>).setData(detail.videos)
+                recyclerSet = true
+            }
         }
 
         insertView(binding.root)
