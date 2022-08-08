@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 
 /**
  * Created by Dan on 29, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 
 fun Fragment.getScreenHeight() = resources.displayMetrics.heightPixels

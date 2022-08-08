@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Dan on 26, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 @Parcelize
 class UIMovieItem(

@@ -11,7 +11,7 @@ import retrofit2.Response
 
 /**
  * Created by Dan on 30, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 
 fun <T, K, Y> apiFlow(

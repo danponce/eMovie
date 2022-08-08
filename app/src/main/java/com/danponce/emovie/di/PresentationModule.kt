@@ -14,7 +14,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 /**
  * Created by Dan on 25, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 @InstallIn(ViewModelComponent::class)
 @Module

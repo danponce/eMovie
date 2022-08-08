@@ -20,7 +20,7 @@ import javax.inject.Singleton
 
 /**
  * Created by Dan on 06, agosto, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 
 @InstallIn(SingletonComponent::class)

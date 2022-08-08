@@ -6,7 +6,7 @@ import java.util.*
 
 /**
  * Created by Dan on 31, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  * 
  * Used for date related
  * util functionality

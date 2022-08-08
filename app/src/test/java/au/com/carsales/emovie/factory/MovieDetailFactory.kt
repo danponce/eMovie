@@ -4,7 +4,7 @@ import com.danponce.emovie.domain.model.DomainMovieDetail
 
 /**
  * Created by Dan on 07, agosto, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 object MovieDetailFactory {
     fun createDomainMovieDetail() = DomainMovieDetail(

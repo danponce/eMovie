@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * Created by Dan on 30, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 class LocalDomainToEntityMovieVideoMapper @Inject constructor() : Mapper<DomainMovieVideoItem, EntityMovieVideo> {
     override fun executeMapping(type: DomainMovieVideoItem?): EntityMovieVideo? {

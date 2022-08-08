@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * Created by Dan on 28, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 class LocalDomainToEntityMovieItemMapper @Inject constructor() : Mapper<DomainMovieItem?, EntityMovieItem?> {
 

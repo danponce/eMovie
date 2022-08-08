@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 
 /**
  * Created by Dan on 01, agosto, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 abstract class BaseDataBindingViewComponent <T : ViewDataBinding> : RelativeLayout {
 

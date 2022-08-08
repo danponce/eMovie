@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 
 /**
  * Created by Dan on 25, junio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 fun Toolbar.setBackButton(context: Activity, clickAction : () -> Unit) {
     if (context is AppCompatActivity) {

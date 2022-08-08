@@ -16,7 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 /**
  * Created by Dan on 25, junio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 @BindingAdapter("loadImageUrl")
 fun loadImageUrl(imageView: ImageView, url: String?) {

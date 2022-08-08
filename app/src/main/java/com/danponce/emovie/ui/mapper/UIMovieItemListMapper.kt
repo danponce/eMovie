@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * Created by Dan on 26, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 class UIMovieItemListMapper @Inject constructor() : Mapper<List<DomainMovieItem>, List<UIMovieItem>> {
 

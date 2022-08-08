@@ -29,7 +29,7 @@ import com.danponce.emovie.data.remote.RemoteConstants.VOTE_COUNT
 
 /**
  * Created by Dan on 30, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 @Entity(tableName= MOVIE_DETAILS_TABLE)
 data class EntityMovieDetail(

@@ -4,7 +4,7 @@ import android.view.View
 
 /**
  * Created by Dan on 24, julio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  *
  * Base recycler view adapter with
  * data binding that uses only one layout

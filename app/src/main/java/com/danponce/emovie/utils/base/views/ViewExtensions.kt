@@ -7,7 +7,7 @@ import androidx.annotation.StyleableRes
 
 /**
  * Created by Dan on 27, junio, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 
 fun Context.loadStyledAttributes(

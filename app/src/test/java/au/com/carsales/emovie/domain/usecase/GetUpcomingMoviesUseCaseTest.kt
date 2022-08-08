@@ -15,7 +15,7 @@ import org.mockito.Mock
 
 /**
  * Created by Dan on 07, agosto, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetUpcomingMoviesUseCaseTest : BaseUnitTest() {

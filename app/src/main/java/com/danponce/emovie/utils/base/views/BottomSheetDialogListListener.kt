@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Dan on 06, agosto, 2022
- * Copyright (c) 2022 Carsales. All rights reserved.
+ * Copyright (c) 2022. All rights reserved.
  */
 interface BottomSheetDialogListListener : Parcelable {
     fun onStringSelected(string: String)
