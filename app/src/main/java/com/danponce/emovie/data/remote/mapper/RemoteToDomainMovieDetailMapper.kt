@@ -1,5 +1,6 @@
 package com.danponce.emovie.data.remote.mapper
 
+import com.danponce.emovie.data.remote.model.MovieData
 import com.danponce.emovie.data.remote.model.MovieDetailData
 import com.danponce.emovie.data.remote.model.MovieVideosResultData
 import com.danponce.emovie.domain.model.DomainMovieDetail
@@ -10,10 +11,11 @@ import javax.inject.Inject
  * Copyright (c) 2022. All rights reserved.
  */
 class RemoteToDomainMovieDetailMapper @Inject constructor(
-    private val videoItemMapper: RemoteToDomainMovieVideoItemMapper
+    private val videoItemMapper: RemoteToDomainMovieVideoItemMapper,
+    private val movieItemListMapper : RemoteToDomainMovieMapper
 ) {
 
-    fun executeMapping(type: MovieDetailData?, videosResultData: MovieVideosResultData?): DomainMovieDetail {
+    fun executeMapping(type: MovieDetailData?, videosResultData: MovieVideosResultData?, similarMoviesData: MovieData?): DomainMovieDetail {
         return type.let {
             DomainMovieDetail(
                 id = it?.id?.toInt() ?: 0,
@@ -27,7 +29,8 @@ class RemoteToDomainMovieDetailMapper @Inject constructor(
                 genres = it?.genres?.map { it.name ?: "" } ?: listOf(),
                 voteAverage = it?.voteAverage ?: Double.MIN_VALUE,
                 voteCount = it?.voteCount ?: 0,
-                videos = videosResultData?.results?.mapNotNull { item -> videoItemMapper.executeMapping(item) } ?: listOf()
+                videos = videosResultData?.results?.mapNotNull { item -> videoItemMapper.executeMapping(item) } ?: listOf(),
+                similarMovies = movieItemListMapper.executeMapping(similarMoviesData?.results).orEmpty()
             )
         }
     }

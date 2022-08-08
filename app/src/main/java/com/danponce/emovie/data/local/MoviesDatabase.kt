@@ -20,7 +20,7 @@ import com.danponce.emovie.data.local.model.EntityMovieVideo
 @Database(
     entities = [EntityMovieItem::class,
         EntityMovieDetail::class, EntityMovieVideo::class,
-               EntityFavoriteMovieItem::class], version = 3, exportSchema = false)
+               EntityFavoriteMovieItem::class], version = 4, exportSchema = false)
 @TypeConverters(MoviesTypeConverters::class)
 abstract class MoviesDatabase : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao

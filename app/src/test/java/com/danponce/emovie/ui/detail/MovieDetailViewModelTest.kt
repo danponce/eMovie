@@ -6,6 +6,7 @@ import com.danponce.emovie.domain.model.DomainMovieItem
 import com.danponce.emovie.domain.usecase.*
 import com.danponce.emovie.factory.MovieDetailFactory
 import com.danponce.emovie.ui.mapper.UIMovieDetailMapper
+import com.danponce.emovie.ui.mapper.UIMovieItemListMapper
 import com.danponce.emovie.ui.mapper.UIMovieItemMapper
 import com.danponce.emovie.ui.mapper.UIMovieVideoMapper
 import com.danponce.emovie.utils.base.State
@@ -30,6 +31,9 @@ class MovieDetailViewModelTest : BaseUnitTest() {
     lateinit var movieVideoMapper: UIMovieVideoMapper
 
     @Mock
+    lateinit var movieItemListMapper: UIMovieItemListMapper
+
+    @Mock
     lateinit var movieItemMapper: UIMovieItemMapper
 
     @Mock
@@ -47,7 +51,7 @@ class MovieDetailViewModelTest : BaseUnitTest() {
     lateinit var movieDetailViewModel: MovieDetailViewModel
 
     override fun initMockCases() {
-        movieDetailMapper = UIMovieDetailMapper(movieVideoMapper)
+        movieDetailMapper = UIMovieDetailMapper(movieVideoMapper, movieItemListMapper)
 
         movieDetailViewModel = MovieDetailViewModel(
             getMovieDetailUseCase,

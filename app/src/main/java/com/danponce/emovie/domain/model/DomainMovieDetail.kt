@@ -12,5 +12,6 @@ data class DomainMovieDetail(
     val genres: List<String>,
     val voteAverage : Double,
     val voteCount : Int,
-    val videos: List<DomainMovieVideoItem>
+    val videos: List<DomainMovieVideoItem>,
+    val similarMovies: List<DomainMovieItem>
 )

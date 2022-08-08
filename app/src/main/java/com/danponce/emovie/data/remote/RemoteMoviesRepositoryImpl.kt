@@ -47,15 +47,19 @@ class RemoteMoviesRepositoryImpl @Inject constructor(
             coroutineScope {
                 val movie = async { moviesService.getMovieById(movieId) }
                 val videos = async { moviesService.getMovieVideosById(movieId) }
+                val similarMovies = async { moviesService.getSimilarMovies(movieId) }
 
                 val movieDetailResponse = movie.await()
                 val videoResponse = videos.await()
+                val similarMoviesResponse = similarMovies.await()
 
                 when {
-                    movieDetailResponse.isSuccessful && videoResponse.isSuccessful -> {
+                    movieDetailResponse.isSuccessful && videoResponse.isSuccessful
+                            && similarMoviesResponse.isSuccessful-> {
                         val detail: DomainMovieDetail = movieDetailMapper.executeMapping(
                             movieDetailResponse.body(),
-                            videoResponse.body()
+                            videoResponse.body(),
+                            similarMoviesResponse.body()
                         )
 
                         emit(APIState.Success(detail))

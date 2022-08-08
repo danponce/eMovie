@@ -19,6 +19,7 @@ import com.danponce.emovie.data.remote.RemoteConstants.POSTER_PATH
 import com.danponce.emovie.data.remote.RemoteConstants.RELEASE_DATE
 import com.danponce.emovie.data.remote.RemoteConstants.REVENUE
 import com.danponce.emovie.data.remote.RemoteConstants.RUNTIME
+import com.danponce.emovie.data.remote.RemoteConstants.SIMILAR
 import com.danponce.emovie.data.remote.RemoteConstants.STATUS
 import com.danponce.emovie.data.remote.RemoteConstants.TAGLINE
 import com.danponce.emovie.data.remote.RemoteConstants.TITLE
@@ -44,5 +45,6 @@ data class EntityMovieDetail(
     @ColumnInfo(name = TITLE) val title: String,
     @ColumnInfo(name = VOTE_AVERAGE) val voteAverage: Double,
     @ColumnInfo(name = VOTE_COUNT) val voteCount: Int,
-    @ColumnInfo(name = VIDEOS) val videos: List<EntityMovieVideo>
+    @ColumnInfo(name = VIDEOS) val videos: List<EntityMovieVideo>,
+    @ColumnInfo(name = SIMILAR) val similarMovies: List<EntityMovieItem>
 )

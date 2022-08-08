@@ -1,6 +1,7 @@
 package com.danponce.emovie.data.local.converters
 
 import androidx.room.TypeConverter
+import com.danponce.emovie.data.local.model.EntityMovieItem
 import com.danponce.emovie.data.local.model.EntityMovieVideo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -32,6 +33,16 @@ class MoviesTypeConverters {
 
     @TypeConverter
     fun saveEntityMovieList(entityMovieList: List<EntityMovieVideo?>?): String? {
+        return Gson().toJson(entityMovieList)
+    }
+
+    @TypeConverter
+    fun restoreEntityMovieItemList(entityMovieList: String?): List<EntityMovieItem?>? {
+        return Gson().fromJson(entityMovieList, object : TypeToken<List<EntityMovieItem?>?>() {}.type)
+    }
+
+    @TypeConverter
+    fun saveEntityMovieItemList(entityMovieList: List<EntityMovieItem?>?): String? {
         return Gson().toJson(entityMovieList)
     }
 }

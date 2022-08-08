@@ -17,6 +17,7 @@ object RemoteConstants {
     const val OVERVIEW = "overview"
     const val POPULARITY = "popularity"
     const val POSTER_PATH = "poster_path"
+    const val SIMILAR = "similar"
     const val PRODUCTION_COMPANIES = "production_companies"
     const val PRODUCTION_COUNTRIES = "production_countries"
     const val RELEASE_DATE = "release_date"

@@ -10,7 +10,8 @@ import javax.inject.Inject
  * Copyright (c) 2022. All rights reserved.
  */
 class UIMovieDetailMapper @Inject constructor(
-    private val videoMapper: UIMovieVideoMapper
+    private val videoMapper: UIMovieVideoMapper,
+    private val movieItemListMapper : UIMovieItemListMapper
 ) : Mapper<DomainMovieDetail, UIMovieDetail> {
     override fun executeMapping(type: DomainMovieDetail?): UIMovieDetail? {
         return type?.let {
@@ -23,7 +24,8 @@ class UIMovieDetailMapper @Inject constructor(
                 releaseDate = it.releaseDate,
                 overview = it.overview,
                 genres = it.genres,
-                videos = it.videos.map { video -> videoMapper.executeMapping(video) }
+                videos = it.videos.map { video -> videoMapper.executeMapping(video) },
+                similarMovies = movieItemListMapper.executeMapping(it.similarMovies).orEmpty()
             )
         }
     }

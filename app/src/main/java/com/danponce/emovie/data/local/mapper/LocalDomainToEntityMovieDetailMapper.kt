@@ -2,7 +2,6 @@ package com.danponce.emovie.data.local.mapper
 
 import com.danponce.emovie.data.local.model.EntityMovieDetail
 import com.danponce.emovie.domain.model.DomainMovieDetail
-import com.danponce.emovie.domain.model.DomainMovieVideoItem
 import com.danponce.emovie.domain.utils.Mapper
 import javax.inject.Inject
 
@@ -11,7 +10,8 @@ import javax.inject.Inject
  * Copyright (c) 2022. All rights reserved.
  */
 class LocalDomainToEntityMovieDetailMapper @Inject constructor(
-    private val videoItemMapper : LocalDomainToEntityMovieVideoMapper
+    private val videoItemMapper : LocalDomainToEntityMovieVideoMapper,
+    private val movieItemMapper: LocalDomainToEntityMovieItemMapper
 ) : Mapper<DomainMovieDetail, EntityMovieDetail> {
     override fun executeMapping(type: DomainMovieDetail?): EntityMovieDetail? {
         return type?.let {
@@ -27,7 +27,8 @@ class LocalDomainToEntityMovieDetailMapper @Inject constructor(
                 genres = it.genres,
                 voteAverage = it.voteAverage,
                 voteCount = it.voteCount,
-                videos = it.videos.mapNotNull { video -> videoItemMapper.executeMapping(video) }
+                videos = it.videos.mapNotNull { video -> videoItemMapper.executeMapping(video) },
+                similarMovies = it.similarMovies.mapNotNull { movie -> movieItemMapper.executeMapping(movie) }
             )
         }
     }

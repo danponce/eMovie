@@ -10,7 +10,8 @@ import javax.inject.Inject
  * Copyright (c) 2022. All rights reserved.
  */
 class LocalEntityToDomainMovieDetailMapper @Inject constructor(
-    private val videoItemMapper : LocalEntityToDomainMovieVideoMapper
+    private val videoItemMapper : LocalEntityToDomainMovieVideoMapper,
+    private val movieItemListMapper : LocalEntityToDomainMovieMapper
 ) : Mapper<EntityMovieDetail, DomainMovieDetail> {
     override fun executeMapping(type: EntityMovieDetail?): DomainMovieDetail? {
         return type?.let {
@@ -26,7 +27,8 @@ class LocalEntityToDomainMovieDetailMapper @Inject constructor(
                 genres = it.genres,
                 voteAverage = it.voteAverage,
                 voteCount = it.voteCount,
-                videos = it.videos.mapNotNull { video -> videoItemMapper.executeMapping(video) }
+                videos = it.videos.mapNotNull { video -> videoItemMapper.executeMapping(video) },
+                similarMovies = movieItemListMapper.executeMapping(it.similarMovies).orEmpty()
             )
         }
     }

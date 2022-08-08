@@ -2,6 +2,7 @@ package com.danponce.emovie.data.remote
 
 import com.danponce.emovie.data.remote.RestConstants.GET_MOVIE_DETAIL
 import com.danponce.emovie.data.remote.RestConstants.GET_MOVIE_VIDEOS
+import com.danponce.emovie.data.remote.RestConstants.GET_SIMILAR_MOVIES
 import com.danponce.emovie.data.remote.RestConstants.GET_TOP_RATED
 import com.danponce.emovie.data.remote.RestConstants.GET_UPCOMING
 import com.danponce.emovie.data.remote.RestConstants.PATH_MOVIE_ID
@@ -33,5 +34,10 @@ interface RemoteMoviesService {
     suspend fun getMovieVideosById(
         @Path(PATH_MOVIE_ID) movieId: String = "",
     ): Response<MovieVideosResultData>
+
+    @GET(GET_SIMILAR_MOVIES)
+    suspend fun getSimilarMovies(
+        @Path(PATH_MOVIE_ID) movieId: String = "",
+    ): Response<MovieData?>
 
 }
