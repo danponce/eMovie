@@ -154,7 +154,6 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
         binding.similarMoviesViewComponent.setView(data)
 
         binding.fab.setOnClickListener {
-            binding.similarMoviesViewComponent.setView(data)
             when(detailViewModel.isActualShowFavorite()) {
                 true -> detailViewModel.deleteFavorite()
                 false -> detailViewModel.addFavorite()
