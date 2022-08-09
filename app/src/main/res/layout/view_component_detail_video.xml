@@ -19,32 +19,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/mainMovieImageView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/movie_video_image_height"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            app:loadImageUrl="@{itemDetail.mainVideoThumbnail}"
-            app:shapeAppearance="@style/MovieVideoCorners"
-            app:layout_constraintTop_toBottomOf="@id/youtubePlayerView"
-            tools:src="@drawable/minion" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/detail_gradient_size"
-            android:layout_gravity="bottom"
-            app:layout_constraintBottom_toBottomOf="@id/mainMovieImageView"
-            android:background="@drawable/shape_gray_gradient_to_transparent_with_bottom_rounded_corners"/>
-
-        <ImageView
-            android:layout_width="@dimen/video_component_play_icon_size"
-            android:layout_height="@dimen/video_component_play_icon_size"
-            android:layout_margin="@dimen/video_component_play_icon_margin"
-            app:layout_constraintLeft_toLeftOf="@id/mainMovieImageView"
-            app:layout_constraintBottom_toBottomOf="@id/mainMovieImageView"
-            android:src="@drawable/ic_baseline_play_circle_outline_24" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/videosRecyclerView"
             android:layout_width="match_parent"
@@ -52,7 +26,7 @@
             tools:listitem="@layout/view_cell_video"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/mainMovieImageView"
+            app:layout_constraintTop_toBottomOf="@id/youtubePlayerView"
             android:layout_marginTop="@dimen/video_component_recycler_margin_top" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

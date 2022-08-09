@@ -38,12 +38,11 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetai
 
     override fun childLayoutId(): Int = R.layout.view_component_detail_video
 
-    private lateinit var movieBinding : ViewComponentDetailVideoBinding
     private var youTubePlayer: YouTubePlayer ?= null
 
     override fun sectionTitle(): Int = R.string.detail_video_section_title
 
-    fun setView(detail : UIMovieDetail) {
+    fun setView(detail : UIMovieDetail, lifecycle: Lifecycle) {
         dataBinding.itemDetail = detail
 
         when(dataBinding.videosRecyclerView.adapter) {
@@ -59,38 +58,38 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetai
             else -> (dataBinding.videosRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieVideoItem>).setData(detail.videos)
         }
 
-        setYoutubePlayer(detail, lifeCycleOwner)
+        setYoutubePlayer(detail, lifecycle)
     }
 
-    private fun setYoutubePlayer(detail : UIMovieDetail, lifeCycleOwner : LifecycleOwner) {
+    private fun setYoutubePlayer(detail : UIMovieDetail, lifecycle: Lifecycle) {
 
-        lifeCycleOwner.lifecycle.addObserver(movieBinding.youtubePlayerView)
+        lifecycle.addObserver(dataBinding.youtubePlayerView)
 
-        movieBinding.youtubePlayerView.apply {
+        dataBinding.youtubePlayerView.apply {
             enableAutomaticInitialization = false
         }
 
         val listener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
 
-                val defaultPlayerUiController = DefaultPlayerUiController(movieBinding.youtubePlayerView, youTubePlayer)
-                movieBinding.youtubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
+                val defaultPlayerUiController = DefaultPlayerUiController(dataBinding.youtubePlayerView, youTubePlayer)
+                dataBinding.youtubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
 
                 this@MovieVideosViewComponent.youTubePlayer = youTubePlayer
 
                 this@MovieVideosViewComponent.youTubePlayer?.loadOrCueVideo(
-                    lifeCycleOwner.lifecycle,
+                    lifecycle,
                     detail.videos.first().key,
                     0f
                 )
             }
         }
 
-//        movieBinding.youtubePlayerView.addYouTubePlayerListener(listener)
+        dataBinding.youtubePlayerView.addYouTubePlayerListener(listener)
 
         // disable web ui
-        val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
-        movieBinding.youtubePlayerView.initialize(listener, options)
+//        val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
+//        dataBinding.youtubePlayerView.initialize(listener, options)
 //        movieBinding.youtubePlayerView.setOnClickListener {
 ////            this@MovieVideosViewComponent.youTubePlayer?.play()
 //        }
