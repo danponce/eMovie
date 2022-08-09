@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.danponce.emovie.R
 import com.danponce.emovie.databinding.ViewComponentDetailVideoBinding
 import com.danponce.emovie.ui.model.UIMovieDetail
-import com.danponce.emovie.ui.model.UIMovieItem
 import com.danponce.emovie.ui.model.UIMovieVideoItem
 import com.danponce.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -23,47 +22,41 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiCo
  * Created by Dan on 02, agosto, 2022
  * Copyright (c) 2022. All rights reserved.
  */
-class MovieVideosViewComponent : BaseMovieDetailViewComponent {
+class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetailVideoBinding> {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initBinding()
-        setMovieVideoBinding()
+        setBinding()
     }
 
     constructor(context: Context) : super(context) {
-        initBinding()
-        setMovieVideoBinding()
+        setBinding()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initBinding()
-        setMovieVideoBinding()
+        setBinding()
     }
+
+    override fun childLayoutId(): Int = R.layout.view_component_detail_video
 
     private lateinit var movieBinding : ViewComponentDetailVideoBinding
     private var youTubePlayer: YouTubePlayer ?= null
 
     override fun sectionTitle(): Int = R.string.detail_video_section_title
 
-    private fun setMovieVideoBinding() {
-        movieBinding = ViewComponentDetailVideoBinding.inflate(LayoutInflater.from(context), this, false)
-        insertView(movieBinding.root)
-    }
+    fun setView(detail : UIMovieDetail) {
+        dataBinding.itemDetail = detail
 
-    fun setView(detail : UIMovieDetail, lifeCycleOwner : LifecycleOwner) {
-        movieBinding.itemDetail = detail
+        when(dataBinding.videosRecyclerView.adapter) {
+            null -> dataBinding.videosRecyclerView.apply {
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        adapter = SingleLayoutBindRecyclerAdapter(
+                            R.layout.view_cell_video,
+                            detail.videos
+                        )
+                    }
 
-        when(movieBinding.videosRecyclerView.adapter) {
-            null -> movieBinding.videosRecyclerView.apply {
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = SingleLayoutBindRecyclerAdapter(
-                    R.layout.view_cell_video,
-                    detail.videos
-                )
-            }
-
-            else -> (movieBinding.videosRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieVideoItem>).setData(detail.videos)
+            else -> (dataBinding.videosRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieVideoItem>).setData(detail.videos)
         }
 
         setYoutubePlayer(detail, lifeCycleOwner)
@@ -102,4 +95,6 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent {
 ////            this@MovieVideosViewComponent.youTubePlayer?.play()
 //        }
     }
+
+
 }
