@@ -67,4 +67,15 @@
             app:argType="com.danponce.emovie.utils.base.views.BottomSheetDialogListListener"/>
 
     </dialog>
+
+    <action
+        android:id="@+id/open_movie_detail_action"
+        app:destination="@id/movieDetailFragment">
+
+        <argument
+            android:name="movie"
+            app:argType="com.danponce.emovie.ui.model.UIMovieItem" />
+
+    </action>
+
 </navigation>

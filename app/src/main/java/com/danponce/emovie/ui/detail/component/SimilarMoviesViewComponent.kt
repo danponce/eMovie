@@ -32,7 +32,7 @@ class SimilarMoviesViewComponent : BaseMovieDetailViewComponent<ViewComponentDet
 
     override fun sectionTitle(): Int = R.string.detail_similar_movies_section_title
 
-    fun setView(detail : UIMovieDetail) {
+    fun setView(detail : UIMovieDetail, clickListener : (UIMovieItem) -> Unit) {
 
         when(dataBinding.similarMoviesRecyclerView.adapter) {
             null -> dataBinding.similarMoviesRecyclerView.apply {
@@ -40,7 +40,10 @@ class SimilarMoviesViewComponent : BaseMovieDetailViewComponent<ViewComponentDet
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         adapter = SingleLayoutBindRecyclerAdapter(
                             R.layout.view_cell_similar_movies,
-                            detail.similarMovies
+                            detail.similarMovies,
+                            clickHandler = { _, movie ->
+                                clickListener.invoke(movie)
+                            }
                         )
                     }
 
