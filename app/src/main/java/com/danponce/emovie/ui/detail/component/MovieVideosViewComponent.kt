@@ -2,9 +2,7 @@ package com.danponce.emovie.ui.detail.component
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.danponce.emovie.R
 import com.danponce.emovie.databinding.ViewComponentDetailVideoBinding
@@ -13,10 +11,11 @@ import com.danponce.emovie.ui.model.UIMovieVideoItem
 import com.danponce.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
+
 
 /**
  * Created by Dan on 02, agosto, 2022
@@ -51,7 +50,10 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetai
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         adapter = SingleLayoutBindRecyclerAdapter(
                             R.layout.view_cell_video,
-                            detail.videos
+                            detail.videos,
+                            clickHandler = {_, video ->
+                                playAnotherYoutubeVideo(video.key, lifecycle)
+                            }
                         )
                     }
 
@@ -65,15 +67,8 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetai
 
         lifecycle.addObserver(dataBinding.youtubePlayerView)
 
-        dataBinding.youtubePlayerView.apply {
-            enableAutomaticInitialization = false
-        }
-
         val listener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-
-                val defaultPlayerUiController = DefaultPlayerUiController(dataBinding.youtubePlayerView, youTubePlayer)
-                dataBinding.youtubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
 
                 this@MovieVideosViewComponent.youTubePlayer = youTubePlayer
 
@@ -87,13 +82,14 @@ class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetai
 
         dataBinding.youtubePlayerView.addYouTubePlayerListener(listener)
 
-        // disable web ui
-//        val options: IFramePlayerOptions = IFramePlayerOptions.Builder().controls(0).build()
-//        dataBinding.youtubePlayerView.initialize(listener, options)
-//        movieBinding.youtubePlayerView.setOnClickListener {
-////            this@MovieVideosViewComponent.youTubePlayer?.play()
-//        }
     }
 
+    private fun playAnotherYoutubeVideo(key: String, lifecycle: Lifecycle) {
+        this@MovieVideosViewComponent.youTubePlayer?.loadOrCueVideo(
+            lifecycle,
+            key,
+            0f
+        )
+    }
 
 }

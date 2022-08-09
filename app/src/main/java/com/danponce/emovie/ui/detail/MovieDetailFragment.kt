@@ -150,7 +150,7 @@ class MovieDetailFragment : BaseDataBindingFragment<FragmentMovieDetailBinding>(
             binding.chipGroupView.addView(chip)
         }
 
-        binding.movieVideosViewComponent.setView(data, viewLifecycleOwner.lifecycle)
+        binding.movieVideosViewComponent.setView(data, this.lifecycle)
         binding.similarMoviesViewComponent.setView(data)
 
         binding.fab.setOnClickListener {
