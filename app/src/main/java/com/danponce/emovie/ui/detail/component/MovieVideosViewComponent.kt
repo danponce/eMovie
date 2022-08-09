@@ -10,46 +10,44 @@ import com.danponce.emovie.ui.model.UIMovieDetail
 import com.danponce.emovie.ui.model.UIMovieItem
 import com.danponce.emovie.ui.model.UIMovieVideoItem
 import com.danponce.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
 /**
  * Created by Dan on 02, agosto, 2022
  * Copyright (c) 2022. All rights reserved.
  */
-class MovieVideosViewComponent : BaseMovieDetailViewComponent {
+class MovieVideosViewComponent : BaseMovieDetailViewComponent<ViewComponentDetailVideoBinding> {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initBinding()
+        setBinding()
     }
 
     constructor(context: Context) : super(context) {
-        initBinding()
+        setBinding()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initBinding()
+        setBinding()
     }
 
-    private var recyclerSet = false
+    override fun childLayoutId(): Int = R.layout.view_component_detail_video
 
     override fun sectionTitle(): Int = R.string.detail_video_section_title
 
     fun setView(detail : UIMovieDetail) {
-        val binding = ViewComponentDetailVideoBinding.inflate(LayoutInflater.from(context), this, false)
-        binding.itemDetail = detail
+        dataBinding.itemDetail = detail
 
-        if(!recyclerSet) {
-            binding.videosRecyclerView.apply {
-                layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = SingleLayoutBindRecyclerAdapter(
-                    R.layout.view_cell_video,
-                    detail.videos
-                )
+        when(dataBinding.videosRecyclerView.adapter) {
+            null -> dataBinding.videosRecyclerView.apply {
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        adapter = SingleLayoutBindRecyclerAdapter(
+                            R.layout.view_cell_video,
+                            detail.videos
+                        )
+                    }
 
-                recyclerSet = true
-            }
+            else -> (dataBinding.videosRecyclerView.adapter as SingleLayoutBindRecyclerAdapter<UIMovieVideoItem>).setData(detail.videos)
         }
-
-        insertView(binding.root)
     }
 }
