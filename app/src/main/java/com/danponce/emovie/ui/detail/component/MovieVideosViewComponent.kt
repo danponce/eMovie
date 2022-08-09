@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.danponce.emovie.R
 import com.danponce.emovie.databinding.ViewComponentDetailVideoBinding
 import com.danponce.emovie.ui.model.UIMovieDetail
-import com.danponce.emovie.ui.model.UIMovieItem
 import com.danponce.emovie.ui.model.UIMovieVideoItem
 import com.danponce.emovie.utils.base.databinding.SingleLayoutBindRecyclerAdapter
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
 /**
  * Created by Dan on 02, agosto, 2022
