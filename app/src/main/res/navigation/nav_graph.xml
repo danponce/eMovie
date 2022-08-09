@@ -70,12 +70,14 @@
 
     <action
         android:id="@+id/open_movie_detail_action"
-        app:destination="@id/movieDetailFragment">
+        app:destination="@id/detail_nav_graph">
 
         <argument
             android:name="movie"
             app:argType="com.danponce.emovie.ui.model.UIMovieItem" />
 
     </action>
+
+    <include app:graph="@navigation/detail_nav_graph" />
 
 </navigation>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_nav_graph"
+    app:startDestination="@id/globalMovieDetailFragment">
+
+    <fragment
+        android:id="@+id/globalMovieDetailFragment"
+        android:name="com.danponce.emovie.ui.detail.MovieDetailFragment"
+        android:label="TVShowDetailFragment"
+        tools:layout="@layout/fragment_movie_detail">
+
+        <argument
+            android:name="movie"
+            app:argType="com.danponce.emovie.ui.model.UIMovieItem" />
+
+    </fragment>
+
+    <action
+        android:id="@+id/open_movie_detail_action"
+        app:destination="@id/detail_nav_graph">
+
+        <argument
+            android:name="movie"
+            app:argType="com.danponce.emovie.ui.model.UIMovieItem" />
+
+    </action>
+
+</navigation>
