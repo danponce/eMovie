@@ -24,6 +24,7 @@ you can watch the details of it.
         * [Compose](https://developer.android.com/jetpack/compose)
         * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) for navigation between fragments
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) that stores, exposes and manages UI state
+        * [Preferences Datastore](https://developer.android.com/topic/libraries/architecture/datastore) for user preferences related to movie list filters
     * [Retrofit](https://square.github.io/retrofit/) for networking
     * [Landscapist Glide](https://github.com/skydoves/landscapist) for image loading
 
